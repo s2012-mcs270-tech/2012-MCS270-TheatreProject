@@ -33,9 +33,17 @@ public class Inventory {
 	public ArrayList<InventoryObject> search(String parameter) {
 		
 		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
-		for (obj in database) {
-			
+		String[] words = parameter.split(" ");
+		for (InventoryObject obj : database) {
+			if ((obj.description.indexOf(words[0]) || obj.classification.equals(words[0]) != -1) {
+				found.add(obj);
+			}
 		}
+		if () {
+			for (InventoryObject obj : found) {
+			
+			}
+		return found;
 	}
 	
 	
