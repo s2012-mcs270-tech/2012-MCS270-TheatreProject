@@ -2,33 +2,37 @@ import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 
 
-public class inventory {
+public class Inventory {
+	private ArrayList<InventoryObject> database;
 	
-	private ArrayList<inventoryObject> database;
-
-	public ArrayList<inventoryObject> getDatebase() {
-		return database;
-	}
-
-	public void setDatabase(ArrayList<inventoryObject> database) {
+	public Inventory(ArrayList<InventoryObject> database){
 		this.database = database;
 	}
 	
-	public void add(inventoryObject obj) {
+	
+	public ArrayList<InventoryObject> getDatebase() {
+		return database;
+	}
+    
+	public void setDatabase(ArrayList<InventoryObject> database) {
+		this.database = database;
+	}
+	
+	public void add(InventoryObject obj) {
 		database.add(obj);
 	}
 	
-	public void remove(inventoryObject obj) {
+	public void remove(InventoryObject obj) {
 		if (database.contains(obj)) {
 			database.remove(obj);
-			}
+        }
 		else System.out.println("Wrong!");
 	}
 	
 	
-	public ArrayList<inventoryObject> search(String parameter) {
+	public ArrayList<InventoryObject> search(String parameter) {
 		
-		ArrayList<inventoryObject> found = new ArrayList<inventoryObject>(); 
+		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
 		for (obj in database) {
 			
 		}

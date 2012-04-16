@@ -1,25 +1,31 @@
 import java.awt.Image;
 
-public class inventoryObject {	
-	private String name;
-	private String location;
+import javax.net.ssl.SSLEngineResult.Status;
+
+public class InventoryObject {	
+	private String ID;
+	private String storageArea;
 	private Image picture;
+	private Status status;
 	
-	public inventoryObject {
-		
+	public InventoryObject(String name, String storageArea, Image picture, Status status) {
+		this.ID = name;
+		this.storageArea = storageArea;
+		this.picture = picture;
+		this.status = status;
 	}
 	
-	public String getName() {
-		return name;
+	public String getID() {
+		return ID;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setID(String ID) {
+		this.ID = ID;
 	}
-	public String getLocation() {
-		return location;
+	public String getstorageArea() {
+		return storageArea;
 	}
-	public void setLocation(String location) {
-		this.location = location;
+	public void setstorageArea(String storageArea) {
+		this.storageArea = storageArea;
 	}
 	public Image getPicture() {
 		return picture;
@@ -27,5 +33,10 @@ public class inventoryObject {
 	public void setPicture(Image picture) {
 		this.picture = picture;
 	}
-	
+	public Status getStatus(){
+		return status;
+	}
+	public void setStatus(Status status){
+		this.status = status;
+	}
 }

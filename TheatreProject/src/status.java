@@ -1,11 +1,19 @@
 import java.sql.Date;
-public class status {
+
+
+public class Status {
 	
 	private String renter;
 	private String location;
 	private Date rentDate;
 	private Date returnDate;
-	private Boolean inStore;
+	
+	public Status(String renter, String location, Date rentDate, Date returnDate){
+		this.renter = renter;
+		this.location = location;
+		this.rentDate = rentDate;
+		this.returnDate = returnDate;
+	}
 	
 	public String getRenter() {
 		return renter;
@@ -30,12 +38,6 @@ public class status {
 	}
 	public void setReturnDate(Date returnDate) {
 		this.returnDate = returnDate;
-	}
-	public Boolean getInStore() {
-		return inStore;
-	}
-	public void setInStore(Boolean inStore) {
-		this.inStore = inStore;
 	}
 	
 }
