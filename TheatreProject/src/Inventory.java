@@ -39,7 +39,7 @@ public class Inventory {
 				found.add(obj);
 			}
 		}
-		if (/*there is more than one word*/) {
+		if (words.length>1) {
 			for (/* each other word*/) {	
 				for (InventoryObject obj : found) {
 					if ((obj.description.indexOf(words[i]) || obj.classification.equals(words[i]) == -1) {
@@ -50,7 +50,4 @@ public class Inventory {
 		}
 		return found;
 	}
-
-
-
 }
