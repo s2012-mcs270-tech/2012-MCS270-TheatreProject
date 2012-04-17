@@ -40,7 +40,7 @@ public class Inventory {
 			}
 		}
 		if (words.length>1) {
-			for (/* each other word*/) {	
+			for (int i=1; i<words.length; i++) {	
 				for (InventoryObject obj : found) {
 					if ((obj.description.indexOf(words[i]) || obj.classification.equals(words[i]) == -1) {
 						found.remove(obj);
