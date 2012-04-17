@@ -7,14 +7,23 @@ public class InventoryObject {
 	private String storageArea;
 	private Image picture;
 	private Status status;
+	private String description;
+	private String classification;
 	
-	public InventoryObject(String name, String storageArea, Image picture, Status status) {
+	public InventoryObject(String name, String storageArea, Image picture, Status status, String description,String classification) {
 		this.ID = name;
 		this.storageArea = storageArea;
 		this.picture = picture;
 		this.status = status;
+		this.description = description;
+		this.classification = classification;
 	}
-	
+	public String getClassification(){
+		return classification;
+	}
+	public void setClassification(String classification){
+		this.classification = classification;
+	}
 	public String getID() {
 		return ID;
 	}
@@ -38,5 +47,11 @@ public class InventoryObject {
 	}
 	public void setStatus(Status status){
 		this.status = status;
+	}
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description){
+		this.description = description;
 	}
 }
