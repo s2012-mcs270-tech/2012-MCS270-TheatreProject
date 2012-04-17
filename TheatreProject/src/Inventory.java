@@ -4,34 +4,34 @@ import java.util.ArrayList;
 
 public class Inventory {
 	private ArrayList<InventoryObject> database;
-	
+
 	public Inventory(ArrayList<InventoryObject> database){
 		this.database = database;
 	}
-	
-	
+
+
 	public ArrayList<InventoryObject> getDatebase() {
 		return database;
 	}
-    
+
 	public void setDatabase(ArrayList<InventoryObject> database) {
 		this.database = database;
 	}
-	
+
 	public void add(InventoryObject obj) {
 		database.add(obj);
 	}
-	
+
 	public void remove(InventoryObject obj) {
 		if (database.contains(obj)) {
 			database.remove(obj);
-        }
+		}
 		else System.out.println("Wrong!");
 	}
-	
-	
+
+
 	public ArrayList<InventoryObject> search(String parameter) {
-		
+
 		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
 		String[] words = parameter.split(" ");
 		for (InventoryObject obj : database) {
@@ -39,13 +39,18 @@ public class Inventory {
 				found.add(obj);
 			}
 		}
-		if () {
-			for (InventoryObject obj : found) {
-			
+		if (/*there is more than one word*/) {
+			for (/* each other word*/) {	
+				for (InventoryObject obj : found) {
+					if ((obj.description.indexOf(words[i]) || obj.classification.equals(words[i]) == -1) {
+						found.remove(obj);
+					}
+				}
 			}
+		}
 		return found;
 	}
-	
-	
-	
+
+
+
 }
