@@ -1,10 +1,14 @@
 package theatreProject.domain.shared;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 	public String name;
 	public String email;
 	private boolean isAdmin;
 	private String extraInfo;
+	
+	private static final long serialVersionUID = 7649793065322010303L;
 	
 	public String getName() {
 		return name;

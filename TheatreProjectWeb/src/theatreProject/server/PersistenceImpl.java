@@ -1,5 +1,13 @@
 package theatreProject.server;
 
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+import theatreProject.domain.shared.User;
+
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class PersistenceImpl extends RemoteServiceServlet implements Persistence {
 	private static final long serialVersionUID = 7649793065322010032L;
@@ -56,6 +64,18 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 
 	public PersistenceImpl() {
 		super();
+	}
+
+	@Override
+	public void saveUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void saveUser(theatreProject.server.User user) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 
