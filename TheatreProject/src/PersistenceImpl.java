@@ -24,7 +24,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	}
 
 	public User getUser(String name){
-		String emailAndName = getEmailAndName(name);
+		String email = this.getEmail();
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
 		try{
 			return persistenceManager.getObjectById(SavedPlayer.class, emailAndName).getPlayer();
