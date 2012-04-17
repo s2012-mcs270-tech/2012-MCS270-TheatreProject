@@ -7,8 +7,8 @@ public class InventoryObject {
 	private String storageArea;
 	private Image picture;
 	private Status status;
-	private String description;
-	private String classification;
+	String description;
+	String classification;
 	
 	public InventoryObject(String name, String storageArea, Image picture, Status status, String description,String classification) {
 		this.ID = name;
