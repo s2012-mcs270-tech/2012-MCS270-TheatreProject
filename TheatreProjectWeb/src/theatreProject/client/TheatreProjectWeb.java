@@ -17,6 +17,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.MenuBar;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -51,16 +54,22 @@ public class TheatreProjectWeb implements EntryPoint {
 		// Add the nameField and sendButton to the RootPanel
 		// Use RootPanel.get() to get the entire body element
 		RootPanel rootPanel = RootPanel.get("nameFieldContainer");
-		rootPanel.add(nameField);
-		RootPanel.get("sendButtonContainer").add(sendButton);
-		RootPanel.get("errorLabelContainer").add(errorLabel);
+		rootPanel.add(nameField, 369, 312);
+		RootPanel.get("sendButtonContainer").add(sendButton, 395, 352);
+		RootPanel.get("errorLabelContainer").add(errorLabel, 10, 84);
+		errorLabel.setSize("430px", "1px");
 
 		// Focus the cursor on the name field when the app loads
 		nameField.setFocus(true);
 		
-		ListBox listBox = new ListBox();
-		rootPanel.add(listBox, 18, 96);
-		listBox.setVisibleItemCount(3);
+		RadioButton rdbtnFurniture = new RadioButton("new name", "Furniture");
+		rootPanel.add(rdbtnFurniture, 32, 192);
+		rdbtnFurniture.setSize("67px", "18px");
+		
+		TextBox txtbxContactInfoPlease = new TextBox();
+		txtbxContactInfoPlease.setText("Contact Info: Please contact Ternena if you have any questions regarding this website.");
+		rootPanel.add(txtbxContactInfoPlease, 32, 426);
+		txtbxContactInfoPlease.setSize("529px", "18px");
 		nameField.selectAll();
 
 		// Create the popup dialog box
