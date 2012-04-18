@@ -1,12 +1,16 @@
 package theatreProject.server;
 
+import javax.jdo.JDOObjectNotFoundException;
+import javax.jdo.PersistenceManager;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import theatreProject.domain.shared.User;
+import theatreProject.shared.Persistence;
 
+import com.google.apphosting.api.ApiProxy;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class PersistenceImpl extends RemoteServiceServlet implements Persistence {
@@ -36,19 +40,19 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		String email = this.getEmail();
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
 		try{
-			return persistenceManager.getObjectById(SavedPlayer.class, emailAndName).getPlayer();
+			return persistenceManager.getObjectById(SavedUser.class, email).getUser();
 		} catch(JDOObjectNotFoundException e){
 			return null;
 		}
 	}
 
-	public void savePlayer(Person player){
-		String emailAndName = getEmailAndName(player.getName()); 
-	    SavedPlayer sp = new SavedPlayer(emailAndName, player);
-	    PMF.get().getPersistenceManager().makePersistent(sp);
+	public void saveUser(User user){
+		String email = getEmail(); 
+		SavedUser su = new SavedUser(email, user);
+		PMF.get().getPersistenceManager().makePersistent(su);
 	}
-	
-	private String getEmailAndName(String name){
+
+	private String getEmail(){
 		// The test below just makes sure we didn't miss the lines in web.xml that
 		// ensure the user has to be logged in.  If this exception is thrown, web.xml
 		// needs fixing.
@@ -59,23 +63,12 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		// determine whether the currently logged in user is known to AppEngine as an
 		// administrator of this application.  I can't think of any reason to demonstrate
 		// thatin the Land of Gack.
-		return ApiProxy.getCurrentEnvironment().getEmail() + ":" + name;
+		return ApiProxy.getCurrentEnvironment().getEmail();
 	}
 
 	public PersistenceImpl() {
 		super();
-	}
 
-	@Override
-	public void saveUser(User user) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void saveUser(theatreProject.server.User user) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

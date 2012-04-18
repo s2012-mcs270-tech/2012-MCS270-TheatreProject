@@ -7,6 +7,6 @@ public interface PersistenceAsync {
 
 	void getUser(String name, AsyncCallback<User> callback);
 
-	void saveUser(String email, AsyncCallback<Void> callback);
+	void saveUser(User user, AsyncCallback<Void> callback);
 
 }
