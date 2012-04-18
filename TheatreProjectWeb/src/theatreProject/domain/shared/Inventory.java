@@ -1,5 +1,4 @@
 package theatreProject.domain.shared;
-import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 
 

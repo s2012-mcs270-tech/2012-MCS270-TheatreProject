@@ -1,0 +1,2 @@
+serviceClass: theatreProject.client.GreetingService
+path: 38B9E87A23D566D188B92AB597357A0C.gwt.rpc
