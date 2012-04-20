@@ -7,13 +7,15 @@ public class InventoryObject {
 	private Image picture;
 	private Status status;
 	String description;
+	private String disclaimers;
 	
-	public InventoryObject(String name, String storageArea, Image picture, Status status, String description) {
+	public InventoryObject(String name, String storageArea, Image picture, Status status, String description, String disclaimers) {
 		this.ID = name;
 		this.storageArea = storageArea;
 		this.picture = picture;
 		this.status = status;
 		this.description = description;
+		this.disclaimers = disclaimers;
 	}
 	public String getID() {
 		return ID;
@@ -44,5 +46,13 @@ public class InventoryObject {
 	}
 	public void setDescription(String description){
 		this.description = description;
+	}
+	
+	public String getDisclaimers() {
+		return disclaimers;
+	}
+	
+	public void setDisclaimers(String disclaimers) {
+		this.disclaimers = disclaimers;
 	}
 }

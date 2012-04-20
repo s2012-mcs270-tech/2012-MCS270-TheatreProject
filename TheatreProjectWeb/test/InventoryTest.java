@@ -21,10 +21,10 @@ public class InventoryTest {
 		Inventory database = new Inventory(listdata);
 		Image pic = null;
 		Status stat = null;
-		InventoryObject chair1 = new InventoryObject("Blue Chair", "backroom", null, null, "neat like");
-		InventoryObject chair2 = new InventoryObject("Blue Chair", "backroom", null, null, "neat full");
-		InventoryObject box = new InventoryObject("Green Box", "storage", null, null,"cool");
-		InventoryObject table = new InventoryObject("Pink Table", "storage", null, null, "baller");
+		InventoryObject chair1 = new InventoryObject("Blue Chair", "backroom", null, null, "neat like", "");
+		InventoryObject chair2 = new InventoryObject("Blue Chair", "backroom", null, null, "neat full", "");
+		InventoryObject box = new InventoryObject("Green Box", "storage", null, null,"cool", "");
+		InventoryObject table = new InventoryObject("Pink Table", "storage", null, null, "baller", "");
 	
 		@Before
 	public void clear() {									//Reinitialize database and testsearch
