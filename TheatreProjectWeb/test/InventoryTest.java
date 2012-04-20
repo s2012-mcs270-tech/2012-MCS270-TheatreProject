@@ -16,19 +16,17 @@ import theatreProject.domain.shared.Status;
 
 public class InventoryTest {
 
-
 	@Before
 	public void createInventory() {
 		Inventory database = new Inventory(null);
 		ArrayList<InventoryObject> testsearch = new ArrayList<InventoryObject>();
-		Image pic = new Image();
+		Image pic = null;
 		Status stat = null;
-		InventoryObject chair1 = new InventoryObject("Blue Chair", "backroom", pic, stat, "chair like", "neat like");
-		InventoryObject chair2 = new InventoryObject("Blue Chair", "backroom", pic, stat, "chair full", "neat full");
-		InventoryObject box = new InventoryObject("Green Box", "storage", null, null, "boxxy","cool");
-		InventoryObject table = new InventoryObject("Pink Table", "storage", null, null, "cool", "baller");
+		InventoryObject chair1 = new InventoryObject("Blue Chair", "backroom", null, null, "neat like");
+		InventoryObject chair2 = new InventoryObject("Blue Chair", "backroom", null, null, "neat full");
+		InventoryObject box = new InventoryObject("Green Box", "storage", null, null,"cool");
+		InventoryObject table = new InventoryObject("Pink Table", "storage", null, null, "baller");
 	}
-	
 	
 	@Test
 	public void searchFindOneInDescription {				//Test search method on object description
@@ -36,16 +34,14 @@ public class InventoryTest {
 		testsearch.add(chair1);
 		assertEquals(testsearch, database.search("chair"));	
 	}
-
-	public void searchFindOneInClassification {				//Test search method on object classification
-		database.add(chair1);
-		testsearch.add(chair1);
-		assertEquals(testsearch, database.search("neat"));
-	}
-
+	
+	@Test
 	public void searchFindTwoInDescription {
 		database.add(chair1);
 		database.add(chair2);
 		testsearch.add(chair1);
 		assertEquals(testsearch, database.search("neat like"));
 	}
+	
+}
+
