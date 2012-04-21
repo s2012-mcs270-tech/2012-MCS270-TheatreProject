@@ -21,31 +21,84 @@ public class InventoryTest {
 		Inventory database = new Inventory(listdata);
 		Image pic = null;
 		Status stat = null;
-		InventoryObject chair1 = new InventoryObject("Blue Chair", "backroom", null, null, "neat like", "");
-		InventoryObject chair2 = new InventoryObject("Blue Chair", "backroom", null, null, "neat full", "");
-		InventoryObject box = new InventoryObject("Green Box", "storage", null, null,"cool", "");
-		InventoryObject table = new InventoryObject("Pink Table", "storage", null, null, "baller", "");
-	
+		
+		//object #; # refers to the number in its description
+		InventoryObject object1 = new InventoryObject("object", "backroom", null, null, "1", "");
+		InventoryObject object2 = new InventoryObject("object", "backroom", null, null, "2", "");
+		InventoryObject object3 = new InventoryObject("object", "backroom", null, null, "3", "");
+		InventoryObject object12 = new InventoryObject("object", "storage", null, null,"1 2", "");
+		InventoryObject object123 = new InventoryObject("object", "storage", null, null, "1 2 3", "");
+		InventoryObject object13 = new InventoryObject("object", "storage", null, null,"1 3", "");
+		
 		@Before
 	public void clear() {									//Reinitialize database and testsearch
 		listdata = new ArrayList<InventoryObject>();
 		testsearch = new ArrayList<InventoryObject>();
 	}
+
+	
 	@Test
-	public void searchFindTwoInDescription() {			
-		database.add(chair1);
-		database.add(chair2);
-		testsearch.add(chair1);
-		assertEquals(testsearch, database.search("neat like"));
-		}	
-	@Test
-	public void searchFindOneInDescription() {				//Test search method on object description
-		database.add(chair1);
-		testsearch.add(chair1);
-		assertEquals(testsearch, database.search("neat"));	
+	public void searchFindOneInDescription() {				//Find one object with only one parameter
+		database.add(object1);								//found parameter is the first word in description
+		testsearch.add(object1);
+		assertEquals(testsearch, database.search("1"));	
 	}
 	
-
+	@Test
+	public void searchFindOneObjectWithTwoWords() { 		 //Find one object with only one parameter
+		database.add(object12);								 //found parameter is the first word in description
+		database.add(object2);
+		testsearch.add(object12);
+		assertEquals(testsearch, database.search("1 2"));
+		}
+	
+	@Test
+	public void searchFindOneBeyondFirstWord() { 			  //Find one object with only one parameter
+		database.add(object12);							   	  //found parameter is the second word in description
+		testsearch.add(object12);
+		assertEquals(testsearch, database.search("2"));
+	}
+	@Test
+	public void searchFindTwoObjectsWithOneWord() {			  //Find two objects with only one parameter
+		database.add(object1);								  //found parameter is the first word in description
+		database.add(object12);
+		testsearch.add(object1);
+		testsearch.add(object12);
+		assertEquals(testsearch, database.search("1"));
+	}
+	@Test
+	public void searchFindTwoObjectsWithTwoWords() {		  //Find two objects with two parameters
+		database.add(object12);								  //found parameters are the first two in description
+		database.add(object123);
+		testsearch.add(object12);
+		testsearch.add(object123);
+		assertEquals(testsearch, database.search("1 2"));
+	}
+	@Test
+	public void searchFindOneObjectWithThreeWords() {		  //Find one object with only one parameter
+		database.add(object123);							  //found parameter is the first three in description
+		testsearch.add(object123);
+		assertEquals(testsearch, database.search("1 2 3"));
+	}
+	@Test
+	public void searchFindTwoObjectWithTwoWordsBeyondFirstWord() { //Find two objects with two parameters
+		database.add(object13);									   //found parameters are beyond the first in description
+		database.add(object123);
+		testsearch.add(object13);
+		testsearch.add(object123);
+		assertEquals(testsearch, database.search("2 3"));
+	}
+	@Test
+	public void searchFindThreeObjectsWithOneWord() {			  //Find three objects with one parameter
+		database.add(object1);									  //found parameter is the first in description
+		database.add(object12);								  
+		database.add(object123);
+		testsearch.add(object1);
+		testsearch.add(object12);
+		testsearch.add(object123);
+		assertEquals(testsearch, database.search("1"));
+		
+	}
 	
 }
 

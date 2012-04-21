@@ -35,14 +35,14 @@ public class Inventory {
 		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
 		String[] words = parameter.split(" ");
 		for (InventoryObject obj : database) {
-			if (obj.description.indexOf(words[0])!=-1 || obj.classification.equals(words[0])) {
+			if (obj.description.indexOf(words[0])!=-1) {
 				found.add(obj);
 			}
 		}
 		if (words.length>1) {
 			for (int i=1; i<words.length; i++) {	
 				for (InventoryObject obj : found) {
-					if ((obj.description.indexOf(words[i])==-1) || !obj.classification.equals(words[i])) {
+					if ((obj.description.indexOf(words[i])==-1)) {
 						found.remove(obj);
 					}
 				}
