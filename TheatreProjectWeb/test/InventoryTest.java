@@ -20,12 +20,12 @@ public class InventoryTest {
 		ArrayList<InventoryObject> testsearch = new ArrayList<InventoryObject>();	 	
 		Inventory database = new Inventory(listdata);
 		Image pic = null;
-		Status stat = null;
-		
+		Status checkedIn = new Status(null, "warehouse", null, null);
+		Status checkedOut = new Status(null,"elsewhere", null, null);
 		//object #; # refers to the number in its description
-		InventoryObject object1 = new InventoryObject("object", "backroom", null, null, "1", "");
-		InventoryObject object2 = new InventoryObject("object", "backroom", null, null, "2", "");
-		InventoryObject object3 = new InventoryObject("object", "backroom", null, null, "3", "");
+		InventoryObject object1 = new InventoryObject("object", "backroom", null, checkedOut, "1", "");
+		InventoryObject object2 = new InventoryObject("object", "backroom", null, checkedIn, "2", "");
+		InventoryObject object3 = new InventoryObject("object", "backroom", null, checkedOut, "3", "");
 		InventoryObject object12 = new InventoryObject("object", "storage", null, null,"1 2", "");
 		InventoryObject object123 = new InventoryObject("object", "storage", null, null, "1 2 3", "");
 		InventoryObject object23  = new InventoryObject("object", "storage", null, null, "1 2 3", "");
@@ -103,5 +103,14 @@ public class InventoryTest {
 		
 	}
 	
+	@Test
+	public void searchcheckOutList() {
+		database.add(object1);
+		database.add(object2);
+		database.add(object3);
+		testsearch.add(object1);
+		testsearch.add(object3);
+		assertEquals(testsearch, database.checkOutList());
+	}
 }
 
