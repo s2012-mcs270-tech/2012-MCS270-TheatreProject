@@ -50,4 +50,15 @@ public class Inventory {
 		}
 		return found;
 	}
+	
+	public ArrayList<InventoryObject> checkOutList() {
+		
+		ArrayList<InventoryObject> outObjects = new ArrayList<InventoryObject>();
+		for (InventoryObject obj : database) {
+			String place = obj.getStatus().getLocation();
+			if (place.equals("warehouse")) outObjects.add(obj);
+		}
+		
+		return outObjects;
+	}
 }
