@@ -28,7 +28,10 @@ public class InventoryTest {
 		InventoryObject object3 = new InventoryObject("object", "backroom", null, null, "3", "");
 		InventoryObject object12 = new InventoryObject("object", "storage", null, null,"1 2", "");
 		InventoryObject object123 = new InventoryObject("object", "storage", null, null, "1 2 3", "");
+		InventoryObject object23  = new InventoryObject("object", "storage", null, null, "1 2 3", "");
 		InventoryObject object13 = new InventoryObject("object", "storage", null, null,"1 3", "");
+		
+		
 		
 		@Before
 	public void clear() {									//Reinitialize database and testsearch
@@ -82,9 +85,9 @@ public class InventoryTest {
 	}
 	@Test
 	public void searchFindTwoObjectWithTwoWordsBeyondFirstWord() { //Find two objects with two parameters
-		database.add(object13);									   //found parameters are beyond the first in description
+		database.add(object23);									   //found parameters are beyond the first in description
 		database.add(object123);
-		testsearch.add(object13);
+		testsearch.add(object23);
 		testsearch.add(object123);
 		assertEquals(testsearch, database.search("2 3"));
 	}

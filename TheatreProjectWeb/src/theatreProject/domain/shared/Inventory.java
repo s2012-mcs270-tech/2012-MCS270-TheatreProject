@@ -56,7 +56,7 @@ public class Inventory {
 		ArrayList<InventoryObject> outObjects = new ArrayList<InventoryObject>();
 		for (InventoryObject obj : database) {
 			String place = obj.getStatus().getLocation();
-			if (place.equals("warehouse")) outObjects.add(obj);
+			if (!place.equals("warehouse")) outObjects.add(obj);
 		}
 		
 		return outObjects;
