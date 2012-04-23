@@ -6,6 +6,6 @@
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/Users/zdude55376/Downloads/junit-4.11-SNAPSHOT-20120416-1530.jar"/>
+	<classpathentry kind="lib" path="/Network/Servers/afp.gac.edu/home/j/c/jcarls10/Downloads/org.eclipse.egit-updatesite-1.3.0.201202151440-r-site.zip"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
