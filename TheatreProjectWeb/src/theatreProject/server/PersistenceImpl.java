@@ -14,25 +14,52 @@ import com.google.apphosting.api.ApiProxy;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class PersistenceImpl extends RemoteServiceServlet implements Persistence {
-	private static final long serialVersionUID = 7649793065322010032L;
+	private static final long serialVersionUID = 4858210141739739447L;
 
 	@PersistenceCapable(identityType=IdentityType.APPLICATION)
 	private static class SavedUser {
 		@SuppressWarnings("unused")
 		@PrimaryKey
+		@Persistent
 		private String email;
+		
+		@Persistent
+		String name;
+		
+		@Persistent
+		String extraInfo;
+		
+		@Persistent
+		boolean isAdmin;
 
 		@Persistent(serialized = "true")
 		private User user;
+		
 
-		public SavedUser(String email, User user) {
+		public SavedUser(String email, String name, String extraInfo, boolean isAdmin, User user) {
 			super();
 			this.email = email;
 			this.user = user;
+			this.name = name;
+			this.extraInfo = extraInfo;
+			this.isAdmin = isAdmin;
+			
 		}
 
 		public User getUser() {
 			return user;
+		}
+		
+		public String getEmail() {
+			return email;
+		}
+		
+		public String getName() {
+			return name;
+		}
+		
+		public String extraInfo() {
+			return extraInfo;
 		}
 	}
 
@@ -48,7 +75,10 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 
 	public void saveUser(User user){
 		String email = getEmail(); 
-		SavedUser su = new SavedUser(email, user);
+		String name = user.getName();
+		String extraInfo = user.getExtraInfo();
+		boolean isAdmin = user.isAdmin();
+		SavedUser su = new SavedUser(email, name, extraInfo, isAdmin, user);
 		PMF.get().getPersistenceManager().makePersistent(su);
 	}
 
