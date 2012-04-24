@@ -43,11 +43,13 @@ public class TheatreProjectWeb implements EntryPoint {
 		final Label errorLabel = new Label();
 		final PushButton sendButton = new PushButton("Send");
 		final TextBox nameField = new TextBox();
+		
 		nameField.setText("Search");
+		
 		sendButton.addStyleName("sendButton");
 
 		// Add the nameField and sendButton to the RootPanel
-		RootPanel.get("sendButtonContainer").add(sendButton, 183, 154);
+		RootPanel.get("sendButtonContainer").add(sendButton, 10, 164);
 
 		// Use RootPanel.get() to get the entire body element
 		RootPanel rootPanel = RootPanel.get("errorLabelContainer");
