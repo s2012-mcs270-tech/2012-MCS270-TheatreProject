@@ -6,6 +6,5 @@
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/Users/zdude55376/Downloads/junit-4.11-SNAPSHOT-20120416-1530.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
