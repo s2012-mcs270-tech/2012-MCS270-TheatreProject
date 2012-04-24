@@ -26,8 +26,10 @@ h3 {
 footnote {
 	font-size: 1;
 	color: black;
-	text-align:center
+	text-align: center;
+	margin:  200px 0px 10px;
 }
+
 .sendButton {
 	display: block;
 	font-size: 16pt;
