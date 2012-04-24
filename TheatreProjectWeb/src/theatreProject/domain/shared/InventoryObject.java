@@ -1,22 +1,23 @@
 package theatreProject.domain.shared;
 import com.google.appengine.api.images.*;
 
-public class InventoryObject {	
+public class InventoryObject {
 	private String ID;
 	private String storageArea;
 	private Image picture;
 	private Status status;
+	private String disclaimers;
 	String description;
-	String disclaimers;
-	
+
 	public InventoryObject(String name, String storageArea, Image picture, Status status, String description, String disclaimers) {
 		this.ID = name;
 		this.storageArea = storageArea;
 		this.picture = picture;
 		this.status = status;
-		this.description = description;
 		this.disclaimers = disclaimers;
+		this.description = description;
 	}
+	
 	public String getID() {
 		return ID;
 	}
@@ -47,11 +48,11 @@ public class InventoryObject {
 	public void setDescription(String description){
 		this.description = description;
 	}
-	
+
 	public String getDisclaimers() {
 		return disclaimers;
 	}
-	
+
 	public void setDisclaimers(String disclaimers) {
 		this.disclaimers = disclaimers;
 	}
