@@ -27,11 +27,26 @@ footnote {
 	font-size: 1;
 	color: black;
 	text-align: center;
-	margin:  200px 0px 10px;
+	margin: 200px 0px 10px;
 }
-
 
 .sendButton {
 	display: block;
 	font-size: 16pt;
+}
+
+.gwt-Root {
+	border: thin;
+	font-variant: normal;
+	font-size: 2em;
+	font-style: normal;
+	font-weight: normal;
+}
+.gwt-Header {
+	font-stretch: wider;
+	font-variant: normal;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: bolder;
+	text-decoration: underline;
 }
