@@ -93,6 +93,9 @@ public class TheatreProjectWeb implements EntryPoint {
 		final VerticalPanel searchResultsPanel = new VerticalPanel();
 		mainPanel.add(searchResultsPanel);
 		
+		final Button btnManageUsers = new Button("Manage Users");
+		mainPanel.add(btnManageUsers);
+		
 		
 		final Label lblContactInfo = new Label("Please contact Terena is you have any questions.");
 		mainPanel.add(lblContactInfo);
@@ -123,6 +126,11 @@ public class TheatreProjectWeb implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				//ArrayList<InventoryObject> found = inventory.checkOutList();
 				//pass the parameter found to the displayObjects method
+			}
+		});
+		
+		btnManageUsers.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
 			}
 		});
 	}
