@@ -107,7 +107,7 @@ public class TheatreProjectWeb implements EntryPoint {
 			public void onClick(ClickEvent event) {
 			//	ArrayList<InventoryObject> found;
 			//	String parameters = searchParameters.getText();
-				//found = inventory.search(parameters);
+				//foundItems = inventory.search(parameters);
 				//pass found to some displayObjects method, which would grab the parameters
 				    //we want to show for the item and put it into the searchResultsPanel,
 					//and divide the panel up so it's easy on the eyes.
@@ -128,10 +128,17 @@ public class TheatreProjectWeb implements EntryPoint {
 				//pass the parameter found to the displayObjects method
 			}
 		});
-		
+	
 		btnManageUsers.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 			}
 		});
+		
+//		public void displaySearch(ArrayList<InventoryObject> objectList) {
+//			for (InventoryObject obj : objectList) {
+//				
+//			}
+//		}
 	}
+	
 }

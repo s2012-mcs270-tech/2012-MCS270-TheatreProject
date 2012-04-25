@@ -23,13 +23,13 @@ public class InventoryTest {
 		Status checkedIn = new Status(null, "warehouse", null, null);
 		Status checkedOut = new Status(null,"elsewhere", null, null);
 		//object #; # refers to the number in its description
-		InventoryObject object1 = new InventoryObject("object", "backroom", null, checkedOut, "1", "");
-		InventoryObject object2 = new InventoryObject("object", "backroom", null, checkedIn, "2", "");
-		InventoryObject object3 = new InventoryObject("object", "backroom", null, checkedOut, "3", "");
-		InventoryObject object12 = new InventoryObject("object", "storage", null, null,"1 2", "");
-		InventoryObject object123 = new InventoryObject("object", "storage", null, null, "1 2 3", "");
-		InventoryObject object23  = new InventoryObject("object", "storage", null, null, "1 2 3", "");
-		InventoryObject object13 = new InventoryObject("object", "storage", null, null,"1 3", "");
+		InventoryObject object1 = new InventoryObject("", "object", "backroom", null, checkedOut, "1", "");
+		InventoryObject object2 = new InventoryObject("", "object", "backroom", null, checkedIn, "2", "");
+		InventoryObject object3 = new InventoryObject("", "object", "backroom", null, checkedOut, "3", "");
+		InventoryObject object12 = new InventoryObject("", "object", "storage", null, null,"1 2", "");
+		InventoryObject object123 = new InventoryObject("", "object", "storage", null, null, "1 2 3", "");
+		InventoryObject object23  = new InventoryObject("", "object", "storage", null, null, "1 2 3", "");
+		InventoryObject object13 = new InventoryObject("", "object", "storage", null, null,"1 3", "");
 		
 		
 		
