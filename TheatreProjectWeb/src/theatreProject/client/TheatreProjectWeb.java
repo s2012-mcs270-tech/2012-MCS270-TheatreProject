@@ -1,6 +1,8 @@
 package theatreProject.client;
 
+import java.util.ArrayList;
 import com.google.gwt.core.client.EntryPoint;
+import theatreProject.domain.shared.InventoryObject;
 import theatreProject.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -26,60 +28,102 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
+
+
 public class TheatreProjectWeb implements EntryPoint {
 
 	/**
 	 * This is the entry point method.
 	 */
-	private static final String SERVER_ERROR = "An error occurred while "
-			+ "attempting to contact the server. Please check your network "
-			+ "connection and try again.";
 	
 	public void onModuleLoad() {
-		final Label errorLabel = new Label();
-		final PushButton sendButton = new PushButton("Send");
-		final TextBox nameField = new TextBox();
-		
-		nameField.setText("Search");
-		
-		sendButton.addStyleName("sendButton");
-
-		// Add the nameField and sendButton to the RootPanel
-		RootPanel.get("sendButtonContainer").add(sendButton, 10, 164);
 
 		// Use RootPanel.get() to get the entire body element
-		RootPanel rootPanel = RootPanel.get("errorLabelContainer");
-		rootPanel.add(errorLabel, 10, 84);
-		errorLabel.setSize("430px", "1px");
+		final RootPanel rootPanel = RootPanel.get();
 		
-		TextArea contact = new TextArea();
-		contact.setText("Please contact Ternea if you have any questions");
-		contact.setName("contact");
-		rootPanel.add(contact, 10, 303);
-		contact.setSize("438px", "36px");
+		//mainPanel is the primary panel we put stuff in
+		final VerticalPanel mainPanel = new VerticalPanel();
+		rootPanel.add(mainPanel, 10, 10);
+		mainPanel.setSize("430px", "280px");
+		
+		//initializers of labels
+		final Label title = new Label("This is our theatre project web app.");
+		mainPanel.add(title);
+		title.setSize("204px", "18px");
+		
+		final Label lblRules = new Label("And here are our rules.");
+		mainPanel.add(lblRules);
+		
+		final Label lblEnterYourSearch = new Label("Enter your search parameter here:");
+		mainPanel.add(lblEnterYourSearch);
+		
+		//panel to hold the search bar and button
+		final HorizontalPanel searchBarPanel = new HorizontalPanel();
+		mainPanel.add(searchBarPanel);
+		searchBarPanel.setSize("284px", "34px");
+		
+		//search bar
+		final TextBox searchParameters = new TextBox();
+		searchBarPanel.add(searchParameters);
+		
+		//primary search button
+		final Button btnSearch = new Button("Search");
+		searchBarPanel.add(btnSearch);
+		
+		
+		//panel to hold the view all and view checked out buttons
+		final HorizontalPanel searchAllPanel = new HorizontalPanel();
+		mainPanel.add(searchAllPanel);
+		
+		//button for viewing all items
+		final Button btnViewAll = new Button("View All");
+		searchAllPanel.add(btnViewAll);
+		
+		//button to view all checkout out items
+		final Button btnViewCheckedOut = new Button("View Checked Out");
+		searchAllPanel.add(btnViewCheckedOut);
+		
+		//an empty panel which will get the search results put into it
+		final VerticalPanel searchResultsPanel = new VerticalPanel();
+		mainPanel.add(searchResultsPanel);
+		
+		
+		final Label lblContactInfo = new Label("Please contact Terena is you have any questions.");
+		mainPanel.add(lblContactInfo);
+		
 
-		// Create the popup dialog box
-		final DialogBox dialogBox = new DialogBox();
-		dialogBox.setText("Remote Procedure Call");
-		dialogBox.setAnimationEnabled(true);
-		final Button closeButton = new Button("Close");
+		//button events
+		// TODO
+		btnSearch.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+			//	ArrayList<InventoryObject> found;
+			//	String parameters = searchParameters.getText();
+				//found = inventory.search(parameters);
+				//pass found to some displayObjects method, which would grab the parameters
+				    //we want to show for the item and put it into the searchResultsPanel,
+					//and divide the panel up so it's easy on the eyes.
+				
+			}
+		});
 		
-		// We can set the id of a widget by accessing its Element
-		closeButton.getElement().setId("closeButton");
-		final Label textToServerLabel = new Label();
-		final HTML serverResponseLabel = new HTML();
-		VerticalPanel dialogVPanel = new VerticalPanel();
-		dialogVPanel.addStyleName("dialogVPanel");
-		dialogVPanel.add(new HTML("<b>Sending name to the server:</b>"));
-		dialogVPanel.add(textToServerLabel);
-		dialogVPanel.add(new HTML("<br><b>Server replies:</b>"));
-		dialogVPanel.add(serverResponseLabel);
-		dialogVPanel.setHorizontalAlignment(VerticalPanel.ALIGN_RIGHT);
-		dialogVPanel.add(closeButton);
-		dialogBox.setWidget(dialogVPanel);
+		btnViewAll.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				//pass the parameter database from our inventory into displayObjects
+					//method from above
+			}
+		});
+		
+		btnViewCheckedOut.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				//ArrayList<InventoryObject> found = inventory.checkOutList();
+				//pass the parameter found to the displayObjects method
+			}
+		});
 	}
 }
