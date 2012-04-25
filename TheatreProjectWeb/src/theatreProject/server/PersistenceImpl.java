@@ -109,8 +109,12 @@ return ApiProxy.getCurrentEnvironment().getEmail();
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 private static class SavedObject {
 @PrimaryKey
+
 @Persistent
 private String ID;
+
+@Persistent
+private String name;
 
 @Persistent
 private String storageArea;
@@ -130,19 +134,23 @@ private String description;
 @Persistent (serialized = "true")
 private InventoryObject object;
 
-public SavedObject(String ID, String storageArea, Image image, Status status, String disclaimers, String description, InventoryObject object) {
+public SavedObject(String ID, String name, String storageArea, Image image, Status status, String description, String disclaimers, InventoryObject object) {
 super();
 this.ID = ID;
+this.name = name;
 this.storageArea = storageArea;
 this.image = image;
 this.status = status;
-this.disclaimers = disclaimers;
 this.description = description;
+this.disclaimers = disclaimers;
 this.object = object;
 }
 
 public String getID() {
 return this.ID;
+}
+public String name() {
+return this.name;
 }
 
 public String getStorageArea() {
@@ -157,12 +165,12 @@ public Status getStatus() {
 return this.status;
 }
 
-public String getDisclaimers() {
-return this.disclaimers;
-}
-
 public String getDescription() {
 return this.description;
+}
+
+public String getDisclaimers() {
+return this.disclaimers;
 }
 
 public InventoryObject getObject() {
@@ -179,7 +187,16 @@ return null;
 
 @Override
 public void saveObject(InventoryObject object) {
-// TODO Auto-generated method stub
+	String ID = object.getID();
+	String name = object.getname();
+	String storage = object.getstorageArea();
+	Image pic = object.getPicture();
+	Status stat = object.getStatus();
+	String description = object.getDescription();
+	String disclaimer = object.getDisclaimers();
+	
+	SavedObject so = new SavedObject(ID, name, storage, pic, stat, description, disclaimer, object);
+	
 
 }
 
