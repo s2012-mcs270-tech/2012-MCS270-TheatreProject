@@ -46,6 +46,7 @@ public class TheatreProjectWeb implements EntryPoint {
 
 		// Use RootPanel.get() to get the entire body element
 		final RootPanel rootPanel = RootPanel.get();
+		rootPanel.setStyleName("gwt-Root");
 		
 		//mainPanel is the primary panel we put stuff in
 		final VerticalPanel mainPanel = new VerticalPanel();
@@ -53,15 +54,13 @@ public class TheatreProjectWeb implements EntryPoint {
 		mainPanel.setSize("430px", "280px");
 		
 		//initializers of labels
-		final Label title = new Label("This is our theatre project web app.");
+		final Label title = new Label("Theatre Web Application");
+		title.setStyleName("gwt-Header");
 		mainPanel.add(title);
-		title.setSize("204px", "18px");
+		title.setSize("338px", "25px");
 		
 		final Label lblRules = new Label("And here are our rules.");
 		mainPanel.add(lblRules);
-		
-		final Label lblEnterYourSearch = new Label("Enter your search parameter here:");
-		mainPanel.add(lblEnterYourSearch);
 		
 		//panel to hold the search bar and button
 		final HorizontalPanel searchBarPanel = new HorizontalPanel();
@@ -70,6 +69,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		
 		//search bar
 		final TextBox searchParameters = new TextBox();
+		searchParameters.setText("Enter search terms here");
 		searchBarPanel.add(searchParameters);
 		
 		//primary search button
