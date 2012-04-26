@@ -1,5 +1,7 @@
 package theatreProject.server;
 
+import java.util.ArrayList;
+
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.annotations.IdentityType;
@@ -209,4 +211,20 @@ public PersistenceImpl() {
 super();
 
 }
+
+@PersistenceCapable(identityType=IdentityType.APPLICATION)
+private static class saveInventory {
+	
+	@Persistent
+	private ArrayList<InventoryObject> database;
+
+public saveInventory(ArrayList<InventoryObject> database) {
+	super();
+	this.database = database;
+		}
+public ArrayList<InventoryObject> getdatabase()  {
+	return this.database;
+		}	
+	}
+
 }
