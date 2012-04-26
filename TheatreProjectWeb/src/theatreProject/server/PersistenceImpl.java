@@ -206,8 +206,8 @@ public void saveObject(InventoryObject object) {
 	PMF.get().getPersistenceManager().makePersistent(so);
 
 }
- //------------\\
-//SavedInventory\\
+ 					 //------------\\
+					//SavedInventory\\
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 private static class SavedInventory {
@@ -223,6 +223,10 @@ public SavedInventory(ArrayList<SavedObject> database, Inventory sys) {
 	this.database = database; 
 	this.sys = sys;
 		}
+
+public ArrayList<SavedObject> database() {
+	return this.database;
+}
 public Inventory getsys()  {
 	return this.sys;
 		}
@@ -232,12 +236,12 @@ public void saveInventory(ArrayList<SavedObject> database, Inventory sys) {
 			PMF.get().getPersistenceManager().makePersistent(si);
 		}
 																	
-public void add(SavedObject object) {							//Unsure if a add and search function are required for the SavedInventory but added just in case\\
-			sys.add(object);
-		}
-public ArrayList<InventoryObject> search(String parameter) {
-			return sys.search(parameter);
-}
+//public void add(SavedObject object) {							//Unsure if a add and search function are required for the SavedInventory but added just in case\\
+//			sys.add(object);
+//		}
+//public ArrayList<InventoryObject> search(String parameter) {
+//			return sys.search(parameter);
+//		}
 	}
 
 
