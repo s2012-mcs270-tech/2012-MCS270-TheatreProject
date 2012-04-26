@@ -188,7 +188,7 @@ return null;
 @Override
 public void saveObject(InventoryObject object) {
 	String ID = object.getID();
-	String name = object.getname();
+	String name = object.getName();
 	String storage = object.getstorageArea();
 	Image pic = object.getPicture();
 	Status stat = object.getStatus();

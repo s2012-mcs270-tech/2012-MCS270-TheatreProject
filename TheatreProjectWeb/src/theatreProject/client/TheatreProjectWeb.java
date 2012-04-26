@@ -1,9 +1,13 @@
 package theatreProject.client;
 
 import java.util.ArrayList;
-import com.google.gwt.core.client.EntryPoint;
+
 import theatreProject.domain.shared.InventoryObject;
+import theatreProject.domain.shared.Inventory;
+
 import theatreProject.shared.FieldVerifier;
+
+import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -37,12 +41,20 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 
 
 public class TheatreProjectWeb implements EntryPoint {
+	
+	//needs to be persistent or something instead
+	//private Inventory inventory = new Inventory(new ArrayList<InventoryObject>());
+
 
 	/**
 	 * This is the entry point method.
 	 */
 	
 	public void onModuleLoad() {
+		mainPage();
+	}
+	
+	public void mainPage() {
 
 		// Use RootPanel.get() to get the entire body element
 		final RootPanel rootPanel = RootPanel.get();
@@ -105,13 +117,18 @@ public class TheatreProjectWeb implements EntryPoint {
 		// TODO
 		btnSearch.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-			//	ArrayList<InventoryObject> found;
-			//	String parameters = searchParameters.getText();
-				//foundItems = inventory.search(parameters);
-				//pass found to some displayObjects method, which would grab the parameters
-				    //we want to show for the item and put it into the searchResultsPanel,
-					//and divide the panel up so it's easy on the eyes.
-				
+//				ArrayList<InventoryObject> foundItems;
+//				String parameters = searchParameters.getText();
+//				foundItems = inventory.search(parameters);
+//					//this is the displayObjects method, below
+//					for (InventoryObject obj : foundItems) {
+//						HorizontalPanel objectPanel = new HorizontalPanel();
+//						searchResultsPanel.add(objectPanel);
+//						Label objectLabel = new Label(obj.getName());
+//						objectPanel.add(objectLabel);
+						//also, find how to insert the image
+						//add a click event for the label to take to the items page
+//					}
 			}
 		});
 		
@@ -133,12 +150,5 @@ public class TheatreProjectWeb implements EntryPoint {
 			public void onClick(ClickEvent event) {
 			}
 		});
-		
-//		public void displaySearch(ArrayList<InventoryObject> objectList) {
-//			for (InventoryObject obj : objectList) {
-//				
-//			}
-//		}
 	}
-	
 }
