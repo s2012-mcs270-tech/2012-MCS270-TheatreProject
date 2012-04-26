@@ -53,6 +53,7 @@ public class TheatreProjectWeb implements EntryPoint {
 	
 	public void onModuleLoad() {
 		mainPage();
+		//mangageUserPage();
 	}
 	
 	
@@ -68,6 +69,21 @@ public class TheatreProjectWeb implements EntryPoint {
 		title.setStyleName("gwt-Header");
 		manguageUserPanel.add(title);
 		title.setSize("338px","25px");
+		
+		HorizontalPanel horizontalPanel = new HorizontalPanel();
+		manguageUserPanel.add(horizontalPanel);
+		
+		Button btnOneuser = new Button("oneUser");
+		horizontalPanel.add(btnOneuser);
+		
+		VerticalPanel verticalPanel = new VerticalPanel();
+		horizontalPanel.add(verticalPanel);
+		
+		Button btnAdmins = new Button("admins");
+		verticalPanel.add(btnAdmins);
+		
+		Button btnInfo = new Button("info");
+		verticalPanel.add(btnInfo);
 	}
 	
 	
@@ -166,7 +182,8 @@ public class TheatreProjectWeb implements EntryPoint {
 	
 		btnManageUsers.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				mainPanel.clear();
+				rootPanel.clear();
+				mangageUserPage();
 			}
 		});
 	}
