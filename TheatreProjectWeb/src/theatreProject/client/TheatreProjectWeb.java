@@ -34,6 +34,7 @@ import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -54,11 +55,28 @@ public class TheatreProjectWeb implements EntryPoint {
 		mainPage();
 	}
 	
+	
+	public void mangageUserPage(){
+		final RootPanel rootPanel = RootPanel.get();
+		rootPanel.setStyleName("gwt-Root");
+		
+		final VerticalPanel manguageUserPanel = new VerticalPanel();
+		rootPanel.add(manguageUserPanel, 10 ,10 );
+		manguageUserPanel.setSize("430px", "280px");
+		
+		final Label title = new Label("User Manguagement");
+		title.setStyleName("gwt-Header");
+		manguageUserPanel.add(title);
+		title.setSize("338px","25px");
+	}
+	
+	
 	public void mainPage() {
 
 		// Use RootPanel.get() to get the entire body element
 		final RootPanel rootPanel = RootPanel.get();
 		rootPanel.setStyleName("gwt-Root");
+		
 		
 		//mainPanel is the primary panel we put stuff in
 		final VerticalPanel mainPanel = new VerticalPanel();
@@ -148,6 +166,7 @@ public class TheatreProjectWeb implements EntryPoint {
 	
 		btnManageUsers.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				mainPanel.clear();
 			}
 		});
 	}
