@@ -181,8 +181,12 @@ return this.object;
 
 @Override
 public InventoryObject getInventoryObject(String ID) {
-// TODO Auto-generated method stub
-return null;
+	PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
+	try{
+	return persistenceManager.getObjectById(SavedObject.class, ID).getObject();
+	} catch(JDOObjectNotFoundException e){
+	return null;
+	}
 }
 
 @Override
@@ -196,7 +200,7 @@ public void saveObject(InventoryObject object) {
 	String disclaimer = object.getDisclaimers();
 	
 	SavedObject so = new SavedObject(ID, name, storage, pic, stat, description, disclaimer, object);
-	
+	PMF.get().getPersistenceManager().makePersistent(so);
 
 }
 
