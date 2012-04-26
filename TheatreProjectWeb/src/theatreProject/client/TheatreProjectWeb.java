@@ -52,8 +52,8 @@ public class TheatreProjectWeb implements EntryPoint {
 	 */
 	
 	public void onModuleLoad() {
-		mainPage();
-		//mangageUserPage();
+		//mainPage();
+		mangageUserPage();
 	}
 	
 	
@@ -63,27 +63,86 @@ public class TheatreProjectWeb implements EntryPoint {
 		
 		final VerticalPanel manguageUserPanel = new VerticalPanel();
 		rootPanel.add(manguageUserPanel, 10 ,10 );
-		manguageUserPanel.setSize("430px", "280px");
+		manguageUserPanel.setSize("792px", "522px");
 		
-		final Label title = new Label("User Manguagement");
+		final Label title = new Label("User Mangagement");
 		title.setStyleName("gwt-Header");
 		manguageUserPanel.add(title);
 		title.setSize("338px","25px");
 		
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		manguageUserPanel.add(horizontalPanel);
-		
-		Button btnOneuser = new Button("oneUser");
-		horizontalPanel.add(btnOneuser);
+		AbsolutePanel absolutePanel = new AbsolutePanel();
+		manguageUserPanel.add(absolutePanel);
+		absolutePanel.setHeight("445px");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
-		horizontalPanel.add(verticalPanel);
+		absolutePanel.add(verticalPanel, 45, 32);
+		verticalPanel.setSize("141px", "243px");
 		
-		Button btnAdmins = new Button("admins");
-		verticalPanel.add(btnAdmins);
+		VerticalPanel verticalPanel_1 = new VerticalPanel();
+		absolutePanel.add(verticalPanel_1, 238, 32);
+		verticalPanel_1.setSize("135px", "243px");
 		
-		Button btnInfo = new Button("info");
-		verticalPanel.add(btnInfo);
+		Label lblUserInformation = new Label("User Information");
+		absolutePanel.add(lblUserInformation, 413, 10);
+		
+		Label lblViewonlyUsers = new Label("View-Only Users");
+		absolutePanel.add(lblViewonlyUsers, 45, 10);
+		lblViewonlyUsers.setSize("141px", "18px");
+		
+		Label lblAdmins = new Label("Admins");
+		absolutePanel.add(lblAdmins, 238, 10);
+		lblAdmins.setSize("135px", "18px");
+		
+		VerticalPanel verticalPanel_2 = new VerticalPanel();
+		absolutePanel.add(verticalPanel_2, 413, 30);
+		verticalPanel_2.setSize("141px", "243px");
+		
+		Button button = new Button("<---");
+		absolutePanel.add(button, 192, 91);
+		
+		Button button_1 = new Button("<---");
+		button_1.setText("--->");
+		absolutePanel.add(button_1, 192, 138);
+		button_1.setSize("36px", "30px");
+		
+		Button btnX = new Button("X");
+		absolutePanel.add(btnX, 192, 182);
+		
+		Label lblAddUser = new Label("Add User");
+		absolutePanel.add(lblAddUser, 45, 293);
+		lblAddUser.setSize("141px", "18px");
+		
+		TextBox txtbxName = new TextBox();
+		txtbxName.setText("Name");
+		absolutePanel.add(txtbxName, 44, 313);
+		txtbxName.setSize("128px", "18px");
+		
+		TextBox txtbxEmail = new TextBox();
+		txtbxEmail.setText("email");
+		absolutePanel.add(txtbxEmail, 238, 313);
+		txtbxEmail.setSize("128px", "18px");
+		
+		Button btnAdd = new Button("Add");
+		absolutePanel.add(btnAdd, 413, 313);
+		
+		TextBox txtbxAdditionalInformation = new TextBox();
+		txtbxAdditionalInformation.setText("Additional Information");
+		absolutePanel.add(txtbxAdditionalInformation, 45, 360);
+		txtbxAdditionalInformation.setSize("393px", "18px");
+	}
+	
+	public void readOnlyInventory(){
+		final RootPanel rootPanel = RootPanel.get();
+		rootPanel.setStyleName("gwt-Root");
+		
+		final VerticalPanel manguageUserPanel = new VerticalPanel();
+		rootPanel.add(manguageUserPanel, 10 ,10 );
+		manguageUserPanel.setSize("430px", "280px");
+		
+		final Label title = new Label("Read Only Inventory Page");
+		title.setStyleName("gwt-Header");
+		manguageUserPanel.add(title);
+		title.setSize("338px","25px");
 	}
 	
 	
