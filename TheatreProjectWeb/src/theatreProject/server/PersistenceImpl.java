@@ -9,6 +9,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import theatreProject.domain.shared.Inventory;
 import theatreProject.domain.shared.InventoryObject;
 import theatreProject.domain.shared.Status;
 import theatreProject.domain.shared.User;
@@ -205,6 +206,39 @@ public void saveObject(InventoryObject object) {
 	PMF.get().getPersistenceManager().makePersistent(so);
 
 }
+ //------------\\
+//SavedInventory\\
+
+@PersistenceCapable(identityType=IdentityType.APPLICATION)
+private static class SavedInventory {
+	
+	@Persistent
+	private ArrayList<SavedObject> database;
+	
+	@Persistent									
+	private Inventory sys;						//To Jim: SavedObject keeps track of its non-saved counterpart so im not sure its thats needed here\\
+
+public SavedInventory(ArrayList<SavedObject> database, Inventory sys) {
+	super();
+	this.database = database; 
+	this.sys = sys;
+		}
+public Inventory getsys()  {
+	return this.sys;
+		}
+
+public void saveInventory(ArrayList<SavedObject> database, Inventory sys) {
+			SavedInventory si = new SavedInventory(database, sys);
+			PMF.get().getPersistenceManager().makePersistent(si);
+		}
+																	
+public void add(SavedObject object) {							//Unsure if a add and search function are required for the SavedInventory but added just in case\\
+			sys.add(object);
+		}
+public ArrayList<InventoryObject> search(String parameter) {
+			return sys.search(parameter);
+}
+	}
 
 
 public PersistenceImpl() {
@@ -212,19 +246,7 @@ super();
 
 }
 
-@PersistenceCapable(identityType=IdentityType.APPLICATION)
-private static class saveInventory {
-	
-	@Persistent
-	private ArrayList<InventoryObject> database;
-
-public saveInventory(ArrayList<InventoryObject> database) {
-	super();
-	this.database = database;
-		}
-public ArrayList<InventoryObject> getdatabase()  {
-	return this.database;
-		}	
-	}
+//--------\\
+//----------\\
 
 }
