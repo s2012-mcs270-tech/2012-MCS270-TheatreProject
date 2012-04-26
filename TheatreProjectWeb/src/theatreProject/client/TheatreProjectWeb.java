@@ -35,6 +35,8 @@ import com.google.gwt.user.client.ui.PushButton;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.Command;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -52,8 +54,8 @@ public class TheatreProjectWeb implements EntryPoint {
 	 */
 	
 	public void onModuleLoad() {
-		//mainPage();
-		mangageUserPage();
+		mainPage();
+		//mangageUserPage();
 	}
 	
 	
@@ -75,27 +77,49 @@ public class TheatreProjectWeb implements EntryPoint {
 		absolutePanel.setHeight("445px");
 		
 		VerticalPanel verticalPanel = new VerticalPanel();
-		absolutePanel.add(verticalPanel, 45, 32);
-		verticalPanel.setSize("141px", "243px");
+		absolutePanel.add(verticalPanel, 35, 10);
+		verticalPanel.setSize("151px", "265px");
+		
+		MenuBar menuBar = new MenuBar(false);
+		verticalPanel.add(menuBar);
+		
+		MenuItem mntmViewOnlyUsers = new MenuItem("View Only Users", false, (Command) null);
+		menuBar.addItem(mntmViewOnlyUsers);
+		
+		ListBox listBox = new ListBox();
+		listBox.setVisibleItemCount(10);
+		verticalPanel.add(listBox);
+		listBox.setSize("152px", "228px");
 		
 		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		absolutePanel.add(verticalPanel_1, 238, 32);
-		verticalPanel_1.setSize("135px", "243px");
+		absolutePanel.add(verticalPanel_1, 238, 10);
+		verticalPanel_1.setSize("151px", "265px");
 		
-		Label lblUserInformation = new Label("User Information");
-		absolutePanel.add(lblUserInformation, 413, 10);
+		MenuBar menuBar_1 = new MenuBar(false);
+		verticalPanel_1.add(menuBar_1);
 		
-		Label lblViewonlyUsers = new Label("View-Only Users");
-		absolutePanel.add(lblViewonlyUsers, 45, 10);
-		lblViewonlyUsers.setSize("141px", "18px");
+		MenuItem mntmAdmin = new MenuItem("Admin", false, (Command) null);
+		menuBar_1.addItem(mntmAdmin);
 		
-		Label lblAdmins = new Label("Admins");
-		absolutePanel.add(lblAdmins, 238, 10);
-		lblAdmins.setSize("135px", "18px");
+		ListBox listBox_1 = new ListBox();
+		listBox_1.setVisibleItemCount(5);
+		verticalPanel_1.add(listBox_1);
+		listBox_1.setSize("152px", "231px");
 		
 		VerticalPanel verticalPanel_2 = new VerticalPanel();
-		absolutePanel.add(verticalPanel_2, 413, 30);
-		verticalPanel_2.setSize("141px", "243px");
+		absolutePanel.add(verticalPanel_2, 419, 10);
+		verticalPanel_2.setSize("151px", "263px");
+		
+		MenuBar menuBar_2 = new MenuBar(false);
+		verticalPanel_2.add(menuBar_2);
+		
+		MenuItem mntmUserInformation = new MenuItem("User Information", false, (Command) null);
+		menuBar_2.addItem(mntmUserInformation);
+		
+		TextArea txtrUserInfoGoes = new TextArea();
+		txtrUserInfoGoes.setText("User info goes here");
+		verticalPanel_2.add(txtrUserInfoGoes);
+		txtrUserInfoGoes.setSize("158px", "226px");
 		
 		Button button = new Button("<---");
 		absolutePanel.add(button, 192, 91);
@@ -109,6 +133,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		absolutePanel.add(btnX, 192, 182);
 		
 		Label lblAddUser = new Label("Add User");
+		lblAddUser.setStyleName("h2");
 		absolutePanel.add(lblAddUser, 45, 293);
 		lblAddUser.setSize("141px", "18px");
 		
