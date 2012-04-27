@@ -52,3 +52,9 @@ footnote {
 	font-weight: bolder;
 	text-decoration: underline;
 }
+.gwt-Button {
+	margin-top: auto;
+	padding-top: 2px;
+}
+.gwt-StackPanel {
+}
