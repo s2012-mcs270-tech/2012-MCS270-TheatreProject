@@ -42,6 +42,8 @@ import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.DecoratedTabBar;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
+import com.google.gwt.event.logical.shared.AttachEvent;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -59,9 +61,9 @@ public class TheatreProjectWeb implements EntryPoint {
 	 */
 	
 	public void onModuleLoad() {
-		//mainPage();
+		mainPage();
 		//mangageUserPage();
-		readOnlyInventory();
+		//readOnlyInventory();
 	}
 	
 	
@@ -127,11 +129,11 @@ public class TheatreProjectWeb implements EntryPoint {
 		verticalPanel_2.add(txtrUserInfoGoes);
 		txtrUserInfoGoes.setSize("158px", "226px");
 		
-		Button button = new Button("<---");
+		Button button = new Button("&larr;");
 		absolutePanel.add(button, 192, 91);
+		button.setSize("36px", "27px");
 		
-		Button button_1 = new Button("<---");
-		button_1.setText("--->");
+		Button button_1 = new Button("&rarr;");
 		absolutePanel.add(button_1, 192, 138);
 		button_1.setSize("36px", "30px");
 		
@@ -160,6 +162,15 @@ public class TheatreProjectWeb implements EntryPoint {
 		txtbxAdditionalInformation.setText("Additional Information");
 		absolutePanel.add(txtbxAdditionalInformation, 45, 360);
 		txtbxAdditionalInformation.setSize("393px", "18px");
+		
+		Button btnMainPage = new Button("Main Page");
+		btnMainPage.addAttachHandler(new Handler() {
+			public void onAttachOrDetach(AttachEvent event) {
+				rootPanel.clear();
+				mainPage();
+			}
+		});
+		absolutePanel.add(btnMainPage, 506, 360);
 	}
 	
 	public void readOnlyInventory(){
