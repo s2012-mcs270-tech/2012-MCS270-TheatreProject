@@ -83,7 +83,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	}
 
 	public void saveUser(User user){
-		String email = getEmail();
+		String email = user.getEmail();
 		String name = user.getName();
 		String extraInfo = user.getExtraInfo();
 		boolean isAdmin = user.isAdmin();
@@ -205,45 +205,6 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		SavedObject so = new SavedObject(ID, name, storage, pic, stat, description, disclaimer, object);
 		PMF.get().getPersistenceManager().makePersistent(so);
 
-	}
-	//------------\\
-	//SavedInventory\\
-
-	@PersistenceCapable(identityType=IdentityType.APPLICATION)
-	private static class SsavedInventory {
-
-		@Persistent
-		private ArrayList<InventoryObject> database;
-
-		@Persistent									
-		private Inventory sys;						//To Jim: SavedObject keeps track of its non-saved counterpart so im not sure its thats needed here\\
-
-		public SsavedInventory(ArrayList<InventoryObject> database, Inventory sys) {
-			super();
-			this.database = database; 
-			this.sys = sys;
-		}
-
-		public ArrayList<InventoryObject> database() {
-			return this.database;
-		}
-		public Inventory getsys()  {
-			return this.sys;
-		}
-
-
-
-		//public void add(SavedObject object) {							//Unsure if a add and search function are required for the SavedInventory but added just in case\\
-		//			sys.add(object);
-		//		}
-		//public ArrayList<InventoryObject> search(String parameter) {
-		//			return sys.search(parameter);
-		//		}
-	}
-	
-	public void saveInventory(ArrayList<InventoryObject> database, Inventory sys) {
-		SsavedInventory si = new SsavedInventory(database, sys);
-		PMF.get().getPersistenceManager().makePersistent(si);
 	}
 
 	public PersistenceImpl() {

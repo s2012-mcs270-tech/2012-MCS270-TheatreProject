@@ -34,4 +34,31 @@ public class User implements Serializable {
 	public void setExtraInfo(String extraInfo) {
 		this.extraInfo = extraInfo;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof User))
+			return false;
+		User other = (User) o;
+		if(this.name == null && other.name != null)
+			return false;
+		if(this.name != null && !this.name.equals(other.name))
+			return false;
+		if(this.email == null && other.email != null)
+			return false;
+		if(this.email != null && !this.email.equals(other.email))
+			return false;
+		if(this.isAdmin != other.isAdmin)
+			return false;
+		if(this.extraInfo == null && other.extraInfo != null)
+			return false;
+		if(this.extraInfo != null && !this.extraInfo.equals(other.extraInfo))
+			return false;
+		return true;
+	}
+	
+	@Override
+	public int hashCode(){
+		return email==null ? 0 : email.hashCode();
+	}
 }

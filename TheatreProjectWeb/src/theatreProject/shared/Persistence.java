@@ -15,5 +15,4 @@ public interface Persistence extends RemoteService {
 	void saveUser(User user);
 	InventoryObject getInventoryObject(String ID);
 	void saveObject(InventoryObject object);
-	void saveInventory(ArrayList<InventoryObject> database, Inventory sys);
 }

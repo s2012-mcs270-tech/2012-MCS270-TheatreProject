@@ -17,7 +17,4 @@ void getInventoryObject(String ID, AsyncCallback<InventoryObject> callback);
 
 void saveObject(InventoryObject object, AsyncCallback<Void> callback);
 
-void saveInventory(ArrayList<InventoryObject> database, Inventory sys,
-		AsyncCallback<Void> callback);
-
 }
