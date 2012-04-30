@@ -6,6 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Applications/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.6.4.v201203300216r37/appengine-java-sdk-1.6.4/lib/testing/appengine-testing.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.6.1.v201112160242r37/appengine-java-sdk-1.6.1/lib/testing/appengine-testing.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
