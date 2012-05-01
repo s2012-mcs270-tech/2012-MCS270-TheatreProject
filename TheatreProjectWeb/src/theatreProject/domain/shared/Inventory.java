@@ -1,4 +1,8 @@
 package theatreProject.domain.shared;
+
+import theatreProject.server.PersistenceImpl.User;
+import theatreProject.server.PersistenceImpl.InventoryObject;
+
 import java.util.ArrayList;
 
 
