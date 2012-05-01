@@ -62,10 +62,10 @@ public class TheatreProjectWeb implements EntryPoint {
 	 */
 
 	public void onModuleLoad() {
-		//mainPage();
+		mainPage();
 		//mangageUserPage();
 		//readOnlyInventory();
-		adminOnlyInventory();
+		//adminOnlyInventory();
 	}
 
 
@@ -176,207 +176,195 @@ public class TheatreProjectWeb implements EntryPoint {
 	}
 
 	public void readOnlyInventory(){
-		final RootPanel rootPanel = RootPanel.get();
-		rootPanel.setStyleName("gwt-Root");
+        final RootPanel rootPanel = RootPanel.get();
+        rootPanel.setStyleName("gwt-Root");
 
-		final VerticalPanel manguageUserPanel = new VerticalPanel();
-		rootPanel.add(manguageUserPanel, 10 ,10 );
-		manguageUserPanel.setSize("433px", "367px");
+        final VerticalPanel manguageUserPanel = new VerticalPanel();
+        rootPanel.add(manguageUserPanel, 10 ,10 );
+        manguageUserPanel.setSize("426px", "431px");
 
-		final Label title = new Label("Read Only Inventory Page");
-		title.setStyleName("gwt-Header");
-		manguageUserPanel.add(title);
-		title.setSize("338px","25px");
+        final Label title = new Label("Read Only Inventory Page");
+        title.setStyleName("gwt-Header");
+        manguageUserPanel.add(title);
+        title.setSize("338px","25px");
 
-		VerticalPanel verticalPanel_2 = new VerticalPanel();
-		manguageUserPanel.add(verticalPanel_2);
+        AbsolutePanel absolutePanel = new AbsolutePanel();
+        manguageUserPanel.add(absolutePanel);
+        absolutePanel.setSize("413px", "373px");
 
-		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
-		verticalPanel_2.add(horizontalPanel_1);
-		horizontalPanel_1.setSize("408px", "134px");
+        Image image_1 = new Image((String) null);
+        absolutePanel.add(image_1, 10, 10);
+        image_1.setAltText("Image");
+        image_1.setSize("170px", "137px");
 
-		Image image_1 = new Image((String) null);
-		image_1.setAltText("Image");
-		horizontalPanel_1.add(image_1);
-		image_1.setSize("163px", "131px");
+        HorizontalPanel horizontalPanel = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel, 194, 10);
 
-		VerticalPanel verticalPanel = new VerticalPanel();
-		horizontalPanel_1.add(verticalPanel);
-		verticalPanel.setSize("187px", "118px");
+        Label lblName = new Label("Name:");
+        horizontalPanel.add(lblName);
 
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		verticalPanel.add(horizontalPanel);
+        Label txtbxNameOfInventory = new Label();
+        txtbxNameOfInventory.setText("Name of Inventory Object");
+        horizontalPanel.add(txtbxNameOfInventory);
 
-		Label lblName = new Label("Name:");
-		horizontalPanel.add(lblName);
+        HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_6, 194, 65);
 
-		Label txtbxNameOfInventory = new Label();
-		txtbxNameOfInventory.setText("Name of Inventory Object");
-		horizontalPanel.add(txtbxNameOfInventory);
+        HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
+        horizontalPanel_6.add(horizontalPanel_2);
 
-		HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
-		verticalPanel.add(horizontalPanel_6);
+        Label lblCheckInoutStatus = new Label("Check in/out Status:");
+        horizontalPanel_2.add(lblCheckInoutStatus);
 
-		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
-		horizontalPanel_6.add(horizontalPanel_2);
+        Label lblStatus = new Label(" Status");
+        horizontalPanel_2.add(lblStatus);
 
-		Label lblCheckInoutStatus = new Label("Check in/out Status:");
-		horizontalPanel_2.add(lblCheckInoutStatus);
+        HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_4, 10, 163);
 
-		Label lblStatus = new Label(" Status");
-		horizontalPanel_2.add(lblStatus);
+        Label lblNewLabel = new Label("Description: ");
+        horizontalPanel_4.add(lblNewLabel);
 
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		verticalPanel.add(verticalPanel_1);
+        Label lblLoremIpsum = new Label("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien ipsum, feugiat eu commodo id, elementum vitae justo. Proin vel neque eu nunc posuere rutrum in id libero. Nam felis lectus, porta et faucibus et, dapibus vitae nulla.");
+        horizontalPanel_4.add(lblLoremIpsum);
+        lblLoremIpsum.setSize("309px", "89px");
 
-		HorizontalPanel horizontalPanel_3 = new HorizontalPanel();
-		verticalPanel_1.add(horizontalPanel_3);
+        HorizontalPanel horizontalPanel_5 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_5, 10, 273);
 
-		Label lblReturnDate = new Label("Return Date: ");
-		horizontalPanel_3.add(lblReturnDate);
+        Label lblDisclaimers = new Label("Disclaimers: ");
+        horizontalPanel_5.add(lblDisclaimers);
 
-		DateLabel dateLabel = new DateLabel();
-		horizontalPanel_3.add(dateLabel);
+        Label lblLoremIpsum_1 = new Label("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien ipsum, feugiat eu commodo id, elementum vitae justo. ");
+        horizontalPanel_5.add(lblLoremIpsum_1);
 
-		HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
-		manguageUserPanel.add(horizontalPanel_4);
+        Button btnMainMenu_1 = new Button("Main Menu");
+        absolutePanel.add(btnMainMenu_1, 10, 333);
 
-		Label lblNewLabel = new Label("Description: ");
-		horizontalPanel_4.add(lblNewLabel);
+        HorizontalPanel horizontalPanel_3 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_3, 194, 111);
 
-		Label lblLoremIpsum = new Label("Lorem Ipsum");
-		horizontalPanel_4.add(lblLoremIpsum);
+        Label lblReturnDate = new Label("Return Date: ");
+        horizontalPanel_3.add(lblReturnDate);
 
-		HorizontalPanel horizontalPanel_5 = new HorizontalPanel();
-		manguageUserPanel.add(horizontalPanel_5);
+        DateLabel dateLabel = new DateLabel();
+        horizontalPanel_3.add(dateLabel);
+    }
 
-		Label lblDisclaimers = new Label("Disclaimers: ");
-		horizontalPanel_5.add(lblDisclaimers);
+    public void adminOnlyInventory(){
+        final RootPanel rootPanel = RootPanel.get();
+        rootPanel.setStyleName("gwt-Root");
 
-		Label lblLoremIpsum_1 = new Label("Lorem Ipsum");
-		horizontalPanel_5.add(lblLoremIpsum_1);
-		
-		Button btnMainMenu_1 = new Button("Main Menu");
-		manguageUserPanel.add(btnMainMenu_1);
+        final VerticalPanel manguageUserPanel = new VerticalPanel();
+        rootPanel.add(manguageUserPanel, 10 ,10 );
+        manguageUserPanel.setSize("435px", "531px");
 
-		Image image = new Image((String) null);
-		manguageUserPanel.add(image);
-	}
+        final Label title = new Label("Admin Inventory Page");
+        title.setStyleName("gwt-Header");
+        manguageUserPanel.add(title);
+        title.setSize("338px","25px");
 
-	public void adminOnlyInventory(){
-		final RootPanel rootPanel = RootPanel.get();
-		rootPanel.setStyleName("gwt-Root");
+        AbsolutePanel absolutePanel = new AbsolutePanel();
+        manguageUserPanel.add(absolutePanel);
+        absolutePanel.setSize("421px", "497px");
 
-		final VerticalPanel manguageUserPanel = new VerticalPanel();
-		rootPanel.add(manguageUserPanel, 10 ,10 );
-		manguageUserPanel.setSize("433px", "367px");
+        Image image_1 = new Image((String) null);
+        absolutePanel.add(image_1, 10, 10);
+        image_1.setAltText("Image");
+        image_1.setSize("170px", "137px");
 
-		final Label title = new Label("Admin Inventory Page");
-		title.setStyleName("gwt-Header");
-		manguageUserPanel.add(title);
-		title.setSize("338px","25px");
+        HorizontalPanel horizontalPanel = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel, 194, 10);
 
+        Label lblName = new Label("Name:");
+        horizontalPanel.add(lblName);
 
-		VerticalPanel verticalPanel_2 = new VerticalPanel();
-		manguageUserPanel.add(verticalPanel_2);
+        TextBox txtbxNameOfInventory = new TextBox();
+        txtbxNameOfInventory.setText("Name of Inventory Object");
+        horizontalPanel.add(txtbxNameOfInventory);
 
-		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
-		verticalPanel_2.add(horizontalPanel_1);
-		horizontalPanel_1.setSize("432px", "177px");
+        HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_6, 194, 65);
 
-		Image image_1 = new Image((String) null);
-		image_1.setAltText("Image");
-		horizontalPanel_1.add(image_1);
-		image_1.setSize("163px", "131px");
+        HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
+        horizontalPanel_6.add(horizontalPanel_2);
+        horizontalPanel_2.setWidth("206px");
 
-		VerticalPanel verticalPanel = new VerticalPanel();
-		horizontalPanel_1.add(verticalPanel);
-		verticalPanel.setSize("187px", "168px");
+        Label lblCheckInoutStatus = new Label("Check in/out Status: ");
+        horizontalPanel_2.add(lblCheckInoutStatus);
 
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		verticalPanel.add(horizontalPanel);
+        TextBox lblStatus = new TextBox();
+        lblStatus.setText("In/Out");
+        horizontalPanel_2.add(lblStatus);
+        lblStatus.setWidth("54px");
 
-		Label lblName = new Label("Name:");
-		horizontalPanel.add(lblName);
+        HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_4, 10, 210);
+        horizontalPanel_4.setSize("393px", "89px");
 
-		TextBox txtbxNameOfInventory = new TextBox();
-		txtbxNameOfInventory.setText("Name of Inventory Object");
-		horizontalPanel.add(txtbxNameOfInventory);
+        Label lblNewLabel = new Label("Description: ");
+        horizontalPanel_4.add(lblNewLabel);
+       
+        TextArea txtrLoremIpsumDolor = new TextArea();
+        txtrLoremIpsumDolor.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien ipsum, feugiat eu commodo id, elementum vitae justo. Proin vel neque eu nunc posuere rutrum in id libero. Nam felis lectus, porta et faucibus et, dapibus vitae nulla.");
+        horizontalPanel_4.add(txtrLoremIpsumDolor);
+        txtrLoremIpsumDolor.setSize("321px", "96px");
 
-		HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
-		verticalPanel.add(horizontalPanel_6);
+        HorizontalPanel horizontalPanel_5 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_5, 10, 338);
+        horizontalPanel_5.setSize("393px", "54px");
 
-		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
-		horizontalPanel_6.add(horizontalPanel_2);
+        Label lblDisclaimers = new Label("Disclaimers: ");
+        horizontalPanel_5.add(lblDisclaimers);
+       
+        TextArea textArea = new TextArea();
+        textArea.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien ipsum, feugiat eu commodo id, elementum vitae justo. Proin vel neque eu nunc posuere rutrum in id libero. Nam felis lectus, porta et faucibus et, dapibus vitae nulla.");
+        horizontalPanel_5.add(textArea);
+        textArea.setSize("321px", "96px");
 
-		Label lblCheckInoutStatus = new Label("Check in/out Status:");
-		horizontalPanel_2.add(lblCheckInoutStatus);
+        Button btnMainMenu_1 = new Button("Main Menu");
+        absolutePanel.add(btnMainMenu_1, 331, 460);
 
-		TextBox lblStatus = new TextBox();
-		lblStatus.setText("Status");
-		horizontalPanel_2.add(lblStatus);
+        HorizontalPanel horizontalPanel_3 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_3, 194, 111);
+        horizontalPanel_3.setSize("209px", "34px");
 
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		verticalPanel.add(verticalPanel_1);
+        Label lblReturnDate = new Label("Return Date: ");
+        horizontalPanel_3.add(lblReturnDate);
 
-		HorizontalPanel horizontalPanel_3 = new HorizontalPanel();
-		verticalPanel_1.add(horizontalPanel_3);
-
-		Label lblReturnDate = new Label("Return Date: ");
-		horizontalPanel_3.add(lblReturnDate);
-		
-		TextBox txtbxMonthdayyear = new TextBox();
-		txtbxMonthdayyear.setText("month/day/year");
-		horizontalPanel_3.add(txtbxMonthdayyear);
-		
-		VerticalPanel verticalPanel_3 = new VerticalPanel();
-		verticalPanel.add(verticalPanel_3);
-		verticalPanel_3.setWidth("214px");
-		
-		HorizontalPanel horizontalPanel_7 = new HorizontalPanel();
-		verticalPanel_3.add(horizontalPanel_7);
-		
-		Label lblNewLabel_1 = new Label("Show Day:");
-		horizontalPanel_7.add(lblNewLabel_1);
-		
-		TextBox txtbxMonthdayyear_1 = new TextBox();
-		txtbxMonthdayyear_1.setText("month/day/year");
-		horizontalPanel_7.add(txtbxMonthdayyear_1);
-		
-		HorizontalPanel horizontalPanel_8 = new HorizontalPanel();
-		manguageUserPanel.add(horizontalPanel_8);
-		
-		Label lblLocation = new Label("Location:");
-		horizontalPanel_8.add(lblLocation);
-		
-		TextBox textBox = new TextBox();
-		horizontalPanel_8.add(textBox);
-
-		HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
-		manguageUserPanel.add(horizontalPanel_4);
-
-		Label lblNewLabel = new Label("Description: ");
-		horizontalPanel_4.add(lblNewLabel);
-
-		TextBox lblLoremIpsum = new TextBox();
-		horizontalPanel_4.add(lblLoremIpsum);
-
-		HorizontalPanel horizontalPanel_5 = new HorizontalPanel();
-		manguageUserPanel.add(horizontalPanel_5);
-
-		Label lblDisclaimers = new Label("Disclaimers: ");
-		horizontalPanel_5.add(lblDisclaimers);
-
-		TextBox lblLoremIpsum_1 = new TextBox();
-		horizontalPanel_5.add(lblLoremIpsum_1);
-		
-		Button btnMainMenu = new Button("Main Menu");
-		manguageUserPanel.add(btnMainMenu);
-
-		Image image = new Image((String) null);
-		manguageUserPanel.add(image);
-	}
-
+        TextBox txtbxMonthdayyear = new TextBox();
+        txtbxMonthdayyear.setText("Month/Day/Year");
+        horizontalPanel_3.add(txtbxMonthdayyear);
+        txtbxMonthdayyear.setWidth("110px");
+       
+        HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_1, 10, 159);
+        horizontalPanel_1.setSize("182px", "34px");
+       
+        Label lblLocation = new Label("Location: ");
+        horizontalPanel_1.add(lblLocation);
+       
+        TextBox textBox = new TextBox();
+        textBox.setText("Month/Day/Year");
+        horizontalPanel_1.add(textBox);
+        textBox.setWidth("110px");
+       
+        HorizontalPanel horizontalPanel_7 = new HorizontalPanel();
+        absolutePanel.add(horizontalPanel_7, 198, 159);
+        horizontalPanel_7.setSize("207px", "34px");
+       
+        Label lblShowEndDate = new Label("Show End Date: ");
+        horizontalPanel_7.add(lblShowEndDate);
+       
+        TextBox textBox_1 = new TextBox();
+        textBox_1.setText("Month/Day/Year");
+        horizontalPanel_7.add(textBox_1);
+        textBox_1.setWidth("95px");
+       
+        Button btnNewButton = new Button("New button");
+        btnNewButton.setText("Save");
+        absolutePanel.add(btnNewButton, 10, 460);
+    }
 
 	public void mainPage() {
 
