@@ -2,8 +2,11 @@ package theatreProject.server;
 
 import java.util.ArrayList;
 
+import javax.jdo.JDOHelper;
 import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -19,6 +22,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class PersistenceImpl extends RemoteServiceServlet implements Persistence {
 	private static final long serialVersionUID = 4858210141739739447L;
+	
+	private static final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("transactions-optional");
 
 	@PersistenceCapable(identityType=IdentityType.APPLICATION)
 	public static class User {
@@ -42,41 +47,41 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 			this.name = name;
 			this.extraInfo = extraInfo;
 			this.isAdmin = isAdmin;
-
+			PMF.get().getPersistenceManager().makePersistent(this);
 		}
 
 		public String getEmail() {
 			return email;
 		}
-		
+
 		public void setEmail(String email) {
 			this.email = email;
 		}
-		
+
 		public String getName() {
 			return name;
 		}
-		
+
 		public void setName(String name) {
 			this.name = name;
 		}
-		
+
 		public boolean isAdmin() {
 			return isAdmin;
 		}
-		
+
 		public void setAdmin(boolean isAdmin) {
 			this.isAdmin = isAdmin;
 		}
-		
+
 		public String getExtraInfo() {
 			return extraInfo;
 		}
-		
+
 		public void setExtraInfo(String extraInfo) {
 			this.extraInfo = extraInfo;
 		}
-		
+
 		@Override
 		public boolean equals(Object o){
 			if(!(o instanceof User))
@@ -98,7 +103,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 				return false;
 			return true;
 		}
-		
+
 		@Override
 		public int hashCode(){
 			return email==null ? 0 : email.hashCode();
@@ -167,15 +172,15 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		public String getID() {
 			return this.ID;
 		}
-		
+
 		public void setID(String newID) {
 			this.ID = newID;
 		}
-		
+
 		public String getName() {
 			return this.name;
 		}
-		
+
 		public void setName(String newName) {
 			this.name = newName;
 		}
@@ -183,7 +188,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		public String getStorageArea() {
 			return this.storageArea;
 		}
-		
+
 		public void setStorageArea(String newStorageArea) {
 			this.storageArea = newStorageArea;
 		}
@@ -191,7 +196,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		public Image getImage() {
 			return this.image;
 		}
-		
+
 		public void setImage(Image newImage) {
 			this.image = newImage;
 		}
@@ -199,7 +204,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		public Status getStatus() {
 			return this.status;
 		}
-		
+
 		public void setStatus(Status newStatus) {
 			this.status = newStatus;
 		}
@@ -207,7 +212,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		public String getDescription() {
 			return this.description;
 		}
-		
+
 		public void setDescription(String newDesc) {
 			this.description = newDesc;
 		}
@@ -215,7 +220,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		public String getDisclaimers() {
 			return this.disclaimers;
 		}
-		
+
 		public void setDisclaimers(String newDisc) {
 			this.disclaimers = newDisc;
 		}
@@ -236,6 +241,50 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	public PersistenceImpl() {
 		super();
 
+	}
+
+	public ArrayList<InventoryObject> search(String parameter) {
+
+		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
+		String[] words = parameter.split(" ");
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query query = pm.newQuery(InventoryObject.class);
+		@SuppressWarnings("unchecked")
+		ArrayList<InventoryObject> database = (ArrayList<InventoryObject>) query.execute();
+		
+		for (InventoryObject obj : database) {
+			if (obj.description.indexOf(words[0])!=-1) {
+				found.add(obj);
+			}
+		}
+		if (words.length>1) {
+			for (int i=1; i<words.length; i++) {	
+				for (InventoryObject obj : found) {
+					if ((obj.description.indexOf(words[i])==-1)) {
+						found.remove(obj);
+					}
+				}
+			}
+		}
+		return found;
+	}
+
+	public ArrayList<InventoryObject> checkOutList() {
+
+		ArrayList<InventoryObject> outObjects = new ArrayList<InventoryObject>();
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query query = pm.newQuery(InventoryObject.class);
+		@SuppressWarnings("unchecked")
+		ArrayList<InventoryObject> database = (ArrayList<InventoryObject>) query.execute();
+		
+		for (InventoryObject obj : database) {
+			String place = obj.getStatus().getLocation();
+			if (!place.equals("warehouse")) outObjects.add(obj);
+		}
+
+		return outObjects;
 	}
 
 }
