@@ -1,7 +1,6 @@
 package theatreProject.shared;
 import java.util.ArrayList;
 
-import theatreProject.domain.shared.Inventory;
 import theatreProject.server.PersistenceImpl.InventoryObject;
 import theatreProject.server.PersistenceImpl.User;
 

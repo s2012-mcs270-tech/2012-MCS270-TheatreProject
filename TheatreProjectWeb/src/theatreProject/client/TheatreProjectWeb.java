@@ -4,11 +4,7 @@ import java.util.ArrayList;
 
 import theatreProject.server.PersistenceImpl.User;
 import theatreProject.server.PersistenceImpl.InventoryObject;
-
-import theatreProject.domain.shared.Inventory;
-
 import theatreProject.shared.FieldVerifier;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;

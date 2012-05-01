@@ -10,11 +10,12 @@ h1 {
 
 h2 {
 	color: Black;
-	margin: 20px 0px 10px;
+	margin: auto;
 	font-variant: normal;
 	font-size: 1em;
 	font-style: normal;
 	font-weight: bold;
+	letter-spacing: 3px;
 	text-align: center;
 }
 
@@ -47,7 +48,7 @@ footnote {
 .gwt-Header {
 	font-stretch: wider;
 	font-variant: normal;
-	font-size: 18px;
+	font-size: 24px;
 	font-style: normal;
 	font-weight: bolder;
 	text-decoration: underline;
@@ -57,4 +58,24 @@ footnote {
 	padding-top: 2px;
 }
 .gwt-StackPanel {
+}
+.gwt-Label {
+	color: black;
+	font-stretch: normal;
+	font-style: normal;
+	font-weight: bold;
+	letter-spacing: normal;
+	word-spacing: normal;
+}
+.gwt-Heading2 {
+	padding: 1px;
+	font-stretch: extra-expanded;
+	font-variant: normal;
+	font-style: normal;
+	font-weight: bolder;
+	vertical-align: text-top;
+	line-height: inherit;
+	letter-spacing: 4px;
+	text-align: center;
+	word-spacing: 3px;
 }
