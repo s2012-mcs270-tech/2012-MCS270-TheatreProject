@@ -8,12 +8,22 @@ public class Status {
 	private String location;
 	private Date rentDate;
 	private Date returnDate;
+	private Date showDay;
 	
-	public Status(String renter, String location, Date rentDate, Date returnDate){
+	public Status(String renter, String location, Date rentDate, Date returnDate, Date showDay){
 		this.renter = renter;
 		this.location = location;
 		this.rentDate = rentDate;
 		this.returnDate = returnDate;
+		this.showDay = showDay;
+	}
+	
+	public Date getShowDay(){
+		return showDay;
+	}
+	
+	public void setShowDay(Date showDay){
+		this.showDay = showDay;
 	}
 	
 	public String getRenter() {
