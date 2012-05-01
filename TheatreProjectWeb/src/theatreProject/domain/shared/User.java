@@ -10,6 +10,13 @@ public class User implements Serializable {
 	
 	private static final long serialVersionUID = 7649793065322010303L;
 	
+	public User(String name, String email, String extraInfo) {
+		this.name = name;
+		this.email = email;
+		this.extraInfo = extraInfo;
+		this.isAdmin = false; 
+	}
+	
 	public String getName() {
 		return name;
 	}

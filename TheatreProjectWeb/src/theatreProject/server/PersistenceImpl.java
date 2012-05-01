@@ -23,7 +23,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	private static final long serialVersionUID = 4858210141739739447L;
 
 	@PersistenceCapable(identityType=IdentityType.APPLICATION)
-	private static class SavedUser {
+	public static class User {
 		@PrimaryKey
 		@Persistent
 		private String email;
@@ -37,58 +37,83 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		@Persistent
 		private boolean isAdmin;
 
-		@Persistent(serialized = "true")
-		private User user;
 
-
-		public SavedUser(String email, String name, String extraInfo, boolean isAdmin, User user) {
+		public User(String email, String name, String extraInfo, boolean isAdmin) {
 			super();
 			this.email = email;
-			this.user = user;
 			this.name = name;
 			this.extraInfo = extraInfo;
 			this.isAdmin = isAdmin;
 
 		}
 
-
 		public String getEmail() {
 			return email;
 		}
-
+		
+		public void setEmail(String email) {
+			this.email = email;
+		}
+		
 		public String getName() {
 			return name;
 		}
-
+		
+		public void setName(String name) {
+			this.name = name;
+		}
+		
+		public boolean isAdmin() {
+			return isAdmin;
+		}
+		
+		public void setAdmin(boolean isAdmin) {
+			this.isAdmin = isAdmin;
+		}
+		
 		public String getExtraInfo() {
 			return extraInfo;
 		}
-
-		public boolean getIsAdmin() {
-			return isAdmin;
+		
+		public void setExtraInfo(String extraInfo) {
+			this.extraInfo = extraInfo;
 		}
-
-		public User getUser() {
-			return user;
+		
+		@Override
+		public boolean equals(Object o){
+			if(!(o instanceof User))
+				return false;
+			User other = (User) o;
+			if(this.name == null && other.name != null)
+				return false;
+			if(this.name != null && !this.name.equals(other.name))
+				return false;
+			if(this.email == null && other.email != null)
+				return false;
+			if(this.email != null && !this.email.equals(other.email))
+				return false;
+			if(this.isAdmin != other.isAdmin)
+				return false;
+			if(this.extraInfo == null && other.extraInfo != null)
+				return false;
+			if(this.extraInfo != null && !this.extraInfo.equals(other.extraInfo))
+				return false;
+			return true;
+		}
+		
+		@Override
+		public int hashCode(){
+			return email==null ? 0 : email.hashCode();
 		}
 	}
 
 	public User getUser(String email){
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
 		try{
-			return persistenceManager.getObjectById(SavedUser.class, email).getUser();
+			return persistenceManager.getObjectById(User.class, email);
 		} catch(JDOObjectNotFoundException e){
 			return null;
 		}
-	}
-
-	public void saveUser(User user){
-		String email = user.getEmail();
-		String name = user.getName();
-		String extraInfo = user.getExtraInfo();
-		boolean isAdmin = user.isAdmin();
-		SavedUser su = new SavedUser(email, name, extraInfo, isAdmin, user);
-		PMF.get().getPersistenceManager().makePersistent(su);
 	}
 
 	private String getEmail(){
@@ -105,14 +130,9 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		return ApiProxy.getCurrentEnvironment().getEmail();
 	}
 
-	//The persistence for the object goes here. We are unsure at the moment if
-	//we cram it into one file or not, but it's here for now, along with references
-	//in persistence and the async.
-
 	@PersistenceCapable(identityType=IdentityType.APPLICATION)
-	private static class SavedObject {
+	public static class InventoryObject {
 		@PrimaryKey
-
 		@Persistent
 		private String ID;
 
@@ -134,10 +154,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		@Persistent
 		private String description;
 
-		@Persistent (serialized = "true")
-		private InventoryObject object;
-
-		public SavedObject(String ID, String name, String storageArea, Image image, Status status, String description, String disclaimers, InventoryObject object) {
+		public InventoryObject(String ID, String name, String storageArea, Image image, Status status, String description, String disclaimers) {
 			super();
 			this.ID = ID;
 			this.name = name;
@@ -146,39 +163,65 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 			this.status = status;
 			this.description = description;
 			this.disclaimers = disclaimers;
-			this.object = object;
+			PMF.get().getPersistenceManager().makePersistent(this);
 		}
 
 		public String getID() {
 			return this.ID;
 		}
-		public String name() {
+		
+		public void setID(String newID) {
+			this.ID = newID;
+		}
+		
+		public String getName() {
 			return this.name;
+		}
+		
+		public void setName(String newName) {
+			this.name = newName;
 		}
 
 		public String getStorageArea() {
 			return this.storageArea;
 		}
+		
+		public void setStorageArea(String newStorageArea) {
+			this.storageArea = newStorageArea;
+		}
 
 		public Image getImage() {
 			return this.image;
+		}
+		
+		public void setImage(Image newImage) {
+			this.image = newImage;
 		}
 
 		public Status getStatus() {
 			return this.status;
 		}
+		
+		public void setStatus(Status newStatus) {
+			this.status = newStatus;
+		}
 
 		public String getDescription() {
 			return this.description;
+		}
+		
+		public void setDescription(String newDesc) {
+			this.description = newDesc;
 		}
 
 		public String getDisclaimers() {
 			return this.disclaimers;
 		}
-
-		public InventoryObject getObject() {
-			return this.object;
+		
+		public void setDisclaimers(String newDisc) {
+			this.disclaimers = newDisc;
 		}
+
 	}
 
 
@@ -186,34 +229,15 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	public InventoryObject getInventoryObject(String ID) {
 		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
 		try{
-			return persistenceManager.getObjectById(SavedObject.class, ID).getObject();
+			return persistenceManager.getObjectById(InventoryObject.class, ID);
 		} catch(JDOObjectNotFoundException e){
 			return null;
 		}
-	}
-
-	@Override
-	public void saveObject(InventoryObject object) {
-		String ID = object.getID();
-		String name = object.getName();
-		String storage = object.getstorageArea();
-		Image pic = object.getPicture();
-		Status stat = object.getStatus();
-		String description = object.getDescription();
-		String disclaimer = object.getDisclaimers();
-
-		SavedObject so = new SavedObject(ID, name, storage, pic, stat, description, disclaimer, object);
-		PMF.get().getPersistenceManager().makePersistent(so);
-
 	}
 
 	public PersistenceImpl() {
 		super();
 
 	}
-
-
-	//--------\\
-	//----------\\
 
 }
