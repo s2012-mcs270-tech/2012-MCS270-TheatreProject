@@ -2,7 +2,9 @@ package theatreProject.client;
 
 import java.util.ArrayList;
 
-import theatreProject.domain.shared.InventoryObject;
+import theatreProject.server.PersistenceImpl.User;
+import theatreProject.server.PersistenceImpl.InventoryObject;
+
 import theatreProject.domain.shared.Inventory;
 
 import theatreProject.shared.FieldVerifier;

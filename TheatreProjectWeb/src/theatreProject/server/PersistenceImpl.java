@@ -10,9 +10,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import theatreProject.domain.shared.Inventory;
-import theatreProject.domain.shared.InventoryObject;
 import theatreProject.domain.shared.Status;
-import theatreProject.domain.shared.User;
 import theatreProject.shared.Persistence;
 
 import com.google.appengine.api.images.Image;
@@ -152,7 +150,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		private String disclaimers;
 
 		@Persistent
-		private String description;
+		public String description;
 
 		public InventoryObject(String ID, String name, String storageArea, Image image, Status status, String description, String disclaimers) {
 			super();
