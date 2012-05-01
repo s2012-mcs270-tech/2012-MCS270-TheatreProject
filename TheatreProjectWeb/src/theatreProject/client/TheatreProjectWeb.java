@@ -291,7 +291,7 @@ public class TheatreProjectWeb implements EntryPoint {
 
 		VerticalPanel verticalPanel = new VerticalPanel();
 		horizontalPanel_1.add(verticalPanel);
-		verticalPanel.setSize("187px", "118px");
+		verticalPanel.setSize("187px", "168px");
 
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		verticalPanel.add(horizontalPanel);
@@ -328,6 +328,29 @@ public class TheatreProjectWeb implements EntryPoint {
 		TextBox txtbxMonthdayyear = new TextBox();
 		txtbxMonthdayyear.setText("month/day/year");
 		horizontalPanel_3.add(txtbxMonthdayyear);
+		
+		VerticalPanel verticalPanel_3 = new VerticalPanel();
+		verticalPanel.add(verticalPanel_3);
+		verticalPanel_3.setWidth("214px");
+		
+		HorizontalPanel horizontalPanel_7 = new HorizontalPanel();
+		verticalPanel_3.add(horizontalPanel_7);
+		
+		Label lblNewLabel_1 = new Label("Show Day:");
+		horizontalPanel_7.add(lblNewLabel_1);
+		
+		TextBox txtbxMonthdayyear_1 = new TextBox();
+		txtbxMonthdayyear_1.setText("month/day/year");
+		horizontalPanel_7.add(txtbxMonthdayyear_1);
+		
+		HorizontalPanel horizontalPanel_8 = new HorizontalPanel();
+		manguageUserPanel.add(horizontalPanel_8);
+		
+		Label lblLocation = new Label("Location:");
+		horizontalPanel_8.add(lblLocation);
+		
+		TextBox textBox = new TextBox();
+		horizontalPanel_8.add(textBox);
 
 		HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
 		manguageUserPanel.add(horizontalPanel_4);
