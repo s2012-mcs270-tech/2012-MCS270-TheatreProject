@@ -9,19 +9,19 @@ import javax.imageio.ImageIO;
 import org.junit.Before;
 import org.junit.Test;
 
-import theatreProject.domain.shared.Inventory;
-import theatreProject.domain.shared.InventoryObject;
 import theatreProject.domain.shared.Status;
+import theatreProject.server.PersistenceImpl;
+import theatreProject.server.PersistenceImpl.InventoryObject;
+
 
 
 public class InventoryTest {
 	
 	 	ArrayList<InventoryObject> listdata	  = new ArrayList<InventoryObject>();
 		ArrayList<InventoryObject> testsearch = new ArrayList<InventoryObject>();	 	
-		Inventory database = new Inventory(listdata);
 		Image pic = null;
-		Status checkedIn = new Status(null, "warehouse", null, null);
-		Status checkedOut = new Status(null,"elsewhere", null, null);
+		Status checkedIn = new Status(null, "warehouse", null, null,null);
+		Status checkedOut = new Status(null,"elsewhere", null, null,null);
 		//object #; # refers to the number in its description
 		InventoryObject object1 = new InventoryObject("", "object", "backroom", null, checkedOut, "1", "");
 		InventoryObject object2 = new InventoryObject("", "object", "backroom", null, checkedIn, "2", "");
@@ -40,11 +40,14 @@ public class InventoryTest {
 	}
 
 	
+		
+		
 	@Test
 	public void searchFindOneInDescription() {				//Find one object with only one parameter
-		database.add(object1);								//found parameter is the first word in description
+		
+										//found parameter is the first word in description
 		testsearch.add(object1);
-		assertEquals(testsearch, database.search("1"));	
+		assertEquals(testsearch, PersistenceImpl.search("1"));	
 	}
 	
 	@Test
@@ -113,4 +116,3 @@ public class InventoryTest {
 		assertEquals(testsearch, database.checkOutList());
 	}
 }
-
