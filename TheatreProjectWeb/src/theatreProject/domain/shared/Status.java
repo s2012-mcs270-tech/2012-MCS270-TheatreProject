@@ -2,16 +2,18 @@ package theatreProject.domain.shared;
 import java.io.Serializable;
 import java.sql.Date;
 
+import theatreProject.server.PersistenceImpl.InventoryObject;
+
 
 public class Status implements Serializable {
 	
 	private String renter;
 	private String location;
-	private Date rentDate;
-	private Date returnDate;
-	private Date showDay;
+	private String rentDate;
+	private String returnDate;
+	private String showDay;
 	
-	public Status(String renter, String location, Date rentDate, Date returnDate, Date showDay){
+	public Status(String renter, String location, String rentDate, String returnDate, String showDay){
 		this.renter = renter;
 		this.location = location;
 		this.rentDate = rentDate;
@@ -19,11 +21,11 @@ public class Status implements Serializable {
 		this.showDay = showDay;
 	}
 	
-	public Date getShowDay(){
+	public String getShowDay(){
 		return showDay;
 	}
 	
-	public void setShowDay(Date showDay){
+	public void setShowDay(String showDay){
 		this.showDay = showDay;
 	}
 	
@@ -39,17 +41,46 @@ public class Status implements Serializable {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public Date getRentDate() {
+	public String getRentDate() {
 		return rentDate;
 	}
-	public void setRentDate(Date rentDate) {
+	public void setRentDate(String rentDate) {
 		this.rentDate = rentDate;
 	}
-	public Date getReturnDate() {
+	public String getReturnDate() {
 		return returnDate;
 	}
-	public void setReturnDate(Date returnDate) {
+	public void setReturnDate(String returnDate) {
 		this.returnDate = returnDate;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof Status))
+			return false;
+		Status other = (Status) o;
+		if(this.renter == null && other.renter != null)
+			return false;
+		if(this.renter != null && !this.renter.equals(other.renter))
+			return false;
+		if(this.location == null && other.location != null)
+			return false;
+		if(this.location != null && !this.location.equals(other.location))
+			return false;
+		if(this.rentDate == null && other.rentDate != null)
+			return false;
+		if(this.rentDate != null && !this.rentDate.equals(other.rentDate))
+			return false;
+		if(this.returnDate == null && other.returnDate != null)
+			return false;
+		if(this.returnDate != null && !this.returnDate.equals(other.returnDate))
+			return false;
+		if(this.showDay == null && other.showDay != null)
+			return false;
+		if(this.showDay != null && !this.showDay.equals(other.showDay))
+			return false;
+		return true;
+	}
+
 	
 }

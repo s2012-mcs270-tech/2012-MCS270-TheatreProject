@@ -49,7 +49,7 @@ public class PersistenceTest {
 //		InventoryObject o2 = p.getInventoryObject(o.getID);
 //		assertEquals(o,o2);
 //	}
-	
+//	
 //	public void testObjectSearch() {
 //		Persistence p = new PersistenceImpl();
 //	}
