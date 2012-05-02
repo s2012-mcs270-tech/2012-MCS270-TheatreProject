@@ -47,7 +47,7 @@ public class ReadOnlyInventory {
 		image.setSize("196px", "131px");
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		absolutePanel.add(horizontalPanel, 224, 47);
+		absolutePanel.add(horizontalPanel, 233, 90);
 		horizontalPanel.setSize("211px", "34px");
 		
 		Label label = new Label("Check in/out Status: ");
