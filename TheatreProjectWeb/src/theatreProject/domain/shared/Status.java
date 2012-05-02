@@ -1,8 +1,9 @@
 package theatreProject.domain.shared;
+import java.io.Serializable;
 import java.sql.Date;
 
 
-public class Status {
+public class Status implements Serializable {
 	
 	private String renter;
 	private String location;

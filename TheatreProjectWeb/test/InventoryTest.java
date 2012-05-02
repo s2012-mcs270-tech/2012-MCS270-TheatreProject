@@ -6,12 +6,15 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import theatreProject.domain.shared.Status;
 import theatreProject.server.PersistenceImpl;
 import theatreProject.server.PersistenceImpl.InventoryObject;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 
 
@@ -23,13 +26,13 @@ public class InventoryTest {
 		Status checkedIn = new Status(null, "warehouse", null, null,null);
 		Status checkedOut = new Status(null,"elsewhere", null, null,null);
 		//object #; # refers to the number in its description
-		InventoryObject object1 = new InventoryObject("", "object", "backroom", null, checkedOut, "1", "");
-		InventoryObject object2 = new InventoryObject("", "object", "backroom", null, checkedIn, "2", "");
-		InventoryObject object3 = new InventoryObject("", "object", "backroom", null, checkedOut, "3", "");
-		InventoryObject object12 = new InventoryObject("", "object", "storage", null, null,"1 2", "");
-		InventoryObject object123 = new InventoryObject("", "object", "storage", null, null, "1 2 3", "");
-		InventoryObject object23  = new InventoryObject("", "object", "storage", null, null, "1 2 3", "");
-		InventoryObject object13 = new InventoryObject("", "object", "storage", null, null,"1 3", "");
+		InventoryObject object1;// = new InventoryObject("", "object", "backroom", null, checkedOut, "1", "");
+//		InventoryObject object2 = new InventoryObject("", "object", "backroom", null, checkedIn, "2", "");
+//		InventoryObject object3 = new InventoryObject("", "object", "backroom", null, checkedOut, "3", "");
+//		InventoryObject object12 = new InventoryObject("", "object", "storage", null, null,"1 2", "");
+//		InventoryObject object123 = new InventoryObject("", "object", "storage", null, null, "1 2 3", "");
+//		InventoryObject object23  = new InventoryObject("", "object", "storage", null, null, "1 2 3", "");
+//		InventoryObject object13 = new InventoryObject("", "object", "storage", null, null,"1 3", "");
 		
 		
 		
@@ -39,7 +42,21 @@ public class InventoryTest {
 		testsearch = new ArrayList<InventoryObject>();
 	}
 
-	
+		private final LocalServiceTestHelper helper =
+				new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+
+		@Before
+		public void setUp() {
+			helper.setUp();
+			object1 = new InventoryObject("ID1", "object", "backroom", null, checkedOut, "1", "");
+		}
+
+		@After
+		public void tearDown() {
+			helper.tearDown();
+		}
+
+
 		
 		
 	@Test
@@ -47,7 +64,7 @@ public class InventoryTest {
 		
 										//found parameter is the first word in description
 		testsearch.add(object1);
-		assertEquals(testsearch, PersistenceImpl.search("1"));	
+		assertEquals(testsearch, (new PersistenceImpl()).search("1"));	
 	}
 	
 	@Test

@@ -1,6 +1,7 @@
 package theatreProject.server;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.JDOObjectNotFoundException;
@@ -22,7 +23,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class PersistenceImpl extends RemoteServiceServlet implements Persistence {
 	private static final long serialVersionUID = 4858210141739739447L;
 	
-	private static final PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("transactions-optional");
+	private static final PersistenceManagerFactory pmf = PMF.get();
 
 	@PersistenceCapable(identityType=IdentityType.APPLICATION)
 	public static class User {
@@ -145,9 +146,9 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		private String storageArea;
 
 		@Persistent
-		private Image image;
+		private String image;
 
-		@Persistent
+		@Persistent(serialized="true")
 		private Status status;
 
 		@Persistent
@@ -156,7 +157,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		@Persistent
 		public String description;
 
-		public InventoryObject(String ID, String name, String storageArea, Image image, Status status, String description, String disclaimers) {
+		public InventoryObject(String ID, String name, String storageArea, String image, Status status, String description, String disclaimers) {
 			super();
 			this.ID = ID;
 			this.name = name;
@@ -166,6 +167,18 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 			this.description = description;
 			this.disclaimers = disclaimers;
 			PMF.get().getPersistenceManager().makePersistent(this);
+		}
+		
+		@Override
+		public boolean equals(Object o){
+			// TODO make this sometimes return false
+			return true;
+		}
+		
+		@Override
+		public int hashCode(){
+			// TODO make this return varying values, though always the same for equals instances
+			return 0;
 		}
 
 		public String getID() {
@@ -192,11 +205,11 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 			this.storageArea = newStorageArea;
 		}
 
-		public Image getImage() {
+		public String getImage() {
 			return this.image;
 		}
 
-		public void setImage(Image newImage) {
+		public void setImage(String newImage) {
 			this.image = newImage;
 		}
 
@@ -250,7 +263,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Query query = pm.newQuery(InventoryObject.class);
 		@SuppressWarnings("unchecked")
-		ArrayList<InventoryObject> database = (ArrayList<InventoryObject>) query.execute();
+		List<InventoryObject> database = (List<InventoryObject>) query.execute();
 		
 		for (InventoryObject obj : database) {
 			if (obj.description.indexOf(words[0])!=-1) {

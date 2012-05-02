@@ -1,4 +1,4 @@
-mport static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import com.google.appengine.api.images.Image;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
