@@ -13,12 +13,8 @@ public class Status implements Serializable {
 	private String returnDate;
 	private String showDay;
 	
-	public Status(String renter, String location, String rentDate, String returnDate, String showDay){
-		this.renter = renter;
-		this.location = location;
-		this.rentDate = rentDate;
-		this.returnDate = returnDate;
-		this.showDay = showDay;
+	public Status(){
+		this.location = "warehouse";
 	}
 	
 	public String getShowDay(){

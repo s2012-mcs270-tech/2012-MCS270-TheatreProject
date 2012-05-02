@@ -41,12 +41,12 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		private boolean isAdmin;
 
 
-		public User(String email, String name, String extraInfo, boolean isAdmin) {
+		public User(String email, String name, String extraInfo) {
 			super();
 			this.email = email;
 			this.name = name;
 			this.extraInfo = extraInfo;
-			this.isAdmin = isAdmin;
+			this.isAdmin = false;
 			PMF.get().getPersistenceManager().makePersistent(this);
 		}
 
@@ -157,15 +157,11 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		@Persistent
 		public String description;
 
-		public InventoryObject(String ID, String name, String storageArea, String image, Status status, String description, String disclaimers) {
+		public InventoryObject() {
 			super();
-			this.ID = ID;
-			this.name = name;
-			this.storageArea = storageArea;
-			this.image = image;
-			this.status = status;
-			this.description = description;
-			this.disclaimers = disclaimers;
+			//String uniqueID = generateID();
+			//this.ID = uniqueID;
+			this.status = new Status();
 			PMF.get().getPersistenceManager().makePersistent(this);
 		}
 		
@@ -318,10 +314,10 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Query query = pm.newQuery(InventoryObject.class);
 		@SuppressWarnings("unchecked")
-		ArrayList<InventoryObject> database = (ArrayList<InventoryObject>) query.execute();
+		List<InventoryObject> database = (List<InventoryObject>) query.execute();
 		
 		for (InventoryObject obj : database) {
-			String place = obj.getStatus().getLocation();
+			String place = obj.status.getLocation();
 			if (!place.equals("warehouse")) outObjects.add(obj);
 		}
 

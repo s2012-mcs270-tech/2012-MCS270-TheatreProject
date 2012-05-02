@@ -118,7 +118,7 @@ public class ManageUsers {
 				String name = txtbxName.getText();
 				String email = txtbxEmail.getText();
 				String extraInfo = txtbxAdditionalInformation.getText();
-				User newUser = new User(email, name, extraInfo, false);
+				User newUser = new User(email, name, extraInfo);
 			}
 		});
 		absolutePanel.add(btnAdd, 413, 313);
