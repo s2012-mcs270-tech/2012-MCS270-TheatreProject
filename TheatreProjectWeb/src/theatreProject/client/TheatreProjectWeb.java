@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import theatreProject.server.PersistenceImpl.User;
 import theatreProject.server.PersistenceImpl.InventoryObject;
 import theatreProject.shared.FieldVerifier;
+
+import com.google.apphosting.api.ApiProxy;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -171,8 +173,11 @@ public class TheatreProjectWeb implements EntryPoint {
 		txtbxNumberOfItems.setSize("137px", "31px");
 
 		final Button btnManageUsers = new Button("Manage Users");
-		mainPanel.add(btnManageUsers);
-		btnManageUsers.setSize("106px", "36px");
+		//if (ApiProxy.getCurrentEnvironment().isAdmin()){
+			mainPanel.add(btnManageUsers);
+			btnManageUsers.setSize("106px", "36px");
+		//}
+		//Ask Max
 
 		btnManageUsers.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
