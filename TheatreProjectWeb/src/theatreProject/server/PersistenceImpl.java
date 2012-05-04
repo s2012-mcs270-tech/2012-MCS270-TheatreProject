@@ -22,7 +22,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class PersistenceImpl extends RemoteServiceServlet implements Persistence {
 	private static final long serialVersionUID = 4858210141739739447L;
-	
+
 	private static final PersistenceManagerFactory pmf = PMF.get();
 
 	@PersistenceCapable(identityType=IdentityType.APPLICATION)
@@ -47,7 +47,6 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 			this.name = name;
 			this.extraInfo = extraInfo;
 			this.isAdmin = false;
-			PMF.get().getPersistenceManager().makePersistent(this);
 		}
 
 		public String getEmail() {
@@ -111,12 +110,17 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	}
 
 	public User getUser(String email){
-		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
+		PersistenceManager persistenceManager = pmf.getPersistenceManager();
 		try{
 			return persistenceManager.getObjectById(User.class, email);
 		} catch(JDOObjectNotFoundException e){
 			return null;
 		}
+	}
+
+	@Override
+	public void saveUser(User user){
+		pmf.getPersistenceManager().makePersistent(user);
 	}
 
 	private String getEmail(){
@@ -162,9 +166,8 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 			//String uniqueID = generateID();
 			//this.ID = uniqueID;
 			this.status = new Status();
-			PMF.get().getPersistenceManager().makePersistent(this);
 		}
-		
+
 		@Override
 		public boolean equals(Object o){
 			if(!(o instanceof InventoryObject))
@@ -267,7 +270,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 
 	@Override
 	public InventoryObject getInventoryObject(String ID) {
-		PersistenceManager persistenceManager = PMF.get().getPersistenceManager();
+		PersistenceManager persistenceManager = pmf.getPersistenceManager();
 		try{
 			return persistenceManager.getObjectById(InventoryObject.class, ID);
 		} catch(JDOObjectNotFoundException e){
@@ -280,16 +283,21 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 
 	}
 
+	@Override
+	public void saveObject(InventoryObject object) {
+		pmf.getPersistenceManager().makePersistent(object);
+	}
+
 	public ArrayList<InventoryObject> search(String parameter) {
 
 		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
 		String[] words = parameter.split(" ");
-		
+
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Query query = pm.newQuery(InventoryObject.class);
 		@SuppressWarnings("unchecked")
 		List<InventoryObject> database = (List<InventoryObject>) query.execute();
-		
+
 		for (InventoryObject obj : database) {
 			if (obj.description.indexOf(words[0])!=-1) {
 				found.add(obj);
@@ -310,12 +318,12 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	public ArrayList<InventoryObject> checkOutList() {
 
 		ArrayList<InventoryObject> outObjects = new ArrayList<InventoryObject>();
-		
+
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Query query = pm.newQuery(InventoryObject.class);
 		@SuppressWarnings("unchecked")
 		List<InventoryObject> database = (List<InventoryObject>) query.execute();
-		
+
 		for (InventoryObject obj : database) {
 			String place = obj.status.getLocation();
 			if (!place.equals("warehouse")) outObjects.add(obj);
