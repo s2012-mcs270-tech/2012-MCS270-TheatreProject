@@ -76,17 +76,18 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	public void saveObject(InventoryObject object) {
 		pmf.getPersistenceManager().makePersistent(object);
 	}
+	
+	public List<InventoryObject> returnAll() {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query query = pm.newQuery(InventoryObject.class);
+		return (List<InventoryObject>) query.execute();
+	}
 
 	public ArrayList<InventoryObject> search(String parameter) {
 
 		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
 		String[] words = parameter.split(" ");
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Query query = pm.newQuery(InventoryObject.class);
-		@SuppressWarnings("unchecked")
-		List<InventoryObject> database = (List<InventoryObject>) query.execute();
-
+		List<InventoryObject> database = returnAll();
 		for (InventoryObject obj : database) {
 			if (obj.description.indexOf(words[0])!=-1) {
 				found.add(obj);
@@ -105,14 +106,8 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	}
 
 	public ArrayList<InventoryObject> checkOutList() {
-
 		ArrayList<InventoryObject> outObjects = new ArrayList<InventoryObject>();
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Query query = pm.newQuery(InventoryObject.class);
-		@SuppressWarnings("unchecked")
-		List<InventoryObject> database = (List<InventoryObject>) query.execute();
-
+		List<InventoryObject> database = returnAll();
 		for (InventoryObject obj : database) {
 			String place = obj.getStatus().getLocation();
 			if (!place.equals("warehouse")) outObjects.add(obj);

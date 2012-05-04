@@ -1,5 +1,8 @@
 package theatreProject.shared;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import theatreProject.shared.InventoryObject;
 import theatreProject.shared.User;
 
@@ -16,5 +19,7 @@ public interface Persistence extends RemoteService {
 	InventoryObject getInventoryObject(String ID);
 	void saveObject(InventoryObject object);
 	
-	
+	ArrayList<InventoryObject> search(String parameter);
+	ArrayList<InventoryObject> checkOutList();
+	List<InventoryObject> returnAll();
 }

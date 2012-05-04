@@ -41,10 +41,10 @@ public class ReadOnlyInventory {
 		absolutePanel.add(textBox, 10, 0);
 		textBox.setSize("419px", "18px");
 		
-		Image image = new Image((String) null);
-		image.setAltText("Image");
-		absolutePanel.add(image, 10, 47);
-		image.setSize("196px", "131px");
+//		Image image = new Image((String) null);
+//		image.setAltText("Image");
+//		absolutePanel.add(image, 10, 47);
+//		image.setSize("196px", "131px");
 		
 		HorizontalPanel horizontalPanel = new HorizontalPanel();
 		absolutePanel.add(horizontalPanel, 233, 90);

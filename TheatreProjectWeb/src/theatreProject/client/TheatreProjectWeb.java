@@ -1,6 +1,7 @@
 package theatreProject.client;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import theatreProject.shared.User;
 import theatreProject.shared.InventoryObject;
@@ -58,7 +59,7 @@ public class TheatreProjectWeb implements EntryPoint {
 	//needs to be persistent or something instead
 	//private Inventory inventory = new Inventory(new ArrayList<InventoryObject>());
 
-	public final PersistenceAsync persistence = GWT.create(Persistence.class);
+	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
 	/**
 	 * This is the entry point method.
 	 */
@@ -135,7 +136,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		horizontalPanel.add(btnAddItem);
 		btnAddItem.setSize("87px", "42px");
 
-		TextBox txtbxNumberOfItems = new TextBox();
+		final TextBox txtbxNumberOfItems = new TextBox();
 		txtbxNumberOfItems.setText("Number of Items to add");
 		horizontalPanel.add(txtbxNumberOfItems);
 		txtbxNumberOfItems.setSize("137px", "31px");
@@ -146,46 +147,134 @@ public class TheatreProjectWeb implements EntryPoint {
 		btnManageUsers.setSize("106px", "36px");
 		//}
 		//Ask Max
-		
-		
+
+
 		//button handlers
 		btnSearch.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				new AsyncCallback<Void>(){
+				stackPanel.clear();
+				String parameters = searchParameters.getText();
+				persistence.search(parameters, 
+						new AsyncCallback<ArrayList<InventoryObject>>() {
 					@Override
 					public void onFailure(Throwable caught) {
-					}
-					@Override
-					public void onSuccess(Void result) {
-//							ArrayList<InventoryObject> foundItems;
-//							String parameters = searchParameters.getText();
-//							foundItems = new PersistenceImpl().search(parameters);
-//								//this is the displayObjects method, below
-//								for (InventoryObject obj : foundItems) {
-//									HorizontalPanel objectPanel = new HorizontalPanel();
-//									stackPanel.add(objectPanel);
-//									Label objectLabel = new Label(obj.getName());
-//									objectPanel.add(objectLabel);
-//								//also, find how to insert the image
-//								//add a click event for the label to take to the items page
-//								}
 
 					}
-				};
+					@Override
+					public void onSuccess(ArrayList<InventoryObject> result) {
+						for (InventoryObject obj : result) {
+							HorizontalPanel objectPanel = new HorizontalPanel();
+							stackPanel.add(objectPanel);
+							Label objectLabel = new Label(obj.getName());
+							objectPanel.add(objectLabel);
+
+							objectLabel.addClickHandler(new ClickHandler() {
+								public void onClick(ClickEvent event) {
+									rootPanel.clear();
+									//go to correct item page for correct level of user
+								}
+							});
+
+							//also, find how to insert the image and add a click handler for it too
+							//also, find how to insert the image
+						}
+					}
+				});
+
 			}
 		});
-		
+
 		btnViewCheckedOut.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				//ArrayList<InventoryObject> found = inventory.checkOutList();
-				//pass the parameter found to the displayObjects method
+				stackPanel.clear();
+				persistence.checkOutList(
+						new AsyncCallback<ArrayList<InventoryObject>>() {
+							@Override
+							public void onFailure(Throwable caught) {
+
+							}
+							@Override
+							public void onSuccess(ArrayList<InventoryObject> result) {
+								for (InventoryObject obj : result) {
+									HorizontalPanel objectPanel = new HorizontalPanel();
+									stackPanel.add(objectPanel);
+									Label objectLabel = new Label(obj.getName());
+									objectPanel.add(objectLabel);
+
+									objectLabel.addClickHandler(new ClickHandler() {
+										public void onClick(ClickEvent event) {
+											rootPanel.clear();
+											//go to correct item page for correct level of user
+										}
+									});
+
+									//also, find how to insert the image and add a click handler for it too
+									//also, find how to insert the image
+								}
+							}
+						});
 			}
 		});
 
 		btnViewAll.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				//pass the parameter database from our inventory into displayObjects
-				//method from above
+				stackPanel.clear();
+				persistence.returnAll(
+						new AsyncCallback<List<InventoryObject>>() {
+							@Override
+							public void onFailure(Throwable caught) {
+
+							}
+							@Override
+							public void onSuccess(List<InventoryObject> result) {
+								for (InventoryObject obj : result) {
+									HorizontalPanel objectPanel = new HorizontalPanel();
+									stackPanel.add(objectPanel);
+									Label objectLabel = new Label(obj.getName());
+									objectPanel.add(objectLabel);
+
+									objectLabel.addClickHandler(new ClickHandler() {
+										public void onClick(ClickEvent event) {
+											rootPanel.clear();
+											//go to correct item page for correct level of user
+										}
+									});
+
+									//also, find how to insert the image and add the same click handler for it too
+								}
+							}
+						});
+			}
+		});
+
+
+		btnAddItem.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				int n = Integer.parseInt(txtbxNumberOfItems.getText());
+				final ArrayList<String> urls = null;
+				for(int i=0; i<n; i++){
+					final InventoryObject obj = new InventoryObject();
+					persistence.saveObject(obj, 
+							new AsyncCallback<Void>() {
+						@Override
+						public void onFailure(Throwable caught) {
+
+						}
+						@Override
+						public void onSuccess(Void result) {
+							urls.add("url?"+obj.getID());
+						}
+					});
+				}
+				if (n==1) {
+					//needs to be cleaned up, to send to the right item and right access level
+					rootPanel.clear();
+					ReadOnlyInventory.readOnlyInventory();
+				}
+				else {
+					//pop-up or something listing urls.
+					//On that note, maybe have a way to find all "empty" items that have been created?
+				}
 			}
 		});
 

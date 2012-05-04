@@ -38,6 +38,11 @@ public class InventoryObject implements Serializable{
 		//String uniqueID = generateID();
 		//this.ID = uniqueID;
 		this.status = new Status();
+		
+		//TEMPORARY\\
+		this.ID = "123";
+		this.description = "red chair flower";
+		//END TEMP\\
 	}
 
 	@Override
