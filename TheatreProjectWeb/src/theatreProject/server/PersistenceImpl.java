@@ -13,7 +13,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import theatreProject.domain.shared.Status;
+import theatreProject.shared.Status;
 import theatreProject.shared.Persistence;
 import theatreProject.shared.InventoryObject;
 import theatreProject.shared.User;

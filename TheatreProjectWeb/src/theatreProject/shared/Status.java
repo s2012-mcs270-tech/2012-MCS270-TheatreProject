@@ -1,6 +1,5 @@
-package theatreProject.domain.shared;
+package theatreProject.shared;
 import java.io.Serializable;
-import java.sql.Date;
 
 import theatreProject.shared.InventoryObject;
 
