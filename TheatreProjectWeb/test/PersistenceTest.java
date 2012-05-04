@@ -32,7 +32,9 @@ public class PersistenceTest {
 	@Test
 	public void testUser() {
 		Persistence p = new PersistenceImpl();
-		User u = new User("test@somewhere.com","J Doe","something",true);
+		User u = new User("test@somewhere.com","J Doe","something");
+		new PersistenceImpl().saveUser(u);
+		String email = u.getEmail();
 		User u2 = p.getUser(u.getEmail());
 		assertEquals(u, u2);
 	}
