@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import theatreProject.server.PersistenceImpl.User;
 import theatreProject.server.PersistenceImpl.InventoryObject;
 import theatreProject.shared.FieldVerifier;
+import theatreProject.shared.Persistence;
+import theatreProject.shared.PersistenceAsync;
 
 import com.google.apphosting.api.ApiProxy;
 import com.google.gwt.core.client.EntryPoint;
@@ -56,7 +58,7 @@ public class TheatreProjectWeb implements EntryPoint {
 	//needs to be persistent or something instead
 	//private Inventory inventory = new Inventory(new ArrayList<InventoryObject>());
 
-
+	public final PersistenceAsync persistence = GWT.create(Persistence.class);
 	/**
 	 * This is the entry point method.
 	 */
@@ -106,21 +108,29 @@ public class TheatreProjectWeb implements EntryPoint {
 
 
 		//button events
-		// TODO
 		btnSearch.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				//				ArrayList<InventoryObject> foundItems;
-				//				String parameters = searchParameters.getText();
-				//				foundItems = inventory.search(parameters);
-				//					//this is the displayObjects method, below
-				//					for (InventoryObject obj : foundItems) {
-				//						HorizontalPanel objectPanel = new HorizontalPanel();
-				//						searchResultsPanel.add(objectPanel);
-				//						Label objectLabel = new Label(obj.getName());
-				//						objectPanel.add(objectLabel);
-				//also, find how to insert the image
-				//add a click event for the label to take to the items page
-				//					}
+				new AsyncCallback<Void>(){
+					@Override
+					public void onFailure(Throwable caught) {
+					}
+					@Override
+					public void onSuccess(Void result) {
+			//				ArrayList<InventoryObject> foundItems;
+			//				String parameters = searchParameters.getText();
+			//				foundItems = inventory.search(parameters);
+			//					//this is the displayObjects method, below
+			//					for (InventoryObject obj : foundItems) {
+			//						HorizontalPanel objectPanel = new HorizontalPanel();
+			//						searchResultsPanel.add(objectPanel);
+			//						Label objectLabel = new Label(obj.getName());
+			//						objectPanel.add(objectLabel);
+			//					//also, find how to insert the image
+			//					//add a click event for the label to take to the items page
+			//					}
+
+					}
+				};
 			}
 		});
 
@@ -174,8 +184,8 @@ public class TheatreProjectWeb implements EntryPoint {
 
 		final Button btnManageUsers = new Button("Manage Users");
 		//if (ApiProxy.getCurrentEnvironment().isAdmin()){
-			mainPanel.add(btnManageUsers);
-			btnManageUsers.setSize("106px", "36px");
+		mainPanel.add(btnManageUsers);
+		btnManageUsers.setSize("106px", "36px");
 		//}
 		//Ask Max
 
