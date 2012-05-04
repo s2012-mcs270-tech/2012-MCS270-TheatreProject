@@ -1,5 +1,7 @@
 package theatreProject.shared;
 
+import java.io.Serializable;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -8,7 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 import theatreProject.shared.Status;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
-public class InventoryObject {
+public class InventoryObject implements Serializable{
 	@PrimaryKey
 	@Persistent
 	private String ID;
