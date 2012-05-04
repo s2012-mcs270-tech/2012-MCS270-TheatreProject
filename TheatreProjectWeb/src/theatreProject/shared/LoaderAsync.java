@@ -1,5 +1,5 @@
 package theatreProject.shared;
-import theatreProject.server.PersistenceImpl.User;
+import theatreProject.shared.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

@@ -2,7 +2,7 @@ package theatreProject.domain.shared;
 import java.io.Serializable;
 import java.sql.Date;
 
-import theatreProject.server.PersistenceImpl.InventoryObject;
+import theatreProject.shared.InventoryObject;
 
 
 public class Status implements Serializable {

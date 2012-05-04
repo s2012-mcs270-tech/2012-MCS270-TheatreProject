@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import theatreProject.client.TheatreProjectWeb;
-import theatreProject.server.PersistenceImpl.User;
+import theatreProject.shared.User;
 
 public class ManageUsers {
 	/**

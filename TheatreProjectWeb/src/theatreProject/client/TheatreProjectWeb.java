@@ -2,13 +2,13 @@ package theatreProject.client;
 
 import java.util.ArrayList;
 
-import theatreProject.server.PersistenceImpl.User;
-import theatreProject.server.PersistenceImpl.InventoryObject;
+import theatreProject.shared.User;
+import theatreProject.shared.InventoryObject;
 import theatreProject.shared.FieldVerifier;
 import theatreProject.shared.Persistence;
 import theatreProject.shared.PersistenceAsync;
 
-import com.google.apphosting.api.ApiProxy;
+//import com.google.apphosting.api.ApiProxy;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -106,34 +106,6 @@ public class TheatreProjectWeb implements EntryPoint {
 		horizontalPanel_1.add(btnSearch);
 		btnSearch.setHeight("53px");
 
-
-		//button events
-		btnSearch.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				new AsyncCallback<Void>(){
-					@Override
-					public void onFailure(Throwable caught) {
-					}
-					@Override
-					public void onSuccess(Void result) {
-			//				ArrayList<InventoryObject> foundItems;
-			//				String parameters = searchParameters.getText();
-			//				foundItems = inventory.search(parameters);
-			//					//this is the displayObjects method, below
-			//					for (InventoryObject obj : foundItems) {
-			//						HorizontalPanel objectPanel = new HorizontalPanel();
-			//						searchResultsPanel.add(objectPanel);
-			//						Label objectLabel = new Label(obj.getName());
-			//						objectPanel.add(objectLabel);
-			//					//also, find how to insert the image
-			//					//add a click event for the label to take to the items page
-			//					}
-
-					}
-				};
-			}
-		});
-
 		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
 		mainPanel.add(horizontalPanel_2);
 
@@ -147,21 +119,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		horizontalPanel_2.add(btnViewCheckedOut);
 		btnViewCheckedOut.setSize("129px", "35px");
 
-		btnViewCheckedOut.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				//ArrayList<InventoryObject> found = inventory.checkOutList();
-				//pass the parameter found to the displayObjects method
-			}
-		});
-
-		btnViewAll.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				//pass the parameter database from our inventory into displayObjects
-				//method from above
-			}
-		});
-
-		StackPanel stackPanel = new StackPanel();
+		final StackPanel stackPanel = new StackPanel();
 		mainPanel.add(stackPanel);
 		stackPanel.setSize("357px", "155px");
 
@@ -188,6 +146,49 @@ public class TheatreProjectWeb implements EntryPoint {
 		btnManageUsers.setSize("106px", "36px");
 		//}
 		//Ask Max
+		
+		
+		//button handlers
+		btnSearch.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				new AsyncCallback<Void>(){
+					@Override
+					public void onFailure(Throwable caught) {
+					}
+					@Override
+					public void onSuccess(Void result) {
+//							ArrayList<InventoryObject> foundItems;
+//							String parameters = searchParameters.getText();
+//							foundItems = new PersistenceImpl().search(parameters);
+//								//this is the displayObjects method, below
+//								for (InventoryObject obj : foundItems) {
+//									HorizontalPanel objectPanel = new HorizontalPanel();
+//									stackPanel.add(objectPanel);
+//									Label objectLabel = new Label(obj.getName());
+//									objectPanel.add(objectLabel);
+//								//also, find how to insert the image
+//								//add a click event for the label to take to the items page
+//								}
+
+					}
+				};
+			}
+		});
+		
+		btnViewCheckedOut.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				//ArrayList<InventoryObject> found = inventory.checkOutList();
+				//pass the parameter found to the displayObjects method
+			}
+		});
+
+		btnViewAll.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				//pass the parameter database from our inventory into displayObjects
+				//method from above
+			}
+		});
+
 
 		btnManageUsers.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
