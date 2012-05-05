@@ -119,6 +119,10 @@ public class TheatreProjectWeb implements EntryPoint {
 		final Button btnViewCheckedOut = new Button("View Checked Out");
 		horizontalPanel_2.add(btnViewCheckedOut);
 		btnViewCheckedOut.setSize("129px", "35px");
+		
+		final Label lblSorryAnError = new Label("Sorry, an error has occured!");
+		lblSorryAnError.setVisible(false);
+		mainPanel.add(lblSorryAnError);
 
 		final StackPanel stackPanel = new StackPanel();
 		mainPanel.add(stackPanel);
@@ -158,10 +162,11 @@ public class TheatreProjectWeb implements EntryPoint {
 						new AsyncCallback<ArrayList<InventoryObject>>() {
 					@Override
 					public void onFailure(Throwable caught) {
-
+						lblSorryAnError.setVisible(true);
 					}
 					@Override
 					public void onSuccess(ArrayList<InventoryObject> result) {
+						lblSorryAnError.setVisible(false);
 						for (InventoryObject obj : result) {
 							HorizontalPanel objectPanel = new HorizontalPanel();
 							stackPanel.add(objectPanel);
@@ -191,10 +196,11 @@ public class TheatreProjectWeb implements EntryPoint {
 						new AsyncCallback<ArrayList<InventoryObject>>() {
 							@Override
 							public void onFailure(Throwable caught) {
-
+								lblSorryAnError.setVisible(true);
 							}
 							@Override
 							public void onSuccess(ArrayList<InventoryObject> result) {
+								lblSorryAnError.setVisible(false);
 								for (InventoryObject obj : result) {
 									HorizontalPanel objectPanel = new HorizontalPanel();
 									stackPanel.add(objectPanel);
@@ -223,10 +229,11 @@ public class TheatreProjectWeb implements EntryPoint {
 						new AsyncCallback<List<InventoryObject>>() {
 							@Override
 							public void onFailure(Throwable caught) {
-
+								lblSorryAnError.setVisible(true);
 							}
 							@Override
 							public void onSuccess(List<InventoryObject> result) {
+								lblSorryAnError.setVisible(true);
 								for (InventoryObject obj : result) {
 									HorizontalPanel objectPanel = new HorizontalPanel();
 									stackPanel.add(objectPanel);
