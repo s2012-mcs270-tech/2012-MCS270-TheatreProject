@@ -42,6 +42,7 @@ public class InventoryObject implements Serializable{
 		//TEMPORARY\\
 		this.ID = "123";
 		this.description = "red chair flower";
+		this.name = "name of object";
 		//END TEMP\\
 	}
 

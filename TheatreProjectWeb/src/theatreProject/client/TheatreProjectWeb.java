@@ -123,7 +123,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		final Label lblSearchError = new Label("Sorry, an error has occured!");
 		lblSearchError.setVisible(false);
 		mainPanel.add(lblSearchError);
-
+		
 		final StackPanel searchResultsPanel = new StackPanel();
 		mainPanel.add(searchResultsPanel);
 		searchResultsPanel.setSize("357px", "155px");
@@ -142,11 +142,13 @@ public class TheatreProjectWeb implements EntryPoint {
 		txtbxNumberOfItems.setSize("137px", "31px");
 
 		final Button btnManageUsers = new Button("Manage Users");
-		//if (ApiProxy.getCurrentEnvironment().isAdmin()){
-		mainPanel.add(btnManageUsers);
-		btnManageUsers.setSize("106px", "36px");
+		//if (!ApiProxy.getCurrentEnvironment().isAdmin()){
+		///btnManageUsers.setVisible(false);
 		//}
 		//Ask Max
+		mainPanel.add(btnManageUsers);
+		btnManageUsers.setSize("106px", "36px");
+
 
 
 		//button handlers
@@ -165,6 +167,7 @@ public class TheatreProjectWeb implements EntryPoint {
 						lblSearchError.setVisible(false);
 						for (InventoryObject obj : result) {
 							
+							
 							HorizontalPanel objectPanel = new HorizontalPanel();
 							searchResultsPanel.add(objectPanel, obj.getName(), false);
 							objectPanel.setSize("100%", "100%");
@@ -175,6 +178,7 @@ public class TheatreProjectWeb implements EntryPoint {
 							objectLabel.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
+									ReadOnlyInventory.readOnlyInventory();
 									//go to correct item page for correct level of user
 								}
 							});
@@ -296,4 +300,5 @@ public class TheatreProjectWeb implements EntryPoint {
 		final Label lblContactInfo = new Label("Please contact Terena is you have any questions.");
 		mainPanel.add(lblContactInfo);
 	}
+
 }
