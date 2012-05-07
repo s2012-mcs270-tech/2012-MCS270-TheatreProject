@@ -258,7 +258,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		btnAddItem.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				int n = Integer.parseInt(txtbxNumberOfItems.getText());
-				final ArrayList<String> urls = null;
+				final ArrayList<String> urls = new ArrayList<String>();
 				for(int i=0; i<n; i++){
 					final InventoryObject obj = new InventoryObject();
 					persistence.saveObject(obj, 

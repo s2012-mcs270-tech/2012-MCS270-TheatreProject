@@ -7,9 +7,19 @@
 
   <!-- Servlets -->
   
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>TheatreProjectWeb.html</welcome-file>
-  </welcome-file-list>
+  <servlet>
+    <servlet-name>persistenceServlet</servlet-name>
+    <servlet-class>theatreProject.server.PersistenceImpl</servlet-class>
+  </servlet> 
+
+  <servlet-mapping>
+    <servlet-name>persistenceServlet</servlet-name>
+    <url-pattern>/theatreprojectweb/persistence</url-pattern>
+  </servlet-mapping>
+
+<!-- Default page to serve -->
+<welcome-file-list>
+<welcome-file>TheatreProjectWeb.html</welcome-file>
+</welcome-file-list>
 
 </web-app>
