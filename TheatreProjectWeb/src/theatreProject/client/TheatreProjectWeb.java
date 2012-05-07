@@ -92,57 +92,53 @@ public class TheatreProjectWeb implements EntryPoint {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		mainPanel.add(verticalPanel);
 
-		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
-		verticalPanel.add(horizontalPanel_1);
-		horizontalPanel_1.setSize("269px", "44px");
+		HorizontalPanel searchPanel = new HorizontalPanel();
+		verticalPanel.add(searchPanel);
+		searchPanel.setSize("269px", "44px");
 
 		//search bar
 		final TextBox searchParameters = new TextBox();
-		horizontalPanel_1.add(searchParameters);
+		searchPanel.add(searchParameters);
 		searchParameters.setSize("185px", "41px");
 		searchParameters.setText("Enter search terms here");
 
 		//primary search button
 		final Button btnSearch = new Button("Search");
-		horizontalPanel_1.add(btnSearch);
+		searchPanel.add(btnSearch);
 		btnSearch.setHeight("53px");
 
-		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
-		mainPanel.add(horizontalPanel_2);
+		HorizontalPanel searchButtonsPanel = new HorizontalPanel();
+		mainPanel.add(searchButtonsPanel);
 
 		//button for viewing all items
 		final Button btnViewAll = new Button("View All");
-		horizontalPanel_2.add(btnViewAll);
+		searchButtonsPanel.add(btnViewAll);
 		btnViewAll.setSize("65px", "34px");
 
 		//button to view all checkout out items
 		final Button btnViewCheckedOut = new Button("View Checked Out");
-		horizontalPanel_2.add(btnViewCheckedOut);
+		searchButtonsPanel.add(btnViewCheckedOut);
 		btnViewCheckedOut.setSize("129px", "35px");
 		
-		final Label lblSorryAnError = new Label("Sorry, an error has occured!");
-		lblSorryAnError.setVisible(false);
-		mainPanel.add(lblSorryAnError);
+		final Label lblSearchError = new Label("Sorry, an error has occured!");
+		lblSearchError.setVisible(false);
+		mainPanel.add(lblSearchError);
 
-		final StackPanel stackPanel = new StackPanel();
-		mainPanel.add(stackPanel);
-		stackPanel.setSize("357px", "155px");
+		final StackPanel searchResultsPanel = new StackPanel();
+		mainPanel.add(searchResultsPanel);
+		searchResultsPanel.setSize("357px", "155px");
 
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		stackPanel.add(verticalPanel_1, "New widget", false);
-		verticalPanel_1.setSize("100%", "120px");
-
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		mainPanel.add(horizontalPanel);
-		horizontalPanel.setWidth("254px");
+		HorizontalPanel addItemsPanel = new HorizontalPanel();
+		mainPanel.add(addItemsPanel);
+		addItemsPanel.setWidth("254px");
 
 		Button btnAddItem = new Button("Add Item(s)");
-		horizontalPanel.add(btnAddItem);
+		addItemsPanel.add(btnAddItem);
 		btnAddItem.setSize("87px", "42px");
 
 		final TextBox txtbxNumberOfItems = new TextBox();
 		txtbxNumberOfItems.setText("Number of Items to add");
-		horizontalPanel.add(txtbxNumberOfItems);
+		addItemsPanel.add(txtbxNumberOfItems);
 		txtbxNumberOfItems.setSize("137px", "31px");
 
 		final Button btnManageUsers = new Button("Manage Users");
@@ -156,20 +152,23 @@ public class TheatreProjectWeb implements EntryPoint {
 		//button handlers
 		btnSearch.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				stackPanel.clear();
+				searchResultsPanel.clear();
 				String parameters = searchParameters.getText();
 				persistence.search(parameters, 
 						new AsyncCallback<ArrayList<InventoryObject>>() {
 					@Override
 					public void onFailure(Throwable caught) {
-						lblSorryAnError.setVisible(true);
+						lblSearchError.setVisible(true);
 					}
 					@Override
 					public void onSuccess(ArrayList<InventoryObject> result) {
-						lblSorryAnError.setVisible(false);
+						lblSearchError.setVisible(false);
 						for (InventoryObject obj : result) {
+							
 							HorizontalPanel objectPanel = new HorizontalPanel();
-							stackPanel.add(objectPanel);
+							searchResultsPanel.add(objectPanel, obj.getName(), false);
+							objectPanel.setSize("100%", "100%");
+							
 							Label objectLabel = new Label(obj.getName());
 							objectPanel.add(objectLabel);
 
@@ -191,19 +190,19 @@ public class TheatreProjectWeb implements EntryPoint {
 
 		btnViewCheckedOut.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				stackPanel.clear();
+				searchResultsPanel.clear();
 				persistence.checkOutList(
 						new AsyncCallback<ArrayList<InventoryObject>>() {
 							@Override
 							public void onFailure(Throwable caught) {
-								lblSorryAnError.setVisible(true);
+								lblSearchError.setVisible(true);
 							}
 							@Override
 							public void onSuccess(ArrayList<InventoryObject> result) {
-								lblSorryAnError.setVisible(false);
+								lblSearchError.setVisible(false);
 								for (InventoryObject obj : result) {
 									HorizontalPanel objectPanel = new HorizontalPanel();
-									stackPanel.add(objectPanel);
+									searchResultsPanel.add(objectPanel);
 									Label objectLabel = new Label(obj.getName());
 									objectPanel.add(objectLabel);
 
@@ -224,19 +223,19 @@ public class TheatreProjectWeb implements EntryPoint {
 
 		btnViewAll.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				stackPanel.clear();
+				searchResultsPanel.clear();
 				persistence.returnAll(
 						new AsyncCallback<List<InventoryObject>>() {
 							@Override
 							public void onFailure(Throwable caught) {
-								lblSorryAnError.setVisible(true);
+								lblSearchError.setVisible(true);
 							}
 							@Override
 							public void onSuccess(List<InventoryObject> result) {
-								lblSorryAnError.setVisible(true);
+								lblSearchError.setVisible(true);
 								for (InventoryObject obj : result) {
 									HorizontalPanel objectPanel = new HorizontalPanel();
-									stackPanel.add(objectPanel);
+									searchResultsPanel.add(objectPanel);
 									Label objectLabel = new Label(obj.getName());
 									objectPanel.add(objectLabel);
 
@@ -273,7 +272,7 @@ public class TheatreProjectWeb implements EntryPoint {
 						}
 					});
 				}
-				if (n==1) {
+				if (n==1) {			
 					//needs to be cleaned up, to send to the right item and right access level
 					rootPanel.clear();
 					ReadOnlyInventory.readOnlyInventory();
