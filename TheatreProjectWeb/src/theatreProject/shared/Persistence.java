@@ -1,7 +1,10 @@
 package theatreProject.shared;
 
-import theatreProject.server.PersistenceImpl.InventoryObject;
-import theatreProject.server.PersistenceImpl.User;
+import java.util.ArrayList;
+import java.util.List;
+
+import theatreProject.shared.InventoryObject;
+import theatreProject.shared.User;
 
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -12,6 +15,11 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface Persistence extends RemoteService {
 	User getUser(String email);
 	void saveUser(User user);
+	
 	InventoryObject getInventoryObject(String ID);
 	void saveObject(InventoryObject object);
+	
+	ArrayList<InventoryObject> search(String parameter);
+	ArrayList<InventoryObject> checkOutList();
+	List<InventoryObject> returnAll();
 }

@@ -1,12 +1,15 @@
 package theatreProject.client;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import theatreProject.server.PersistenceImpl.User;
-import theatreProject.server.PersistenceImpl.InventoryObject;
+import theatreProject.shared.User;
+import theatreProject.shared.InventoryObject;
 import theatreProject.shared.FieldVerifier;
+import theatreProject.shared.Persistence;
+import theatreProject.shared.PersistenceAsync;
 
-import com.google.apphosting.api.ApiProxy;
+//import com.google.apphosting.api.ApiProxy;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -56,7 +59,7 @@ public class TheatreProjectWeb implements EntryPoint {
 	//needs to be persistent or something instead
 	//private Inventory inventory = new Inventory(new ArrayList<InventoryObject>());
 
-
+	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
 	/**
 	 * This is the entry point method.
 	 */
@@ -89,95 +92,198 @@ public class TheatreProjectWeb implements EntryPoint {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		mainPanel.add(verticalPanel);
 
-		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
-		verticalPanel.add(horizontalPanel_1);
-		horizontalPanel_1.setSize("269px", "44px");
+		HorizontalPanel searchPanel = new HorizontalPanel();
+		verticalPanel.add(searchPanel);
+		searchPanel.setSize("269px", "44px");
 
 		//search bar
 		final TextBox searchParameters = new TextBox();
-		horizontalPanel_1.add(searchParameters);
+		searchPanel.add(searchParameters);
 		searchParameters.setSize("185px", "41px");
 		searchParameters.setText("Enter search terms here");
 
 		//primary search button
 		final Button btnSearch = new Button("Search");
-		horizontalPanel_1.add(btnSearch);
+		searchPanel.add(btnSearch);
 		btnSearch.setHeight("53px");
 
-
-		//button events
-		// TODO
-		btnSearch.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				//				ArrayList<InventoryObject> foundItems;
-				//				String parameters = searchParameters.getText();
-				//				foundItems = inventory.search(parameters);
-				//					//this is the displayObjects method, below
-				//					for (InventoryObject obj : foundItems) {
-				//						HorizontalPanel objectPanel = new HorizontalPanel();
-				//						searchResultsPanel.add(objectPanel);
-				//						Label objectLabel = new Label(obj.getName());
-				//						objectPanel.add(objectLabel);
-				//also, find how to insert the image
-				//add a click event for the label to take to the items page
-				//					}
-			}
-		});
-
-		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
-		mainPanel.add(horizontalPanel_2);
+		HorizontalPanel searchButtonsPanel = new HorizontalPanel();
+		mainPanel.add(searchButtonsPanel);
 
 		//button for viewing all items
 		final Button btnViewAll = new Button("View All");
-		horizontalPanel_2.add(btnViewAll);
+		searchButtonsPanel.add(btnViewAll);
 		btnViewAll.setSize("65px", "34px");
 
 		//button to view all checkout out items
 		final Button btnViewCheckedOut = new Button("View Checked Out");
-		horizontalPanel_2.add(btnViewCheckedOut);
+		searchButtonsPanel.add(btnViewCheckedOut);
 		btnViewCheckedOut.setSize("129px", "35px");
+		
+		final Label lblSearchError = new Label("Sorry, an error has occured!");
+		lblSearchError.setVisible(false);
+		mainPanel.add(lblSearchError);
+
+		final StackPanel searchResultsPanel = new StackPanel();
+		mainPanel.add(searchResultsPanel);
+		searchResultsPanel.setSize("357px", "155px");
+
+		HorizontalPanel addItemsPanel = new HorizontalPanel();
+		mainPanel.add(addItemsPanel);
+		addItemsPanel.setWidth("254px");
+
+		Button btnAddItem = new Button("Add Item(s)");
+		addItemsPanel.add(btnAddItem);
+		btnAddItem.setSize("87px", "42px");
+
+		final TextBox txtbxNumberOfItems = new TextBox();
+		txtbxNumberOfItems.setText("Number of Items to add");
+		addItemsPanel.add(txtbxNumberOfItems);
+		txtbxNumberOfItems.setSize("137px", "31px");
+
+		final Button btnManageUsers = new Button("Manage Users");
+		//if (ApiProxy.getCurrentEnvironment().isAdmin()){
+		mainPanel.add(btnManageUsers);
+		btnManageUsers.setSize("106px", "36px");
+		//}
+		//Ask Max
+
+
+		//button handlers
+		btnSearch.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				searchResultsPanel.clear();
+				String parameters = searchParameters.getText();
+				persistence.search(parameters, 
+						new AsyncCallback<ArrayList<InventoryObject>>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						lblSearchError.setVisible(true);
+					}
+					@Override
+					public void onSuccess(ArrayList<InventoryObject> result) {
+						lblSearchError.setVisible(false);
+						for (InventoryObject obj : result) {
+							
+							HorizontalPanel objectPanel = new HorizontalPanel();
+							searchResultsPanel.add(objectPanel, obj.getName(), false);
+							objectPanel.setSize("100%", "100%");
+							
+							Label objectLabel = new Label(obj.getName());
+							objectPanel.add(objectLabel);
+
+							objectLabel.addClickHandler(new ClickHandler() {
+								public void onClick(ClickEvent event) {
+									rootPanel.clear();
+									//go to correct item page for correct level of user
+								}
+							});
+
+							//also, find how to insert the image and add a click handler for it too
+							//also, find how to insert the image
+						}
+					}
+				});
+
+			}
+		});
 
 		btnViewCheckedOut.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				//ArrayList<InventoryObject> found = inventory.checkOutList();
-				//pass the parameter found to the displayObjects method
+				searchResultsPanel.clear();
+				persistence.checkOutList(
+						new AsyncCallback<ArrayList<InventoryObject>>() {
+							@Override
+							public void onFailure(Throwable caught) {
+								lblSearchError.setVisible(true);
+							}
+							@Override
+							public void onSuccess(ArrayList<InventoryObject> result) {
+								lblSearchError.setVisible(false);
+								for (InventoryObject obj : result) {
+									HorizontalPanel objectPanel = new HorizontalPanel();
+									searchResultsPanel.add(objectPanel);
+									Label objectLabel = new Label(obj.getName());
+									objectPanel.add(objectLabel);
+
+									objectLabel.addClickHandler(new ClickHandler() {
+										public void onClick(ClickEvent event) {
+											rootPanel.clear();
+											//go to correct item page for correct level of user
+										}
+									});
+
+									//also, find how to insert the image and add a click handler for it too
+									//also, find how to insert the image
+								}
+							}
+						});
 			}
 		});
 
 		btnViewAll.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				//pass the parameter database from our inventory into displayObjects
-				//method from above
+				searchResultsPanel.clear();
+				persistence.returnAll(
+						new AsyncCallback<List<InventoryObject>>() {
+							@Override
+							public void onFailure(Throwable caught) {
+								lblSearchError.setVisible(true);
+							}
+							@Override
+							public void onSuccess(List<InventoryObject> result) {
+								lblSearchError.setVisible(true);
+								for (InventoryObject obj : result) {
+									HorizontalPanel objectPanel = new HorizontalPanel();
+									searchResultsPanel.add(objectPanel);
+									Label objectLabel = new Label(obj.getName());
+									objectPanel.add(objectLabel);
+
+									objectLabel.addClickHandler(new ClickHandler() {
+										public void onClick(ClickEvent event) {
+											rootPanel.clear();
+											//go to correct item page for correct level of user
+										}
+									});
+
+									//also, find how to insert the image and add the same click handler for it too
+								}
+							}
+						});
 			}
 		});
 
-		StackPanel stackPanel = new StackPanel();
-		mainPanel.add(stackPanel);
-		stackPanel.setSize("357px", "155px");
 
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		stackPanel.add(verticalPanel_1, "New widget", false);
-		verticalPanel_1.setSize("100%", "120px");
+		btnAddItem.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				int n = Integer.parseInt(txtbxNumberOfItems.getText());
+				final ArrayList<String> urls = new ArrayList<String>();
+				for(int i=0; i<n; i++){
+					final InventoryObject obj = new InventoryObject();
+					persistence.saveObject(obj, 
+							new AsyncCallback<Void>() {
+						@Override
+						public void onFailure(Throwable caught) {
 
-		HorizontalPanel horizontalPanel = new HorizontalPanel();
-		mainPanel.add(horizontalPanel);
-		horizontalPanel.setWidth("254px");
+						}
+						@Override
+						public void onSuccess(Void result) {
+							urls.add("url?"+obj.getID());
+						}
+					});
+				}
+				if (n==1) {			
+					//needs to be cleaned up, to send to the right item and right access level
+					rootPanel.clear();
+					ReadOnlyInventory.readOnlyInventory();
+				}
+				else {
+					//pop-up or something listing urls.
+					//On that note, maybe have a way to find all "empty" items that have been created?
+				}
+			}
+		});
 
-		Button btnAddItem = new Button("Add Item(s)");
-		horizontalPanel.add(btnAddItem);
-		btnAddItem.setSize("87px", "42px");
-
-		TextBox txtbxNumberOfItems = new TextBox();
-		txtbxNumberOfItems.setText("Number of Items to add");
-		horizontalPanel.add(txtbxNumberOfItems);
-		txtbxNumberOfItems.setSize("137px", "31px");
-
-		final Button btnManageUsers = new Button("Manage Users");
-		//if (ApiProxy.getCurrentEnvironment().isAdmin()){
-			mainPanel.add(btnManageUsers);
-			btnManageUsers.setSize("106px", "36px");
-		//}
-		//Ask Max
 
 		btnManageUsers.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

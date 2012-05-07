@@ -10,9 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import theatreProject.domain.shared.Status;
+import theatreProject.shared.Status;
 import theatreProject.server.PersistenceImpl;
-import theatreProject.server.PersistenceImpl.InventoryObject;
+import theatreProject.shared.InventoryObject;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
@@ -23,8 +23,8 @@ public class InventoryTest {
 	 	ArrayList<InventoryObject> listdata	  = new ArrayList<InventoryObject>();
 		ArrayList<InventoryObject> testsearch = new ArrayList<InventoryObject>();	 	
 		Image pic = null;
-		Status checkedIn = new Status(null, "warehouse", null, null,null);
-		Status checkedOut = new Status(null,"elsewhere", null, null,null);
+	//	Status checkedIn = new Status(null, "warehouse", null, null,null);
+	//	Status checkedOut = new Status(null,"elsewhere", null, null,null);
 		//object #; # refers to the number in its description
 		InventoryObject object1;// = new InventoryObject("", "object", "backroom", null, checkedOut, "1", "");
 //		InventoryObject object2 = new InventoryObject("", "object", "backroom", null, checkedIn, "2", "");
@@ -48,7 +48,7 @@ public class InventoryTest {
 		@Before
 		public void setUp() {
 			helper.setUp();
-			object1 = new InventoryObject("ID1", "object", "backroom", null, checkedOut, "1", "");
+		//	object1 = new InventoryObject("ID1", "object", "backroom", null, checkedOut, "1", "");
 		}
 
 		@After

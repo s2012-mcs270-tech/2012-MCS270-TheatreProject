@@ -5,9 +5,9 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import theatreProject.server.PersistenceImpl;
 import theatreProject.shared.Persistence;
-import theatreProject.domain.shared.Status;
-import theatreProject.server.PersistenceImpl.User;
-import theatreProject.server.PersistenceImpl.InventoryObject;
+import theatreProject.shared.Status;
+import theatreProject.shared.User;
+import theatreProject.shared.InventoryObject;
 
 import org.junit.Test;
 import org.junit.Before;
