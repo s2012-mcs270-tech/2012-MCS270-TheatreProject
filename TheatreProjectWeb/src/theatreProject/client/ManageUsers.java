@@ -1,55 +1,33 @@
 package theatreProject.client;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import theatreProject.shared.User;
-import theatreProject.shared.InventoryObject;
-import theatreProject.shared.FieldVerifier;
-import theatreProject.shared.Persistence;
-import theatreProject.shared.PersistenceAsync;
-
-//import com.google.apphosting.api.ApiProxy;
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyUpEvent;
-import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.ListBox;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.event.dom.client.MouseUpHandler;
-import com.google.gwt.event.dom.client.MouseUpEvent;
-import com.google.gwt.user.client.ui.PushButton;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.MenuItem;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
+
+import theatreProject.client.TheatreProjectWeb;
+import theatreProject.shared.InventoryObject;
+import theatreProject.shared.Persistence;
+import theatreProject.shared.PersistenceAsync;
+import theatreProject.shared.User;
 import com.google.gwt.user.client.ui.StackPanel;
-import com.google.gwt.user.client.ui.DecoratedTabBar;
-import com.google.gwt.event.logical.shared.AttachEvent.Handler;
-import com.google.gwt.event.logical.shared.AttachEvent;
-import com.google.gwt.user.client.ui.DateLabel;
 
 public class ManageUsers {
+	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
+
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -59,7 +37,7 @@ public class ManageUsers {
 
 		final VerticalPanel manageUserPanel = new VerticalPanel();
 		rootPanel.add(manageUserPanel, 10 ,10 );
-		manageUserPanel.setSize("792px", "522px");
+		manageUserPanel.setSize("629px", "504px");
 
 		final Label title = new Label("User Mangagement");
 		title.setStyleName("gwt-Header");
@@ -80,9 +58,26 @@ public class ManageUsers {
 		MenuItem mntmViewOnlyUsers = new MenuItem("View Only Users", false, (Command) null);
 		menuBar.addItem(mntmViewOnlyUsers);
 		
-		VerticalPanel verticalPanel_3 = new VerticalPanel();
-		verticalPanel.add(verticalPanel_3);
-		verticalPanel_3.setSize("151px", "232px");
+		final StackPanel viewOnlyUsersPanel = new StackPanel();
+		verticalPanel.add(viewOnlyUsersPanel);
+		viewOnlyUsersPanel.setSize("151px", "231px");
+		persistence.returnAllUser(
+				new AsyncCallback<ArrayList<User>>(){
+					@Override
+					public void onFailure(Throwable caught){ 
+						//put a label for error
+					}
+					@Override
+					public void onSuccess(ArrayList<User> result){
+						for (User user: result){
+							HorizontalPanel userPanel = new HorizontalPanel();
+							viewOnlyUsersPanel.add(userPanel);
+							Label userLabel = new Label(user.getName());
+							userPanel.add(userLabel);
+						}
+					}
+				
+				});
 
 		VerticalPanel verticalPanel_1 = new VerticalPanel();
 		absolutePanel.add(verticalPanel_1, 238, 10);
@@ -94,9 +89,28 @@ public class ManageUsers {
 		MenuItem mntmAdmin = new MenuItem("Admin", false, (Command) null);
 		menuBar_1.addItem(mntmAdmin);
 		
-		VerticalPanel verticalPanel_4 = new VerticalPanel();
-		verticalPanel_1.add(verticalPanel_4);
-		verticalPanel_4.setSize("151px", "232px");
+		final StackPanel adminPanel = new StackPanel();
+		verticalPanel_1.add(adminPanel);
+		adminPanel.setSize("151px", "231px");
+		persistence.returnAllUser(
+				new AsyncCallback<ArrayList<User>>(){
+					@Override
+					public void onFailure(Throwable caught){
+						//put a label for error
+					}
+					@Override
+					public void onSuccess(ArrayList<User> result){
+						for (User user: result){
+							if (user.isAdmin()){
+								HorizontalPanel userPanel = new HorizontalPanel();
+								adminPanel.add(userPanel);
+								Label userLabel = new Label(user.getName());
+								userPanel.add(userLabel);
+							}
+						}
+					}
+				});
+		
 
 		VerticalPanel verticalPanel_2 = new VerticalPanel();
 		absolutePanel.add(verticalPanel_2, 419, 10);
@@ -144,6 +158,11 @@ public class ManageUsers {
 		txtbxAdditionalInformation.setText("Additional Information");
 		absolutePanel.add(txtbxAdditionalInformation, 45, 360);
 		txtbxAdditionalInformation.setSize("393px", "18px");
+		
+		
+		final Label lblAddingUserError = new Label("Sorry, the user could not be added!");
+		absolutePanel.add(lblAddingUserError, 45, 402);
+		lblAddingUserError.setVisible(false);
 
 		Button btnAdd = new Button("Add");							//Button that will add a user with parameters equal to what is in
 		btnAdd.addClickHandler(new ClickHandler() {					//Name, Email and AdditionalInformation textboxs
@@ -151,7 +170,19 @@ public class ManageUsers {
 				String name = txtbxName.getText();
 				String email = txtbxEmail.getText();
 				String extraInfo = txtbxAdditionalInformation.getText();
-				User newUser = new User(email, name, extraInfo);
+				final User newUser = new User(email, name, extraInfo);
+				persistence.saveUser(newUser, 
+						new AsyncCallback<Void>(){
+					@Override
+					public void onFailure(Throwable caught){
+						lblAddingUserError.setVisible(true);
+					}
+					@Override
+					public void onSuccess(Void result){
+						lblAddingUserError.setVisible(false);
+						
+					}
+				});
 			}
 		});
 		absolutePanel.add(btnAdd, 413, 313);
@@ -166,5 +197,6 @@ public class ManageUsers {
 			}
 		});
 		absolutePanel.add(btnMainPage, 506, 360);
+
 	}
 }

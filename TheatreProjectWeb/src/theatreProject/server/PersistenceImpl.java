@@ -83,6 +83,11 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		return (List<InventoryObject>) query.execute();
 	}
 
+	public ArrayList<User> returnAllUser(){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Query query = pm.newQuery(User.class);
+		return (ArrayList<User>) query.execute();
+	}
 	public ArrayList<InventoryObject> search(String parameter) {
 
 		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
