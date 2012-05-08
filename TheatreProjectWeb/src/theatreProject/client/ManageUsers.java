@@ -1,20 +1,53 @@
 package theatreProject.client;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import theatreProject.shared.User;
+import theatreProject.shared.InventoryObject;
+import theatreProject.shared.FieldVerifier;
+import theatreProject.shared.Persistence;
+import theatreProject.shared.PersistenceAsync;
+
+//import com.google.apphosting.api.ApiProxy;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.MenuBar;
-import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import theatreProject.client.TheatreProjectWeb;
-import theatreProject.server.PersistenceImpl.User;
+import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.RadioButton;
+import com.google.gwt.user.client.ui.MenuBar;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.user.client.ui.PushButton;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.MenuItem;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
+import com.google.gwt.user.client.ui.StackPanel;
+import com.google.gwt.user.client.ui.DecoratedTabBar;
+import com.google.gwt.event.logical.shared.AttachEvent.Handler;
+import com.google.gwt.event.logical.shared.AttachEvent;
+import com.google.gwt.user.client.ui.DateLabel;
 
 public class ManageUsers {
 	/**

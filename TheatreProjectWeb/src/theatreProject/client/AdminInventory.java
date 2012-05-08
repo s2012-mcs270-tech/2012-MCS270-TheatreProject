@@ -1,5 +1,7 @@
 package theatreProject.client;
 
+import theatreProject.shared.PersistenceAsync;
+
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -9,8 +11,27 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import theatreProject.shared.InventoryObject;
+import theatreProject.shared.Persistence;
+import theatreProject.shared.PersistenceAsync;
+//import com.google.apphosting.api.ApiProxy;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class AdminInventory {
+	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
+
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -30,6 +51,11 @@ public class AdminInventory {
 		AbsolutePanel absolutePanel = new AbsolutePanel();
 		manguageUserPanel.add(absolutePanel);
 		absolutePanel.setSize("459px", "552px");
+		
+		final Label lblCouldNotFind = new Label("COULD NOT FIND SELECTED ITEM. SORRY!");
+		lblCouldNotFind.setStyleName("h1");
+		absolutePanel.add(lblCouldNotFind, 50, 87);
+		lblCouldNotFind.setSize("312px", "24px");
 
 		Image image_1 = new Image((String) null);
 		absolutePanel.add(image_1, 10, 47);
@@ -60,9 +86,6 @@ public class AdminInventory {
 		horizontalPanel_5.add(txtrLoremIpsumDolor_1);
 		txtrLoremIpsumDolor_1.setSize("339px", "96px");
 
-		Button btnMainMenu_1 = new Button("Main Menu");
-		absolutePanel.add(btnMainMenu_1, 363, 517);
-
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		absolutePanel.add(horizontalPanel_1, 232, 100);
 		horizontalPanel_1.setSize("211px", "34px");
@@ -90,52 +113,76 @@ public class AdminInventory {
 		Button btnNewButton = new Button("New button");
 		btnNewButton.setText("Save");
 		absolutePanel.add(btnNewButton, 10, 517);
-		
+
 		Button btnDeleteItem = new Button("Delete Item");
 		absolutePanel.add(btnDeleteItem, 72, 517);
+
+		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
+		absolutePanel.add(horizontalPanel_2, 232, 47);
+		horizontalPanel_2.setSize("211px", "34px");
+
+		Label lblCheckInoutStatus = new Label("Check in/out Status: ");
+		horizontalPanel_2.add(lblCheckInoutStatus);
+		lblCheckInoutStatus.setWidth("92px");
+
+		TextBox lblStatus = new TextBox();
+		lblStatus.setText("In/Out");
+		horizontalPanel_2.add(lblStatus);
+		lblStatus.setSize("97px", "22px");
+
+		HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
+		absolutePanel.add(horizontalPanel_6, 232, 210);
+		horizontalPanel_6.setSize("211px", "34px");
+
+		Label lblEmailOfRenter = new Label("Email of Renter: ");
+		horizontalPanel_6.add(lblEmailOfRenter);
+
+		TextBox txtbxEmailAddress = new TextBox();
+		txtbxEmailAddress.setText("Email address");
+		horizontalPanel_6.add(txtbxEmailAddress);
+		txtbxEmailAddress.setWidth("136px");
+
+		HorizontalPanel horizontalPanel_8 = new HorizontalPanel();
+		absolutePanel.add(horizontalPanel_8, 10, 192);
+		horizontalPanel_8.setSize("196px", "34px");
+
+		Label lblNameOfRenter = new Label("Name of Renter: ");
+		horizontalPanel_8.add(lblNameOfRenter);
+		lblNameOfRenter.setWidth("55px");
+
+		TextBox txtbxName = new TextBox();
+		txtbxName.setText("Name");
+		horizontalPanel_8.add(txtbxName);
+		txtbxName.setWidth("133px");
+
+		final TextBox txtbxNameOfInventory = new TextBox();
+		txtbxNameOfInventory.setStyleName("gwt-Heading2");
+		absolutePanel.add(txtbxNameOfInventory, 10, 10);
+		txtbxNameOfInventory.setSize("419px", "18px");
+		txtbxNameOfInventory.setText("Name of Inventory Object");
+
+		//button handlers
+		Button btnMainMenu_1 = new Button("Main Menu");
+		btnMainMenu_1.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				rootPanel.clear();
+				TheatreProjectWeb.mainPage();
+			}
+		});
+		absolutePanel.add(btnMainMenu_1, 363, 517);
 		
-				HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
-				absolutePanel.add(horizontalPanel_2, 232, 47);
-				horizontalPanel_2.setSize("211px", "34px");
-				
-						Label lblCheckInoutStatus = new Label("Check in/out Status: ");
-						horizontalPanel_2.add(lblCheckInoutStatus);
-						lblCheckInoutStatus.setWidth("92px");
-						
-								TextBox lblStatus = new TextBox();
-								lblStatus.setText("In/Out");
-								horizontalPanel_2.add(lblStatus);
-								lblStatus.setSize("97px", "22px");
-								
-								HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
-								absolutePanel.add(horizontalPanel_6, 232, 210);
-								horizontalPanel_6.setSize("211px", "34px");
-								
-								Label lblEmailOfRenter = new Label("Email of Renter: ");
-								horizontalPanel_6.add(lblEmailOfRenter);
-								
-								TextBox txtbxEmailAddress = new TextBox();
-								txtbxEmailAddress.setText("Email address");
-								horizontalPanel_6.add(txtbxEmailAddress);
-								txtbxEmailAddress.setWidth("136px");
-								
-								HorizontalPanel horizontalPanel_8 = new HorizontalPanel();
-								absolutePanel.add(horizontalPanel_8, 10, 192);
-								horizontalPanel_8.setSize("196px", "34px");
-								
-								Label lblNameOfRenter = new Label("Name of Renter: ");
-								horizontalPanel_8.add(lblNameOfRenter);
-								lblNameOfRenter.setWidth("55px");
-								
-								TextBox txtbxName = new TextBox();
-								txtbxName.setText("Name");
-								horizontalPanel_8.add(txtbxName);
-								txtbxName.setWidth("133px");
-								
-										TextBox txtbxNameOfInventory = new TextBox();
-										txtbxNameOfInventory.setStyleName("gwt-Heading2");
-										absolutePanel.add(txtbxNameOfInventory, 10, 10);
-										txtbxNameOfInventory.setSize("419px", "18px");
-										txtbxNameOfInventory.setText("Name of Inventory Object");
+		//setting name
+		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				lblCouldNotFind.setVisible(true);
+			}
+			@Override
+			public void onSuccess(InventoryObject object) {
+				lblCouldNotFind.setVisible(false);
+				txtbxNameOfInventory.setText(object.getName());
+			}
+		});
+		
 	}
 }
