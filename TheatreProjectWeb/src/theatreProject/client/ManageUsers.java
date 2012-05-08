@@ -51,6 +51,15 @@ public class ManageUsers {
 		VerticalPanel verticalPanel = new VerticalPanel();
 		absolutePanel.add(verticalPanel, 35, 10);
 		verticalPanel.setSize("151px", "265px");
+		
+		VerticalPanel verticalPanel_2 = new VerticalPanel();
+		absolutePanel.add(verticalPanel_2, 419, 10);
+		verticalPanel_2.setSize("168px", "266px");
+		
+		final TextArea txtrUserInfoGoes = new TextArea();					//Text area where the selected user/admin's information will be displayed
+		txtrUserInfoGoes.setText("User Information");
+		verticalPanel_2.add(txtrUserInfoGoes);
+		txtrUserInfoGoes.setSize("158px", "215px");
 
 		MenuBar menuBar = new MenuBar(false);
 		verticalPanel.add(menuBar);
@@ -69,11 +78,17 @@ public class ManageUsers {
 					}
 					@Override
 					public void onSuccess(ArrayList<User> result){
-						for (User user: result){
+						for (final User user: result){
 							HorizontalPanel userPanel = new HorizontalPanel();
 							viewOnlyUsersPanel.add(userPanel);
 							Label userLabel = new Label(user.getName());
 							userPanel.add(userLabel);
+							userLabel.addClickHandler(new ClickHandler(){
+								public void onClick(ClickEvent event){
+									String info = user.getExtraInfo();
+									txtrUserInfoGoes.setText(info);
+								}
+							});
 						}
 					}
 				
@@ -112,9 +127,7 @@ public class ManageUsers {
 				});
 		
 
-		VerticalPanel verticalPanel_2 = new VerticalPanel();
-		absolutePanel.add(verticalPanel_2, 419, 10);
-		verticalPanel_2.setSize("168px", "266px");
+		
 
 		MenuBar menuBar_2 = new MenuBar(false);
 		verticalPanel_2.add(menuBar_2);
@@ -122,10 +135,7 @@ public class ManageUsers {
 		MenuItem mntmUserInformation = new MenuItem("User Information", false, (Command) null);
 		menuBar_2.addItem(mntmUserInformation);
 
-		TextArea txtrUserInfoGoes = new TextArea();					//Text area where the selected user/admin's information will be displayed
-		txtrUserInfoGoes.setText("User info goes here");
-		verticalPanel_2.add(txtrUserInfoGoes);
-		txtrUserInfoGoes.setSize("158px", "215px");
+		
 
 		Button button = new Button("&larr;");						//Right arrow button
 		absolutePanel.add(button, 192, 91);							//Moves selected user in to the admin column
