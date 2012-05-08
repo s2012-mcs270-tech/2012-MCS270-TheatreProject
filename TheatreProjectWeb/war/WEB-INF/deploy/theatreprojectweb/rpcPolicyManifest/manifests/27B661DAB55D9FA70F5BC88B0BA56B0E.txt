@@ -1,0 +1,2 @@
+serviceClass: theatreProject.shared.Persistence
+path: 34A6D34C99015E44044BB4EA2FD9D367.gwt.rpc
