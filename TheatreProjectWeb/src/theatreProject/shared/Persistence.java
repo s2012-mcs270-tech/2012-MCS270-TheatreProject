@@ -16,7 +16,7 @@ public interface Persistence extends RemoteService {
 	User getUser(String email);
 	void saveUser(User user);
 	
-	InventoryObject getInventoryObject(String ID);
+	InventoryObject getInventoryObject(Long ID);
 	void saveObject(InventoryObject object);
 	
 	ArrayList<InventoryObject> search(String parameter);

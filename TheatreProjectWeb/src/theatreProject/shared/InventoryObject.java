@@ -2,6 +2,7 @@ package theatreProject.shared;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -11,9 +12,12 @@ import theatreProject.shared.Status;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class InventoryObject implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
 	@PrimaryKey
-	@Persistent
-	private String ID;
+	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+	private Long ID;
 
 	@Persistent
 	private String name;
@@ -40,7 +44,6 @@ public class InventoryObject implements Serializable{
 		this.status = new Status();
 		
 		//TEMPORARY\\
-		this.ID = "123";
 		this.description = "red chair flower";
 		this.name = "name of object";
 		//END TEMP\\
@@ -87,13 +90,13 @@ public class InventoryObject implements Serializable{
 		return ID==null ? 0 : ID.hashCode();
 	}
 
-	public String getID() {
+	public Long getID() {
 		return this.ID;
 	}
 
-	public void setID(String newID) {
-		this.ID = newID;
-	}
+//	public void setID(String newID) {
+//		this.ID = newID;
+//	}
 
 	public String getName() {
 		return this.name;
