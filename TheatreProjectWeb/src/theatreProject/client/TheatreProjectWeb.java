@@ -151,6 +151,21 @@ public class TheatreProjectWeb implements EntryPoint {
 		btnManageUsers.setSize("106px", "36px");
 
 
+		final ScrollPanel multipleURLpopup = new ScrollPanel(); 	//MULTI-URL PANEL
+		rootPanel.add(multipleURLpopup, 178, 90);			//Panel that is the pop-up showing multiple URLs
+		multipleURLpopup.setSize("282px", "240px");			//when multiple objects are created
+		multipleURLpopup.setVisible(false);
+		
+		
+		final VerticalPanel multiURLInnerPanel = new VerticalPanel();	//Inner panel of the MULTI-URL Panel
+		multipleURLpopup.setWidget(multiURLInnerPanel);			//Allow for multiple things to be insdie the 
+		multiURLInnerPanel.setSize("100%", "236px");			//MULTI-URL Panel
+		
+		final Button btnXMultiURL = new Button("New button");		//X button for MULTI-URL Panel
+		btnXMultiURL.setText("X");							//Exits pop-up
+		multiURLInnerPanel.add(btnXMultiURL);
+		
+		
 
 		//button handlers
 		btnSearch.addClickHandler(new ClickHandler() {
@@ -287,8 +302,10 @@ public class TheatreProjectWeb implements EntryPoint {
 					multiURLInnerPanel.clear();
 					multiURLInnerPanel.add(btnXMultiURL);
 					multipleURLpopup.setVisible(true);
-					for(url : urls) {
+					for(String url : urls) {
 						Label urlLabel = new Label(url);
+						urlLabel.setText(url);				//Sets label text to the URL
+						urlLabel.setSize(null, "25px");		//A decent horizontal height for label to not cause cluter
 						multipleURLpopup.add(urlLabel);
 						}
 					
@@ -310,19 +327,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		final Label lblContactInfo = new Label("Please contact Terena is you have any questions.");
 		mainPanel.add(lblContactInfo);
 		
-		ScrollPanel multipleURLpopup = new ScrollPanel(); 	//MULTI-URL PANEL
-		rootPanel.add(multipleURLpopup, 178, 90);			//Panel that is the pop-up showing multiple URLs
-		multipleURLpopup.setSize("282px", "240px");			//when multiple objects are created
-		multipleURLpopup.setVisible(false);
-		
-		
-		VerticalPanel multiURLInnerPanel = new VerticalPanel();	//Inner panel of the MULTI-URL Panel
-		multipleURLpopup.setWidget(multiURLInnerPanel);			//Allow for multiple things to be insdie the 
-		multiURLInnerPanel.setSize("100%", "236px");			//MULTI-URL Panel
-		
-		Button btnXMultiURL = new Button("New button");		//X button for MULTI-URL Panel
-		btnXMultiURL.setText("X");							//Exits pop-up
-		multiURLInnerPanel.add(btnXMultiURL);
+
 		
 	}
 }
