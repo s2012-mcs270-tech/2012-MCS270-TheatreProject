@@ -63,6 +63,7 @@ public class TheatreProjectWeb implements EntryPoint {
 	/**
 	 * This is the entry point method.
 	 */
+	public final static int nextID = 1;
 
 	public void onModuleLoad() {
 		mainPage();
@@ -263,7 +264,8 @@ public class TheatreProjectWeb implements EntryPoint {
 				int n = Integer.parseInt(txtbxNumberOfItems.getText());
 				final ArrayList<String> urls = new ArrayList<String>();
 				for(int i=0; i<n; i++){
-					final InventoryObject obj = new InventoryObject();
+					final InventoryObject obj = new InventoryObject(nextID);
+					nextID++;
 					persistence.saveObject(obj, 
 							new AsyncCallback<Void>() {
 						@Override

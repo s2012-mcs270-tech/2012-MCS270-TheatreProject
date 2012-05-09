@@ -14,7 +14,7 @@ public interface PersistenceAsync {
 void getUser(String email, AsyncCallback<User> callback);
 void saveUser(User user, AsyncCallback<Void> callback);
 
-void getInventoryObject(Long ID, AsyncCallback<InventoryObject> callback);
+void getInventoryObject(int ID, AsyncCallback<InventoryObject> callback);
 void saveObject(InventoryObject object, AsyncCallback<Void> callback);
 
 void search(String parameter, AsyncCallback<ArrayList<InventoryObject>> callback);

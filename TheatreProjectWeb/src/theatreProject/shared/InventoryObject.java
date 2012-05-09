@@ -17,7 +17,7 @@ public class InventoryObject implements Serializable{
 
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
-	private Long ID;
+	private int ID;
 
 	@Persistent
 	private String name;
@@ -37,10 +37,9 @@ public class InventoryObject implements Serializable{
 	@Persistent
 	public String description;
 
-	public InventoryObject() {
+	public InventoryObject(int ID) {
 		super();
-		//String uniqueID = generateID();
-		//this.ID = uniqueID;
+		this.ID = ID;
 		this.status = new Status();
 		
 		//TEMPORARY\\
@@ -58,9 +57,7 @@ public class InventoryObject implements Serializable{
 			return false;
 		if(this.name != null && !this.name.equals(other.name))
 			return false;
-		if(this.ID == null && other.ID != null)
-			return false;
-		if(this.ID != null && !this.ID.equals(other.ID))
+		if(!(this.ID == other.ID))
 			return false;
 		if(this.storageArea == null && other.storageArea != null)
 			return false;
@@ -85,12 +82,7 @@ public class InventoryObject implements Serializable{
 		return true;
 	}
 
-	@Override
-	public int hashCode(){
-		return ID==null ? 0 : ID.hashCode();
-	}
-
-	public Long getID() {
+	public int getID() {
 		return this.ID;
 	}
 
