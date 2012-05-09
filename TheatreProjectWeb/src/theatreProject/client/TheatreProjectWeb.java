@@ -299,6 +299,19 @@ public class TheatreProjectWeb implements EntryPoint {
 
 		final Label lblContactInfo = new Label("Please contact Terena is you have any questions.");
 		mainPanel.add(lblContactInfo);
+		
+		VerticalPanel multipleURLpanel = new VerticalPanel();		//MULTI-URL PANEL
+		rootPanel.add(multipleURLpanel, 186, 130);					//Panel that is the pop-up showing multiple URLs
+		multipleURLpanel.setSize("310px", "232px");					//when multiple objects are created
+		multipleURLpanel.setVisible(false);
+		
+		Button XbuttonMultiUrl = new Button("X");					//X BUTTON OF MULTI-URL PANEL
+		XbuttonMultiUrl.setText("X");								//the X button that closes out of the pop-up that
+		multipleURLpanel.add(XbuttonMultiUrl);						//contains multiple URLs
+		XbuttonMultiUrl.setSize("34px", "31px");
+		
+		TextArea multiUrlText = new TextArea();						//TEXT BOX OF MULTI-URL
+		multipleURLpanel.add(multiUrlText);							//Text area that will contain all the URLs
+		multiUrlText.setSize("304px", "195px");						//When multiple objects are created
 	}
-
 }
