@@ -39,12 +39,9 @@ public class UploadServiceImpl extends HttpServlet {
 		BlobKey blobKey = blobs.get("upload");
 
 		//Get the paramters from the request to populate the Message object
-		InventoryObject obj = 
-				new InventoryObject (
-						req.getParameter("ID")
-						);
+		
+		//need to create url for image here! HELP!!!
 
-		pm.makePersistent(obj);
 	}
 
 }
