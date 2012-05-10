@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5"
-         xmlns="http://java.sun.com/xml/ns/javaee">
+	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets -->
-  
-  <servlet>
-    <servlet-name>persistenceServlet</servlet-name>
-    <servlet-class>theatreProject.server.PersistenceImpl</servlet-class>
-  </servlet> 
+	<!-- Servlets -->
 
-  <servlet-mapping>
-    <servlet-name>persistenceServlet</servlet-name>
-    <url-pattern>/theatreprojectweb/persistence</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>persistenceServlet</servlet-name>
+		<servlet-class>theatreProject.server.PersistenceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>persistenceServlet</servlet-name>
+		<url-pattern>/theatreprojectweb/persistence</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>blobServlet</servlet-name>
+		<servlet-class>theatreProject.server.BlobServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>uploadServlet</servlet-name>
+		<servlet-class>theatreProject.server.UploadServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>blobServlet</servlet-name>
+		<url-pattern>/theatreprojectweb/blobservice</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>uploadServlet</servlet-name>
+		<url-pattern>/theatreprojectweb/uploadservice</url-pattern>
+	</servlet-mapping>
 
 <!-- Default page to serve -->
-<welcome-file-list>
-<welcome-file>TheatreProjectWeb.html</welcome-file>
-</welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>TheatreProjectWeb.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>
