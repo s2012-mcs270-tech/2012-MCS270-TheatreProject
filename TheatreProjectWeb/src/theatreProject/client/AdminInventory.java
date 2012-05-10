@@ -158,7 +158,7 @@ public class AdminInventory {
 		txtbxNameOfInventory.setSize("419px", "18px");
 		txtbxNameOfInventory.setText("Name of Inventory Object");
 
-		//button handlers
+		//Main Menu Button
 		Button btnMainMenu_1 = new Button("Main Menu");
 		btnMainMenu_1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -169,7 +169,7 @@ public class AdminInventory {
 		absolutePanel.add(btnMainMenu_1, 363, 517);
 
 		//setting name
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(121312, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblCouldNotFind.setVisible(true);
@@ -182,7 +182,7 @@ public class AdminInventory {
 		});
 
 		//setting status to checked in or checked out
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(12345, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblCouldNotFind.setVisible(true);
@@ -199,7 +199,7 @@ public class AdminInventory {
 		});
 
 		//setting Description
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(12345, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblCouldNotFind.setVisible(true);
@@ -212,7 +212,7 @@ public class AdminInventory {
 		});
 
 		//setting Disclaimers
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(12345, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblCouldNotFind.setVisible(true);
@@ -225,7 +225,7 @@ public class AdminInventory {
 		});
 
 		//set location
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(12345, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblCouldNotFind.setVisible(true);
