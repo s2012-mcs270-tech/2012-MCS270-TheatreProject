@@ -26,7 +26,7 @@ public class AdminInventory {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public static void adminOnlyInventory(int ID){		
+	public static void adminOnlyInventory(String ID){		
 		persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
@@ -37,6 +37,8 @@ public class AdminInventory {
 				thisObject = object;
 			}
 		});
+		
+		final InventoryObject check = thisObject;
 		
 		final RootPanel rootPanel = RootPanel.get();
 		rootPanel.setStyleName("gwt-Root");

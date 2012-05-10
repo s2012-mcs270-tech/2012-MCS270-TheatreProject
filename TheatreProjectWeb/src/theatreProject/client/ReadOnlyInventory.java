@@ -25,7 +25,7 @@ public class ReadOnlyInventory {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public static void readOnlyInventory(int ID){
+	public static void readOnlyInventory(String ID){
 		persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {

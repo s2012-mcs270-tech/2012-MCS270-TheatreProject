@@ -207,7 +207,7 @@ public class TheatreProjectWeb implements EntryPoint {
 							objectLabel.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
-									ReadOnlyInventory.readOnlyInventory(213);
+									ReadOnlyInventory.readOnlyInventory("213");
 									//TODO
 									//go to correct item page for correct level of user
 								}
@@ -297,7 +297,7 @@ public class TheatreProjectWeb implements EntryPoint {
 				final ArrayList<String> urls = new ArrayList<String>();
 				for(int i=0; i<n; i++){
 					final InventoryObject obj = new InventoryObject();
-					obj.setID(nextID);
+					obj.setID(Integer.toString(nextID));
 					nextID++;
 					persistence.saveObject(obj, 
 							new AsyncCallback<Void>() {
@@ -315,7 +315,7 @@ public class TheatreProjectWeb implements EntryPoint {
 					//TODO
 					//needs to be cleaned up, to send to the right item and right access level
 					rootPanel.clear();
-					AdminInventory.adminOnlyInventory(nextID-1);
+					AdminInventory.adminOnlyInventory(Integer.toString(nextID-1));
 				}
 				else {
 					//TODO

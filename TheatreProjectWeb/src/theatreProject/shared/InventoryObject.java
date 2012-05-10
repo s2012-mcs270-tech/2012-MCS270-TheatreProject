@@ -17,7 +17,7 @@ public class InventoryObject implements Serializable{
 
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
-	private int ID;
+	private String ID;
 
 	@Persistent
 	private String name;
@@ -82,11 +82,11 @@ public class InventoryObject implements Serializable{
 		return true;
 	}
 
-	public int getID() {
+	public String getID() {
 		return this.ID;
 	}
 
-	public void setID(int newID) {
+	public void setID(String newID) {
 		this.ID = newID;
 	}
 
