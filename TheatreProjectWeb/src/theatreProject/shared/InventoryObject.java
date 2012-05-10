@@ -26,7 +26,7 @@ public class InventoryObject implements Serializable{
 	private String storageArea;
 
 	@Persistent
-	private String image;
+	private String imageURL;
 
 	@Persistent(serialized="true")
 	private Status status;
@@ -45,6 +45,7 @@ public class InventoryObject implements Serializable{
 		//TEMPORARY\\
 		this.description = "red chair flower";
 		this.name = "name of object";
+		this.imageURL = "www.joerox.com";
 		//END TEMP\\
 	}
 
@@ -63,11 +64,11 @@ public class InventoryObject implements Serializable{
 			return false;
 		if(this.storageArea != null && !this.storageArea.equals(other.storageArea))
 			return false;
-		if(this.image == null && other.image != null)
+		if(this.imageURL == null && other.imageURL != null)
 			return false;
-		if(this.image != null && !this.image.equals(other.image))
+		if(this.imageURL != null && !this.imageURL.equals(other.imageURL))
 			return false;
-		if(this.status == null && other.image != null)
+		if(this.status == null && other.imageURL != null)
 			return false;
 		if(this.status != null && !this.status.equals(other.status))
 			return false;
@@ -106,12 +107,12 @@ public class InventoryObject implements Serializable{
 		this.storageArea = newStorageArea;
 	}
 
-	public String getImage() {
-		return this.image;
+	public String getImageURL() {
+		return this.imageURL;
 	}
 
-	public void setImage(String newImage) {
-		this.image = newImage;
+	public void setImage(String newImageURL) {
+		this.imageURL = newImageURL;
 	}
 
 	public Status getStatus() {
