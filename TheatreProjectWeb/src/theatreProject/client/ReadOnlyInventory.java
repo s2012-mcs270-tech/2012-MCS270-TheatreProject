@@ -24,7 +24,17 @@ public class ReadOnlyInventory {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public static void readOnlyInventory(){
+	public static void readOnlyInventory(int ID){
+		persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+			@Override
+			public void onSuccess(InventoryObject object) {
+				final InventoryObject thisObject = object;
+			}
+		});
+		
 
 		final RootPanel rootPanel = RootPanel.get();
 		rootPanel.setStyleName("gwt-Root");
@@ -119,7 +129,7 @@ public class ReadOnlyInventory {
 		});
 
 		//setting name
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(123, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblYourItemCould.setVisible(true);
@@ -132,7 +142,7 @@ public class ReadOnlyInventory {
 		});
 
 		//setting status to checked in or checked out
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(123, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblYourItemCould.setVisible(true);
@@ -149,7 +159,7 @@ public class ReadOnlyInventory {
 		});
 
 		//setting Description
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(123, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblYourItemCould.setVisible(true);
@@ -162,7 +172,7 @@ public class ReadOnlyInventory {
 		});
 
 		//setting Disclaimers
-		persistence.getInventoryObject("String ID", new AsyncCallback<InventoryObject>() {
+		persistence.getInventoryObject(123, new AsyncCallback<InventoryObject>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				lblYourItemCould.setVisible(true);

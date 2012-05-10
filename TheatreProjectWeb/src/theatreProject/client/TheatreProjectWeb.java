@@ -61,21 +61,20 @@ public class TheatreProjectWeb implements EntryPoint {
 	//private Inventory inventory = new Inventory(new ArrayList<InventoryObject>());
 
 	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
+	public static int nextID = 1;
+
 	/**
 	 * This is the entry point method.
 	 */
-	public static int nextID = 1;
 
 	public void onModuleLoad() {
-		String loadID = Window.Location.getParameter("id");
-		//TODO : update for inventory calls
-		if (loadID != null) ReadOnlyInventory.readOnlyInventory();
-		else mainPage();
+		//		String loadID = Window.Location.getParameter("id");
+		//		//TODO : update for inventory calls
+		//		if (loadID != null) ReadOnlyInventory.readOnlyInventory();
+		//		else mainPage();
+		mainPage();
 	}
 
-	/**
-	 * @wbp.parser.entryPoint						//Line needed inorder for GWT Designer to function
-	 */
 	public static void mainPage() {
 
 		// Use RootPanel.get() to get the entire body element
@@ -127,11 +126,11 @@ public class TheatreProjectWeb implements EntryPoint {
 		final Button btnViewCheckedOut = new Button("View Checked Out");
 		searchButtonsPanel.add(btnViewCheckedOut);
 		btnViewCheckedOut.setSize("129px", "35px");
-		
+
 		final Label lblSearchError = new Label("Sorry, an error has occured!");
 		lblSearchError.setVisible(false);
 		mainPanel.add(lblSearchError);
-		
+
 		final StackPanel searchResultsPanel = new StackPanel();
 		mainPanel.add(searchResultsPanel);
 		searchResultsPanel.setSize("357px", "155px");
@@ -163,23 +162,23 @@ public class TheatreProjectWeb implements EntryPoint {
 		rootPanel.add(multipleURLpopup, 178, 90);			//Panel that is the pop-up showing multiple URLs
 		multipleURLpopup.setSize("282px", "240px");			//when multiple objects are created
 		multipleURLpopup.setVisible(false);
-		
-		
+
+
 		final VerticalPanel multiURLInnerPanel = new VerticalPanel();	//Inner panel of the MULTI-URL Panel
 		multipleURLpopup.setWidget(multiURLInnerPanel);			//Allow for multiple things to be insdie the 
 		multiURLInnerPanel.setSize("100%", "236px");			//MULTI-URL Panel
-		
+
 		final Button btnXMultiURL = new Button("New button");		//X button for MULTI-URL Panel
 		btnXMultiURL.addMouseUpHandler(new MouseUpHandler() {
-			
+
 			public void onMouseUp(MouseUpEvent event) {				//onMouseUp for X button
 				multipleURLpopup.setVisible(false);					//Closes the multipleURLpopup
 			}
 		});
 		btnXMultiURL.setText("X");							//Exits pop-up
 		multiURLInnerPanel.add(btnXMultiURL);
-		
-		
+
+
 
 		//button handlers
 		btnSearch.addClickHandler(new ClickHandler() {
@@ -196,19 +195,19 @@ public class TheatreProjectWeb implements EntryPoint {
 					public void onSuccess(ArrayList<InventoryObject> result) {
 						lblSearchError.setVisible(false);
 						for (InventoryObject obj : result) {
-							
-							
+
+
 							HorizontalPanel objectPanel = new HorizontalPanel();
 							searchResultsPanel.add(objectPanel, obj.getName(), false);
 							objectPanel.setSize("100%", "100%");
-							
+
 							Label objectLabel = new Label(obj.getName());
 							objectPanel.add(objectLabel);
 
 							objectLabel.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
-									ReadOnlyInventory.readOnlyInventory();
+									ReadOnlyInventory.readOnlyInventory(213);
 									//TODO
 									//go to correct item page for correct level of user
 								}
@@ -257,6 +256,7 @@ public class TheatreProjectWeb implements EntryPoint {
 			}
 		});
 
+		//TODO : not working...
 		btnViewAll.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				searchResultsPanel.clear();
@@ -296,7 +296,8 @@ public class TheatreProjectWeb implements EntryPoint {
 				int n = Integer.parseInt(txtbxNumberOfItems.getText());
 				final ArrayList<String> urls = new ArrayList<String>();
 				for(int i=0; i<n; i++){
-					final InventoryObject obj = new InventoryObject(nextID);
+					final InventoryObject obj = new InventoryObject();
+					obj.setID(nextID);
 					nextID++;
 					persistence.saveObject(obj, 
 							new AsyncCallback<Void>() {
@@ -314,7 +315,7 @@ public class TheatreProjectWeb implements EntryPoint {
 					//TODO
 					//needs to be cleaned up, to send to the right item and right access level
 					rootPanel.clear();
-					ReadOnlyInventory.readOnlyInventory();
+					AdminInventory.adminOnlyInventory(nextID-1);
 				}
 				else {
 					//TODO
@@ -326,8 +327,8 @@ public class TheatreProjectWeb implements EntryPoint {
 						urlLabel.setText(url);				//Sets label text to the URL
 						urlLabel.setSize(null, "25px");		//A decent horizontal height for label to not cause cluter
 						multipleURLpopup.add(urlLabel);
-						}
-					
+					}
+
 					//On that note, maybe have a way to find all "empty" items that have been created/initialized?
 				}
 			}
@@ -340,15 +341,15 @@ public class TheatreProjectWeb implements EntryPoint {
 				ManageUsers.manageUserPage();
 			}
 		});
-		
+
 		//TODO
 		//click handler for x button in urls box
 
 
 		final Label lblContactInfo = new Label("Please contact Terena is you have any questions.");
 		mainPanel.add(lblContactInfo);
-		
 
-		
+
+
 	}
 }

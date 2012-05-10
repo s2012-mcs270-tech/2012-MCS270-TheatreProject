@@ -37,9 +37,8 @@ public class InventoryObject implements Serializable{
 	@Persistent
 	public String description;
 
-	public InventoryObject(int ID) {
+	public InventoryObject() {
 		super();
-		this.ID = ID;
 		this.status = new Status();
 		
 		//TEMPORARY\\
@@ -87,9 +86,9 @@ public class InventoryObject implements Serializable{
 		return this.ID;
 	}
 
-//	public void setID(String newID) {
-//		this.ID = newID;
-//	}
+	public void setID(int newID) {
+		this.ID = newID;
+	}
 
 	public String getName() {
 		return this.name;
