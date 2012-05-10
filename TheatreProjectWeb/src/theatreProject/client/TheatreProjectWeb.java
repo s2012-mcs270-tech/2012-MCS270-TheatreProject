@@ -73,6 +73,9 @@ public class TheatreProjectWeb implements EntryPoint {
 		else mainPage();
 	}
 
+	/**
+	 * @wbp.parser.entryPoint						//Line needed inorder for GWT Designer to function
+	 */
 	public static void mainPage() {
 
 		// Use RootPanel.get() to get the entire body element
@@ -167,6 +170,12 @@ public class TheatreProjectWeb implements EntryPoint {
 		multiURLInnerPanel.setSize("100%", "236px");			//MULTI-URL Panel
 		
 		final Button btnXMultiURL = new Button("New button");		//X button for MULTI-URL Panel
+		btnXMultiURL.addMouseUpHandler(new MouseUpHandler() {
+			
+			public void onMouseUp(MouseUpEvent event) {				//onMouseUp for X button
+				multipleURLpopup.setVisible(false);					//Closes the multipleURLpopup
+			}
+		});
 		btnXMultiURL.setText("X");							//Exits pop-up
 		multiURLInnerPanel.add(btnXMultiURL);
 		
