@@ -40,6 +40,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.MenuItem;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -63,10 +64,13 @@ public class TheatreProjectWeb implements EntryPoint {
 	/**
 	 * This is the entry point method.
 	 */
-	public final static int nextID = 1;
+	public static int nextID = 1;
 
 	public void onModuleLoad() {
-		mainPage();
+		String loadID = Window.Location.getParameter("id");
+		//TODO : update for inventory calls
+		if (loadID != null) ReadOnlyInventory.readOnlyInventory();
+		else mainPage();
 	}
 
 	public static void mainPage() {
@@ -143,6 +147,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		txtbxNumberOfItems.setSize("137px", "31px");
 
 		final Button btnManageUsers = new Button("Manage Users");
+		//TODO
 		//if (!ApiProxy.getCurrentEnvironment().isAdmin()){
 		///btnManageUsers.setVisible(false);
 		//}
@@ -195,10 +200,11 @@ public class TheatreProjectWeb implements EntryPoint {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
 									ReadOnlyInventory.readOnlyInventory();
+									//TODO
 									//go to correct item page for correct level of user
 								}
 							});
-
+							//TODO
 							//also, find how to insert the image and add a click handler for it too
 							//also, find how to insert the image
 						}
@@ -229,10 +235,11 @@ public class TheatreProjectWeb implements EntryPoint {
 									objectLabel.addClickHandler(new ClickHandler() {
 										public void onClick(ClickEvent event) {
 											rootPanel.clear();
+											//TODO
 											//go to correct item page for correct level of user
 										}
 									});
-
+									//TODO
 									//also, find how to insert the image and add a click handler for it too
 									//also, find how to insert the image
 								}
@@ -262,10 +269,11 @@ public class TheatreProjectWeb implements EntryPoint {
 									objectLabel.addClickHandler(new ClickHandler() {
 										public void onClick(ClickEvent event) {
 											rootPanel.clear();
+											//TODO
 											//go to correct item page for correct level of user
 										}
 									});
-
+									//TODO
 									//also, find how to insert the image and add the same click handler for it too
 								}
 							}
@@ -289,16 +297,18 @@ public class TheatreProjectWeb implements EntryPoint {
 						}
 						@Override
 						public void onSuccess(Void result) {
-							urls.add("url?"+obj.getID());
+							urls.add("GACTheatreInventory.appspot.com?id="+obj.getID());
 						}
 					});
 				}
 				if (n==1) {			
+					//TODO
 					//needs to be cleaned up, to send to the right item and right access level
 					rootPanel.clear();
 					ReadOnlyInventory.readOnlyInventory();
 				}
 				else {
+					//TODO
 					multiURLInnerPanel.clear();
 					multiURLInnerPanel.add(btnXMultiURL);
 					multipleURLpopup.setVisible(true);
@@ -309,8 +319,7 @@ public class TheatreProjectWeb implements EntryPoint {
 						multipleURLpopup.add(urlLabel);
 						}
 					
-					//pop-up or something listing urls.
-					//On that note, maybe have a way to find all "empty" items that have been created?
+					//On that note, maybe have a way to find all "empty" items that have been created/initialized?
 				}
 			}
 		});
@@ -322,6 +331,9 @@ public class TheatreProjectWeb implements EntryPoint {
 				ManageUsers.manageUserPage();
 			}
 		});
+		
+		//TODO
+		//click handler for x button in urls box
 
 
 		final Label lblContactInfo = new Label("Please contact Terena is you have any questions.");

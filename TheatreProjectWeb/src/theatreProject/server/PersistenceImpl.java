@@ -58,7 +58,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	
 
 	@Override
-	public InventoryObject getInventoryObject(Long ID) {
+	public InventoryObject getInventoryObject(int ID) {
 		PersistenceManager persistenceManager = pmf.getPersistenceManager();
 		try{
 			return persistenceManager.getObjectById(InventoryObject.class, ID);
