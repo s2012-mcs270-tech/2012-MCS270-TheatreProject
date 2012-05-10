@@ -60,6 +60,8 @@ public class ManageUsers {
 		txtrUserInfoGoes.setText("User Information");
 		verticalPanel_2.add(txtrUserInfoGoes);
 		txtrUserInfoGoes.setSize("158px", "215px");
+		
+		
 
 		MenuBar menuBar = new MenuBar(false);
 		verticalPanel.add(menuBar);
@@ -115,12 +117,18 @@ public class ManageUsers {
 					}
 					@Override
 					public void onSuccess(ArrayList<User> result){
-						for (User user: result){
+						for (final User user: result){
 							if (user.isAdmin()){
 								HorizontalPanel userPanel = new HorizontalPanel();
 								adminPanel.add(userPanel);
 								Label userLabel = new Label(user.getName());
 								userPanel.add(userLabel);
+								userLabel.addClickHandler(new ClickHandler(){
+									public void onClick(ClickEvent event){
+										String info = user.getExtraInfo();
+										txtrUserInfoGoes.setText(info);
+									}
+								});
 							}
 						}
 					}
@@ -138,6 +146,12 @@ public class ManageUsers {
 		
 
 		Button button = new Button("&larr;");						//Right arrow button
+		button.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				viewOnlyUsersPanel.getWidget(viewOnlyUsersPanel.getSelectedIndex()); 
+				
+			}
+		});
 		absolutePanel.add(button, 192, 91);							//Moves selected user in to the admin column
 		button.setSize("36px", "27px");
 
@@ -182,15 +196,29 @@ public class ManageUsers {
 				String extraInfo = txtbxAdditionalInformation.getText();
 				final User newUser = new User(email, name, extraInfo);
 				persistence.saveUser(newUser, 
-						new AsyncCallback<Void>(){
+						new AsyncCallback<Void>()
+						{
 					@Override
-					public void onFailure(Throwable caught){
+					public void onFailure(Throwable caught)
+					{
 						lblAddingUserError.setVisible(true);
 					}
 					@Override
-					public void onSuccess(Void result){
+					public void onSuccess(Void result)
+					{
 						lblAddingUserError.setVisible(false);
-						
+						HorizontalPanel userPanel = new HorizontalPanel();
+						viewOnlyUsersPanel.add(userPanel);
+						Label userLabel = new Label(newUser.getName());
+						userPanel.add(userLabel);
+						userLabel.addClickHandler(new ClickHandler()
+						{
+							public void onClick(ClickEvent event)
+							{
+								String info = newUser.getExtraInfo();
+								txtrUserInfoGoes.setText(info);
+							}
+						});
 					}
 				});
 			}
