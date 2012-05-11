@@ -23,4 +23,5 @@ public interface Persistence extends RemoteService {
 	ArrayList<InventoryObject> checkOutList();
 	List<InventoryObject> returnAll();
 	ArrayList<User> returnAllUser();
+	String getUserInfoByName(String name);
 }

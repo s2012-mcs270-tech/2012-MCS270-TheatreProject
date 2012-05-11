@@ -60,14 +60,29 @@ public class ManageUsers {
 		absolutePanel.add(viewOnlyListBox, 45, 59);
 		viewOnlyListBox.setSize("141px", "228px");
 		viewOnlyListBox.setVisibleItemCount(10);
-		viewOnlyListBox.addChangeListener(new ChangeListener(){
+		viewOnlyListBox.addChangeListener(new ChangeListener()
+		{
 			@Override
-			public void onChange(Widget sender) {
+			public void onChange(Widget sender) 
+			{
 				int itemSelected = viewOnlyListBox.getSelectedIndex();
 			    String itemStringSelected = viewOnlyListBox.getValue(itemSelected); 
-			    userInfoTextArea.setText(itemStringSelected);
+			    persistence.getUserInfoByName(itemStringSelected, new AsyncCallback<String>()
+			    {
+			    	@Override
+			    	public void onFailure(Throwable caught)
+			    	{
+			    		//put a label for error
+			    	}
+			    	public void onSuccess(String result)
+			    	{
+			    		userInfoTextArea.setText(result);
+			    	}
+			    });
+			
 			}
-		});
+		}
+		);
 		persistence.returnAllUser(
 				new AsyncCallback<ArrayList<User>>(){
 					@Override

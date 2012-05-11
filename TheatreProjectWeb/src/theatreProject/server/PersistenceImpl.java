@@ -89,16 +89,16 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		return (ArrayList<User>) query.execute();
 	}
 	
-	public User getUserByName(String name){
+	public String getUserInfoByName(String name){
 		User theUser = null;
 		ArrayList<User> allUsers = this.returnAllUser();
 		for (User user: allUsers){
 			if (user.getName() == name){
 				theUser = user;
+				return theUser.getExtraInfo();
 			}
 		}
-		return theUser;
-		
+		return null;
 	}
 	
 	public ArrayList<InventoryObject> search(String parameter) {

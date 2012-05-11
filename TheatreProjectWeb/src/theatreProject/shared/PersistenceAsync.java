@@ -21,4 +21,5 @@ void search(String parameter, AsyncCallback<ArrayList<InventoryObject>> callback
 void checkOutList(AsyncCallback<ArrayList<InventoryObject>> callback);
 void returnAll(AsyncCallback<List<InventoryObject>> callback);
 void returnAllUser(AsyncCallback<ArrayList<User>> asyncCallback);
+void getUserInfoByName(String name, AsyncCallback<String> asyncCallback);
 }
