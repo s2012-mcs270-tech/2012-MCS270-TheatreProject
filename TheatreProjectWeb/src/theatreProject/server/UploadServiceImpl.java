@@ -43,11 +43,11 @@ public class UploadServiceImpl extends HttpServlet {
 
 		@SuppressWarnings("deprecation")
 		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
-		BlobKey blobKey = blobs.get("upload");
+		final BlobKey blobKey = blobs.get("upload");
 
 		//Get the paramters from the request to populate the Message object
 	
-			persistence.getInventoryObject(req.getParameter("ID"));, new AsyncCallback<InventoryObject>() {
+			persistence.getInventoryObject(req.getParameter("ID"), new AsyncCallback<InventoryObject>() {
 				@Override
 				public void onFailure(Throwable caught) {
 					thisObject = null;
@@ -55,6 +55,7 @@ public class UploadServiceImpl extends HttpServlet {
 				@Override
 				public void onSuccess(InventoryObject object) {
 					thisObject = object;
+					object.setImage("/theatreprojectweb/blobservice?blob-key=" + blobKey.getKeyString());
 				}
 			});
 		}

@@ -77,6 +77,14 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		pmf.getPersistenceManager().makePersistent(object);
 	}
 	
+	public void deleteObject(InventoryObject object) {
+		
+	}
+	
+	public void deleteUser(User user){
+		
+	}
+	
 	public List<InventoryObject> returnAll() {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Query query = pm.newQuery(InventoryObject.class);
