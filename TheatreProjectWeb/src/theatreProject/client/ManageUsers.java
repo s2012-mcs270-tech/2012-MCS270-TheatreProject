@@ -9,6 +9,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.ChangeListener;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MenuBar;
@@ -17,6 +18,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import theatreProject.client.TheatreProjectWeb;
 import theatreProject.shared.InventoryObject;
@@ -32,6 +34,7 @@ public class ManageUsers {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
+	@SuppressWarnings("deprecation")
 	public static void manageUserPage(){
 		final RootPanel rootPanel = RootPanel.get();
 		rootPanel.setStyleName("gwt-Root");
@@ -49,11 +52,22 @@ public class ManageUsers {
 		manageUserPanel.add(absolutePanel);
 		absolutePanel.setHeight("445px");
 		
+		final TextArea userInfoTextArea = new TextArea();
+		absolutePanel.add(userInfoTextArea, 411, 59);
+		userInfoTextArea.setSize("163px", "218px");
+		
 		final ListBox viewOnlyListBox = new ListBox();
 		absolutePanel.add(viewOnlyListBox, 45, 59);
 		viewOnlyListBox.setSize("141px", "228px");
-		viewOnlyListBox.setVisibleItemCount(5);
-		
+		viewOnlyListBox.setVisibleItemCount(10);
+		viewOnlyListBox.addChangeListener(new ChangeListener(){
+			@Override
+			public void onChange(Widget sender) {
+				int itemSelected = viewOnlyListBox.getSelectedIndex();
+			    String itemStringSelected = viewOnlyListBox.getValue(itemSelected); 
+			    userInfoTextArea.setText(itemStringSelected);
+			}
+		});
 		persistence.returnAllUser(
 				new AsyncCallback<ArrayList<User>>(){
 					@Override
@@ -65,7 +79,6 @@ public class ManageUsers {
 						for (final User user: result)
 						{
 							viewOnlyListBox.addItem(user.getName());
-							//click hander!
 						}
 					}
 				
@@ -75,7 +88,7 @@ public class ManageUsers {
 		final ListBox adminListBox = new ListBox();
 		absolutePanel.add(adminListBox, 238, 59);
 		adminListBox.setSize("147px", "228px");
-		adminListBox.setVisibleItemCount(5);
+		adminListBox.setVisibleItemCount(10);
 		
 		persistence.returnAllUser(
 				new AsyncCallback<ArrayList<User>>(){
@@ -95,9 +108,7 @@ public class ManageUsers {
 					}
 				});
 		
-		TextArea userInfoTextArea = new TextArea();
-		absolutePanel.add(userInfoTextArea, 411, 59);
-		userInfoTextArea.setSize("163px", "218px");
+		
 		
 		
 
