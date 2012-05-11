@@ -10,10 +10,10 @@ import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class User implements Serializable{
-	@PrimaryKey
 	@Persistent
 	private String email;
 
+	@PrimaryKey
 	@Persistent
 	private String name;
 

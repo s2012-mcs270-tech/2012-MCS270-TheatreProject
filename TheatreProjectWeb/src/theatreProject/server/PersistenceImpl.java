@@ -27,10 +27,10 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 
 	private static final PersistenceManagerFactory pmf = PMF.get();
 
-	public User getUser(String email){
+	public User getUser(String name){
 		PersistenceManager persistenceManager = pmf.getPersistenceManager();
 		try{
-			return persistenceManager.getObjectById(User.class, email);
+			return persistenceManager.getObjectById(User.class, name);
 		} catch(JDOObjectNotFoundException e){
 			return null;
 		}
@@ -41,19 +41,19 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		pmf.getPersistenceManager().makePersistent(user);
 	}
 
-	private String getEmail(){
-		// The test below just makes sure we didn't miss the lines in web.xml that
-		// ensure the user has to be logged in. If this exception is thrown, web.xml
-		// needs fixing.
-		if(!ApiProxy.getCurrentEnvironment().isLoggedIn()){
-			throw new IllegalStateException("not logged in");
-		}
-		// In the same way, ApiProxy.getCurrentEnvironment().isAdmin() could be used to
-		// determine whether the currently logged in user is known to AppEngine as an
-		// administrator of this application. I can't think of any reason to demonstrate
-		// thatin the Land of Gack.
-		return ApiProxy.getCurrentEnvironment().getEmail();
-	}
+//	private String getEmail(){
+//		// The test below just makes sure we didn't miss the lines in web.xml that
+//		// ensure the user has to be logged in. If this exception is thrown, web.xml
+//		// needs fixing.
+//		if(!ApiProxy.getCurrentEnvironment().isLoggedIn()){
+//			throw new IllegalStateException("not logged in");
+//		}
+//		// In the same way, ApiProxy.getCurrentEnvironment().isAdmin() could be used to
+//		// determine whether the currently logged in user is known to AppEngine as an
+//		// administrator of this application. I can't think of any reason to demonstrate
+//		// thatin the Land of Gack.
+//		return ApiProxy.getCurrentEnvironment().getEmail();
+//	}
 
 	
 

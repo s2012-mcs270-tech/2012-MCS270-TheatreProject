@@ -11,7 +11,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface PersistenceAsync {
 
-void getUser(String email, AsyncCallback<User> callback);
+void getUser(String name, AsyncCallback<User> callback);
 void saveUser(User user, AsyncCallback<Void> callback);
 
 void getInventoryObject(String ID, AsyncCallback<InventoryObject> callback);

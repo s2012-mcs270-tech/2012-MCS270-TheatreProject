@@ -13,7 +13,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("persistence")
 public interface Persistence extends RemoteService {
-	User getUser(String email);
+	User getUser(String name);
 	void saveUser(User user);
 	
 	InventoryObject getInventoryObject(String ID);
