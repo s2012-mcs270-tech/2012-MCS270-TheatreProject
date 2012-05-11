@@ -24,6 +24,7 @@ import theatreProject.shared.Persistence;
 import theatreProject.shared.PersistenceAsync;
 import theatreProject.shared.User;
 import com.google.gwt.user.client.ui.StackPanel;
+import com.google.gwt.user.client.ui.ListBox;
 
 public class ManageUsers {
 	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
@@ -47,31 +48,12 @@ public class ManageUsers {
 		AbsolutePanel absolutePanel = new AbsolutePanel();
 		manageUserPanel.add(absolutePanel);
 		absolutePanel.setHeight("445px");
-
-		VerticalPanel verticalPanel = new VerticalPanel();
-		absolutePanel.add(verticalPanel, 35, 10);
-		verticalPanel.setSize("151px", "265px");
 		
-		VerticalPanel verticalPanel_2 = new VerticalPanel();
-		absolutePanel.add(verticalPanel_2, 419, 10);
-		verticalPanel_2.setSize("168px", "266px");
+		final ListBox viewOnlyListBox = new ListBox();
+		absolutePanel.add(viewOnlyListBox, 45, 59);
+		viewOnlyListBox.setSize("141px", "228px");
+		viewOnlyListBox.setVisibleItemCount(5);
 		
-		final TextArea txtrUserInfoGoes = new TextArea();					//Text area where the selected user/admin's information will be displayed
-		txtrUserInfoGoes.setText("User Information");
-		verticalPanel_2.add(txtrUserInfoGoes);
-		txtrUserInfoGoes.setSize("158px", "215px");
-		
-		
-
-		MenuBar menuBar = new MenuBar(false);
-		verticalPanel.add(menuBar);
-
-		MenuItem mntmViewOnlyUsers = new MenuItem("View Only Users", false, (Command) null);
-		menuBar.addItem(mntmViewOnlyUsers);
-		
-		final StackPanel viewOnlyUsersPanel = new StackPanel();
-		verticalPanel.add(viewOnlyUsersPanel);
-		viewOnlyUsersPanel.setSize("151px", "231px");
 		persistence.returnAllUser(
 				new AsyncCallback<ArrayList<User>>(){
 					@Override
@@ -80,35 +62,21 @@ public class ManageUsers {
 					}
 					@Override
 					public void onSuccess(ArrayList<User> result){
-						for (final User user: result){
-							HorizontalPanel userPanel = new HorizontalPanel();
-							viewOnlyUsersPanel.add(userPanel);
-							Label userLabel = new Label(user.getName());
-							userPanel.add(userLabel);
-							userLabel.addClickHandler(new ClickHandler(){
-								public void onClick(ClickEvent event){
-									String info = user.getExtraInfo();
-									txtrUserInfoGoes.setText(info);
-								}
-							});
+						for (final User user: result)
+						{
+							viewOnlyListBox.addItem(user.getName());
+							//click hander!
 						}
 					}
 				
 				});
-
-		VerticalPanel verticalPanel_1 = new VerticalPanel();
-		absolutePanel.add(verticalPanel_1, 238, 10);
-		verticalPanel_1.setSize("151px", "265px");
-
-		MenuBar menuBar_1 = new MenuBar(false);
-		verticalPanel_1.add(menuBar_1);
-
-		MenuItem mntmAdmin = new MenuItem("Admin", false, (Command) null);
-		menuBar_1.addItem(mntmAdmin);
 		
-		final StackPanel adminPanel = new StackPanel();
-		verticalPanel_1.add(adminPanel);
-		adminPanel.setSize("151px", "231px");
+		
+		final ListBox adminListBox = new ListBox();
+		absolutePanel.add(adminListBox, 238, 59);
+		adminListBox.setSize("147px", "228px");
+		adminListBox.setVisibleItemCount(5);
+		
 		persistence.returnAllUser(
 				new AsyncCallback<ArrayList<User>>(){
 					@Override
@@ -118,50 +86,39 @@ public class ManageUsers {
 					@Override
 					public void onSuccess(ArrayList<User> result){
 						for (final User user: result){
-							if (user.isAdmin()){
-								HorizontalPanel userPanel = new HorizontalPanel();
-								adminPanel.add(userPanel);
-								Label userLabel = new Label(user.getName());
-								userPanel.add(userLabel);
-								userLabel.addClickHandler(new ClickHandler(){
-									public void onClick(ClickEvent event){
-										String info = user.getExtraInfo();
-										txtrUserInfoGoes.setText(info);
-									}
-								});
+							if (user.isAdmin())
+							{
+								adminListBox.addItem(user.getName());
+								//click handler
 							}
 						}
 					}
 				});
 		
+		TextArea userInfoTextArea = new TextArea();
+		absolutePanel.add(userInfoTextArea, 411, 59);
+		userInfoTextArea.setSize("163px", "218px");
+		
+		
 
 		
 
-		MenuBar menuBar_2 = new MenuBar(false);
-		verticalPanel_2.add(menuBar_2);
-
-		MenuItem mntmUserInformation = new MenuItem("User Information", false, (Command) null);
-		menuBar_2.addItem(mntmUserInformation);
-
-		
-
-		Button button = new Button("&larr;");						//Right arrow button
-		button.addClickHandler(new ClickHandler() {
+		Button leftMoveButton = new Button("&larr;");						//Right arrow button
+		leftMoveButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				viewOnlyUsersPanel.getWidget(viewOnlyUsersPanel.getSelectedIndex()); 
-				
+				//click handler!				
 			}
 		});
-		absolutePanel.add(button, 192, 91);							//Moves selected user in to the admin column
-		button.setSize("36px", "27px");
+		absolutePanel.add(leftMoveButton, 193, 91);							//Moves selected user in to the admin column
+		leftMoveButton.setSize("36px", "27px");
 
-		Button button_1 = new Button("&rarr;");						//Left arrow button
-		absolutePanel.add(button_1, 193, 124);						//Moves selected admin in to the user column
-		button_1.setSize("36px", "27px");
+		Button rightMoveButton = new Button("&rarr;");						//Left arrow button
+		absolutePanel.add(rightMoveButton, 193, 124);						//Moves selected admin in to the user column
+		rightMoveButton.setSize("36px", "27px");
 
-		Button btnX = new Button("X");								//X button
-		absolutePanel.add(btnX, 193, 157);							//Deletes selected user or selected admin from system
-		btnX.setSize("36px", "27px");
+		Button deletButton = new Button("X");								//X button
+		absolutePanel.add(deletButton, 193, 157);							//Deletes selected user or selected admin from system
+		deletButton.setSize("36px", "27px");
 
 		Label lblAddUser = new Label("Add User");					//Label indicating Add User part of page
 		lblAddUser.setStyleName("h2");								
@@ -206,19 +163,8 @@ public class ManageUsers {
 					@Override
 					public void onSuccess(Void result)
 					{
-						lblAddingUserError.setVisible(false);
-						HorizontalPanel userPanel = new HorizontalPanel();
-						viewOnlyUsersPanel.add(userPanel);
-						Label userLabel = new Label(newUser.getName());
-						userPanel.add(userLabel);
-						userLabel.addClickHandler(new ClickHandler()
-						{
-							public void onClick(ClickEvent event)
-							{
-								String info = newUser.getExtraInfo();
-								txtrUserInfoGoes.setText(info);
-							}
-						});
+						viewOnlyListBox.addItem(newUser.getName());
+						//add click handler!!!!!!!!!!!!!!!!!!!!!!!!!
 					}
 				});
 			}
@@ -235,6 +181,27 @@ public class ManageUsers {
 			}
 		});
 		absolutePanel.add(btnMainPage, 506, 360);
+		
+
+		
+		TextBox txtbxUsersInformation = new TextBox();
+		txtbxUsersInformation.setStyleName("gwt-Button");
+		txtbxUsersInformation.setText("User's Information");
+		absolutePanel.add(txtbxUsersInformation, 430, 19);
+		txtbxUsersInformation.setSize("122px", "16px");
+		
+		
+		TextBox txtbxViewOnlyUsers = new TextBox();
+		txtbxViewOnlyUsers.setStyleName("gwt-Button");
+		txtbxViewOnlyUsers.setText("View Only Users");
+		absolutePanel.add(txtbxViewOnlyUsers, 55, 19);
+		txtbxViewOnlyUsers.setSize("104px", "16px");
+		
+		TextBox txtbxAdmins = new TextBox();
+		txtbxAdmins.setStyleName("gwt-Button");
+		txtbxAdmins.setText("Admins");
+		absolutePanel.add(txtbxAdmins, 272, 19);
+		txtbxAdmins.setSize("51px", "16px");
 
 	}
 }
