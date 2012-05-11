@@ -6,6 +6,7 @@ import theatreProject.shared.Persistence;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -56,6 +57,7 @@ public class AdminInventory {
 		manguageUserPanel.add(absolutePanel);
 		absolutePanel.setSize("459px", "552px");
 
+		//Error Label
 		final Label lblCouldNotFind = new Label("COULD NOT FIND SELECTED ITEM. SORRY!");
 		lblCouldNotFind.setVisible(false);
 		lblCouldNotFind.setStyleName("h1");
@@ -71,6 +73,7 @@ public class AdminInventory {
 		absolutePanel.add(horizontalPanel_4, 10, 261);
 		horizontalPanel_4.setSize("434px", "98px");
 
+		//Description Box
 		Label lblNewLabel = new Label("Description: ");
 		horizontalPanel_4.add(lblNewLabel);
 
@@ -157,16 +160,20 @@ public class AdminInventory {
 		lblNameOfRenter.setWidth("55px");
 		//
 
-		TextBox txtbxName = new TextBox();
-		txtbxName.setText("Name");
-		horizontalPanel_8.add(txtbxName);
-		txtbxName.setWidth("133px");
+		TextBox nameTxtBx = new TextBox();
+		nameTxtBx.setText("Name");
+		horizontalPanel_8.add(nameTxtBx);
+		nameTxtBx.setWidth("133px");
 
-		final TextBox txtbxNameOfInventory = new TextBox();
-		txtbxNameOfInventory.setStyleName("gwt-Heading2");
-		absolutePanel.add(txtbxNameOfInventory, 10, 10);
-		txtbxNameOfInventory.setSize("419px", "18px");
-		txtbxNameOfInventory.setText(thisObject.getName());
+		final TextBox nameOfObject = new TextBox();
+		nameOfObject.setStyleName("gwt-Heading2");
+		absolutePanel.add(nameOfObject, 10, 10);
+		nameOfObject.setSize("419px", "18px");
+		nameOfObject.setText(thisObject.getName());
+		
+		//hidden button
+		Hidden hiddenID = new Hidden();
+		hiddenID.setValue(thisObject.getID());
 
 		//Main Menu Button
 		Button btnMainMenu_1 = new Button("Main Menu");

@@ -42,9 +42,11 @@ public class InventoryObject implements Serializable{
 		this.status = new Status();
 		
 		//TEMPORARY\\
-		this.description = "red chair flower";
-		this.name = "name of object";
-		this.imageURL = "www.joerox.com";
+		description = "red chair flower";
+		disclaimers = "The chair is very beautiful, but we can paint it a differnt color.";
+		name = "name of object";
+		storageArea = "warehouse";
+		imageURL = "www.joerox.com";
 		//END TEMP\\
 	}
 
@@ -83,31 +85,31 @@ public class InventoryObject implements Serializable{
 	}
 
 	public String getID() {
-		return this.ID;
+		return ID;
 	}
 
 	public void setID(String newID) {
-		this.ID = newID;
+		ID = newID;
 	}
 
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
 	public void setName(String newName) {
-		this.name = newName;
+		name = newName;
 	}
 
 	public String getStorageArea() {
-		return this.storageArea;
+		return storageArea;
 	}
 
 	public void setStorageArea(String newStorageArea) {
-		this.storageArea = newStorageArea;
+		storageArea = newStorageArea;
 	}
 
 	public String getImageURL() {
-		return this.imageURL;
+		return imageURL;
 	}
 
 	public void setImage(String newImageURL) {
@@ -115,27 +117,27 @@ public class InventoryObject implements Serializable{
 	}
 
 	public Status getStatus() {
-		return this.status;
+		return status;
 	}
 
 	public void setStatus(Status newStatus) {
-		this.status = newStatus;
+		status = newStatus;
 	}
 
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
 
 	public void setDescription(String newDesc) {
-		this.description = newDesc;
+		description = newDesc;
 	}
 
 	public String getDisclaimers() {
-		return this.disclaimers;
+		return disclaimers;
 	}
 
 	public void setDisclaimers(String newDisc) {
-		this.disclaimers = newDisc;
+		disclaimers = newDisc;
 	}
 
 }
