@@ -4,6 +4,7 @@ import theatreProject.shared.PersistenceAsync;
 import theatreProject.shared.InventoryObject;
 import theatreProject.shared.Persistence;
 
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Hidden;
@@ -20,6 +21,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class AdminInventory {
+	private static final int RETRY_MS = 1000;
 	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
 	public static InventoryObject thisObject;
 
@@ -27,17 +29,48 @@ public class AdminInventory {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public static void adminOnlyInventory(String ID){		
-		persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
+	public static void adminOnlyInventory(final String ID){		
+		final TextArea txtDescription = new TextArea();
+		final TextArea txtDisclaimers = new TextArea();
+		final TextBox txtShowDate = new TextBox();
+		final TextBox txtLocation = new TextBox();
+		final TextBox lblStatus = new TextBox();
+		final TextBox txtbxEmailAddress = new TextBox();
+		final TextBox nameOfObject = new TextBox();
+		final Hidden hiddenID = new Hidden();
+		
+		Timer loadFields = new Timer(){
+
 			@Override
-			public void onFailure(Throwable caught) {
-				thisObject = null;
+			public void run() {
+				persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						thisObject = null;
+					}
+					@Override
+					public void onSuccess(InventoryObject object) {
+						thisObject = object;
+						if(thisObject == null){
+							schedule(RETRY_MS);
+						} else {
+							txtDescription.setText(thisObject.getDescription());
+							txtDisclaimers.setText(thisObject.getDisclaimers());
+							txtShowDate.setText(thisObject.getStatus().getShowDay());
+							txtLocation.setText(thisObject.getStatus().getLocation());
+							if (thisObject.getStatus().getLocation() == "warehouse") lblStatus.setText("IN");
+							else lblStatus.setText("OUT");
+							txtbxEmailAddress.setText(thisObject.getStatus().getRenter());
+							nameOfObject.setText(thisObject.getName());
+							hiddenID.setValue(thisObject.getID());
+						}
+					}
+				});
 			}
-			@Override
-			public void onSuccess(InventoryObject object) {
-				thisObject = object;
-			}
-		});
+			
+		};
+		
+		loadFields.run();
 		
 		final InventoryObject check = thisObject;
 		
@@ -77,8 +110,6 @@ public class AdminInventory {
 		Label lblNewLabel = new Label("Description: ");
 		horizontalPanel_4.add(lblNewLabel);
 
-		final TextArea txtDescription = new TextArea();
-		txtDescription.setText(thisObject.getDescription());
 		horizontalPanel_4.add(txtDescription);
 		txtDescription.setSize("342px", "96px");
 
@@ -89,8 +120,6 @@ public class AdminInventory {
 		Label lblDisclaimers = new Label("Disclaimers: ");
 		horizontalPanel_5.add(lblDisclaimers);
 
-		final TextArea txtDisclaimers = new TextArea();
-		txtDisclaimers.setText(thisObject.getDisclaimers());
 		horizontalPanel_5.add(txtDisclaimers);
 		txtDisclaimers.setSize("339px", "96px");
 
@@ -101,8 +130,6 @@ public class AdminInventory {
 		Label lblLocation = new Label("Location: ");
 		horizontalPanel_1.add(lblLocation);
 
-		final TextBox txtLocation = new TextBox();
-		txtLocation.setText(thisObject.getStatus().getLocation());
 		horizontalPanel_1.add(txtLocation);
 		txtLocation.setWidth("136px");
 
@@ -113,8 +140,6 @@ public class AdminInventory {
 		Label lblShowEndDate = new Label("Show End Date: ");
 		horizontalPanel_7.add(lblShowEndDate);
 
-		final TextBox txtShowDate = new TextBox();
-		txtShowDate.setText(thisObject.getStatus().getShowDay());
 		horizontalPanel_7.add(txtShowDate);
 		txtShowDate.setWidth("130px");
 
@@ -129,9 +154,6 @@ public class AdminInventory {
 		horizontalPanel_2.add(lblCheckInoutStatus);
 		lblCheckInoutStatus.setWidth("92px");
 
-		final TextBox lblStatus = new TextBox();
-		if (thisObject.getStatus().getLocation() == "warehouse") lblStatus.setText("IN");
-		else lblStatus.setText("OUT");
 		horizontalPanel_2.add(lblStatus);
 		lblStatus.setSize("97px", "22px");
 
@@ -145,8 +167,6 @@ public class AdminInventory {
 		Label lblEmailOfRenter = new Label("Email of Renter: ");
 		horizontalPanel_6.add(lblEmailOfRenter);
 
-		final TextBox txtbxEmailAddress = new TextBox();
-		txtbxEmailAddress.setText(thisObject.getStatus().getRenter());
 		horizontalPanel_6.add(txtbxEmailAddress);
 		txtbxEmailAddress.setWidth("136px");
 
@@ -165,15 +185,11 @@ public class AdminInventory {
 		horizontalPanel_8.add(nameTxtBx);
 		nameTxtBx.setWidth("133px");
 
-		final TextBox nameOfObject = new TextBox();
 		nameOfObject.setStyleName("gwt-Heading2");
 		absolutePanel.add(nameOfObject, 10, 10);
 		nameOfObject.setSize("419px", "18px");
-		nameOfObject.setText(thisObject.getName());
 		
 		//hidden button
-		Hidden hiddenID = new Hidden();
-		hiddenID.setValue(thisObject.getID());
 
 		//Main Menu Button
 		Button btnMainMenu_1 = new Button("Main Menu");
