@@ -207,17 +207,15 @@ public class AdminInventory {
 		btnNewButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				//start by setting thisObject parameters to current txtbxs
-				//TODO
 				thisObject.setName(nameOfObject.getText());
 				thisObject.setDescription(txtDescription.getText());
 				thisObject.setDisclaimers(txtDisclaimers.getText());
-				thisObject.setImage(newImageURL);
-				thisObject.setStorageArea(newStorageArea);
-				thisObject.getStatus().setLocation(location);
+				//TODO
+				//thisObject.setImage(newImageURL);
+				//thisObject.setStorageArea(newStorageArea);
+				thisObject.getStatus().setLocation(txtLocation.getText());
 				thisObject.getStatus().setRenter(lblNameOfRenter.getText());
-				thisObject.getStatus().setRentDate(rentDate);
-				thisObject.getStatus().setReturnDate();
-				thisObject.getStatus().setShowDate(txtShowDate);
+				thisObject.getStatus().setShowDay(txtShowDate.getText());
 				
 				//then save out the changes
 				persistence.saveObject(thisObject, new AsyncCallback<Void>() {
