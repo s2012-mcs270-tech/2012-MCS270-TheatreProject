@@ -54,6 +54,7 @@ public class ManageUsers {
 		final TextArea userInfoTextArea = new TextArea();
 		absolutePanel.add(userInfoTextArea, 411, 59);
 		userInfoTextArea.setSize("163px", "218px");
+		userInfoTextArea.setReadOnly(true);
 		
 		final ListBox viewOnlyListBox = new ListBox();
 		absolutePanel.add(viewOnlyListBox, 45, 59);
@@ -77,7 +78,6 @@ public class ManageUsers {
 					@Override
 					public void onSuccess(User result) {
 						userInfoTextArea.setText(result.getExtraInfo());
-						//NullPointerException!!!!!!!!!!!
 					}
 			    });
 			
@@ -204,7 +204,7 @@ public class ManageUsers {
 							}
 							public void onSuccess(User result)
 							{
-								viewOnlyListBox.addItem(selectedString);
+								adminListBox.addItem(selectedString);
 								result.setAdmin(true);
 							}
 				});
@@ -240,6 +240,7 @@ public class ManageUsers {
 						}
 						public void onSuccess(User result){
 							selectedListBox.removeItem(selectedItem);
+							userInfoTextArea.setText("");
 							//delete this user in the persistence!!!!!!!
 						}
 					});
