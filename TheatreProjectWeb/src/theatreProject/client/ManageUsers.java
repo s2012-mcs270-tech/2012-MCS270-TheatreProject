@@ -26,6 +26,9 @@ import com.google.gwt.user.client.ui.ListBox;
 
 public class ManageUsers {
 	public final static PersistenceAsync persistence = TheatreProjectWeb.persistence;
+	public static int selectedItem = 0;
+	public static ListBox selectedListBox = null;
+
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -217,8 +220,7 @@ public class ManageUsers {
 		Button deletButton = new Button("X");								//X button
 		deletButton.addClickHandler(new ClickHandler() 
 		{
-			final ListBox selectedListBox = null;
-			final int selectedItem = 0;
+			
 			public void onClick(ClickEvent event) 
 			{
 				
