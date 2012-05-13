@@ -5,6 +5,7 @@ import theatreProject.shared.InventoryObject;
 import theatreProject.shared.Persistence;
 import theatreProject.shared.PersistenceAsync;
 
+import com.google.gwt.user.client.Timer;
 //import com.google.apphosting.api.ApiProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -13,29 +14,59 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 
 public class ReadOnlyInventory {
+	private static final int RETRY_MS = 1000;
 	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
 	public static InventoryObject thisObject;
 
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public static void readOnlyInventory(String ID){
-		persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
+	public static void readOnlyInventory(final String ID){
+
+		final Label txtDescription = new Label();
+		final Label txtDisclaimers = new Label();
+		final Label nameOfObject = new Label();
+		final Label lblStatus = new Label();
+		final Label txtStorageArea = new Label();
+		
+		Timer loadFields = new Timer(){	
+
 			@Override
-			public void onFailure(Throwable caught) {
-				thisObject = null;
+			public void run() {
+				persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						thisObject = null;
+					}
+					@Override
+					public void onSuccess(InventoryObject object) {
+						thisObject = object;
+						if(thisObject == null){
+							schedule(RETRY_MS);
+						} else {
+							txtDescription.setText(thisObject.getDescription());
+							txtDisclaimers.setText(thisObject.getDisclaimers());
+							if (thisObject.getStatus().getLocation() == "warehouse") lblStatus.setText("IN");
+							else lblStatus.setText("OUT");
+							nameOfObject.setText(thisObject.getName());
+							txtStorageArea.setText(thisObject.getStorageArea());
+						}
+					}
+				});
 			}
-			@Override
-			public void onSuccess(InventoryObject object) {
-				thisObject = object;
-			}
-		});
+
+		};
+
+		loadFields.run();
+
 
 
 		final RootPanel rootPanel = RootPanel.get();
@@ -57,11 +88,9 @@ public class ReadOnlyInventory {
 		manguageUserPanel.add(absolutePanel);
 		absolutePanel.setSize("450px", "489px");
 
-		final Label textBox = new Label();
-		textBox.setText(thisObject.getName());
-		textBox.setStyleName("gwt-Heading2");
-		absolutePanel.add(textBox, 10, 0);
-		textBox.setSize("419px", "18px");
+		nameOfObject.setStyleName("gwt-Heading2");
+		absolutePanel.add(nameOfObject, 10, 0);
+		nameOfObject.setSize("419px", "18px");
 
 		Button btnMainMenu_1 = new Button("Main Menu");
 		absolutePanel.add(btnMainMenu_1, 364, 452);
@@ -79,12 +108,9 @@ public class ReadOnlyInventory {
 		horizontalPanel.add(label);
 		label.setWidth("92px");
 
-		final Label textBox_1 = new Label();
-		textBox_1.setStyleName("gwt-LabelSmall");
-		if (thisObject.getStatus().getLocation() == "warehouse") textBox_1.setText("IN");
-		else textBox_1.setText("IN");
-		horizontalPanel.add(textBox_1);
-		textBox_1.setSize("97px", "22px");
+		lblStatus.setStyleName("gwt-LabelSmall");
+		horizontalPanel.add(lblStatus);
+		lblStatus.setSize("97px", "22px");
 
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
 		absolutePanel.add(horizontalPanel_1, 10, 200);
@@ -104,20 +130,18 @@ public class ReadOnlyInventory {
 		horizontalPanel_2.add(scrollPanel_1);
 		scrollPanel_1.setSize("348px", "98px");
 
-		final Label label_3 = new Label(thisObject.getDescription());
-		label_3.setStyleName("gwt-LabelSmall");
-		scrollPanel_1.setWidget(label_3);
-		label_3.setSize("100%", "100%");
+		txtDescription.setStyleName("gwt-LabelSmall");
+		scrollPanel_1.setWidget(txtDescription);
+		txtDescription.setSize("100%", "100%");
 
 		ScrollPanel scrollPanel = new ScrollPanel();
 		scrollPanel.setStyleName("Label Box");
 		absolutePanel.add(scrollPanel, 96, 200);
 		scrollPanel.setSize("348px", "98px");
 
-		final Label lblNewLabel = new Label(thisObject.getDisclaimers());
-		lblNewLabel.setStyleName("gwt-LabelSmall");
-		scrollPanel.setWidget(lblNewLabel);
-		lblNewLabel.setSize("100%", "100%");
+		txtDisclaimers.setStyleName("gwt-LabelSmall");
+		scrollPanel.setWidget(txtDisclaimers);
+		txtDisclaimers.setSize("100%", "100%");
 
 		final Label lblYourItemCould = new Label("Your Item could not be found! Sorry!");
 		lblYourItemCould.setVisible(false);
