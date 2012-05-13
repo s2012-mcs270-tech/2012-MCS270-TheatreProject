@@ -178,10 +178,10 @@ public class AdminInventory {
 		Button btnUploadImage = new Button("Upload Image");
 		absolutePanel.add(btnUploadImage, 10, 179);
 
-		Image image = new Image((String) null);
-		image.setAltText("Image of Item");
-		absolutePanel.add(image, 10, 47);
-		image.setSize("198px", "126px");
+//		Image image = new Image((String) null);
+//		image.setAltText("Image of Item");
+//		absolutePanel.add(image, 10, 47);
+//		image.setSize("198px", "126px");
 
 		//Main Menu Button
 		Button btnMainMenu_1 = new Button("Main Menu");
