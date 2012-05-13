@@ -79,7 +79,20 @@ public class TheatreProjectWeb implements EntryPoint {
 
 	public static void mainPage() {
 		
-		persistence.getEmail(new AsyncCallback<String>() {
+		final Button btnSearch = new Button("Search");
+		final Button btnViewAll = new Button("View All");
+		final Button btnViewCheckedOut = new Button("View Checked Out");
+		final Button btnAddItem = new Button("Add Item(s)");
+		final Button btnManageUsers = new Button("Manage Users");
+		
+		btnSearch.setEnabled(false);
+		btnViewAll.setEnabled(false);
+		btnViewCheckedOut.setEnabled(false);
+		btnAddItem.setEnabled(false);
+		btnManageUsers.setEnabled(false);
+		
+		
+		persistence.getEmail(new AsyncCallback<String>() {					//Returns the current user
 			@Override
 			public void onFailure(Throwable caught) {}
 			@Override
@@ -93,15 +106,19 @@ public class TheatreProjectWeb implements EntryPoint {
 					@Override
 					public void onSuccess(User result) {
 						currentUser = result;
+						btnSearch.setEnabled(true);
+						btnViewAll.setEnabled(true);
+						btnViewCheckedOut.setEnabled(true);
+						
+						if(currentUser.isAdmin()) {
+							btnAddItem.setEnabled(true);
+							btnManageUsers.setEnabled(true);
+									}
 								}
 						});
 					}
 				});
 		
-		
-		//TODO
-		//Terrible attempts at making a currentUser variable. Not sure how to use persistence calls
-		//(currentUser.getName()).getUser();
 		
 		// Use RootPanel.get() to get the entire body element
 		final RootPanel rootPanel = RootPanel.get();
@@ -136,7 +153,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		searchParameters.setText("Enter search terms here");
 
 		//primary search button
-		final Button btnSearch = new Button("Search");
+		
 		searchPanel.add(btnSearch);
 		btnSearch.setHeight("53px");
 
@@ -144,12 +161,12 @@ public class TheatreProjectWeb implements EntryPoint {
 		mainPanel.add(searchButtonsPanel);
 
 		//button for viewing all items
-		final Button btnViewAll = new Button("View All");
+		
 		searchButtonsPanel.add(btnViewAll);
 		btnViewAll.setSize("65px", "34px");
 
 		//button to view all checkout out items
-		final Button btnViewCheckedOut = new Button("View Checked Out");
+		
 		searchButtonsPanel.add(btnViewCheckedOut);
 		btnViewCheckedOut.setSize("129px", "35px");
 
@@ -164,27 +181,31 @@ public class TheatreProjectWeb implements EntryPoint {
 		HorizontalPanel addItemsPanel = new HorizontalPanel();
 		mainPanel.add(addItemsPanel);
 		addItemsPanel.setWidth("254px");
+		addItemsPanel.setVisible(false);
 
-		Button btnAddItem = new Button("Add Item(s)");
+		
 		addItemsPanel.add(btnAddItem);
 		btnAddItem.setSize("87px", "42px");
+		btnAddItem.setVisible(false);
 
 		final TextBox txtbxNumberOfItems = new TextBox();
 		txtbxNumberOfItems.setText("Number of Items to add");
 		addItemsPanel.add(txtbxNumberOfItems);
 		txtbxNumberOfItems.setSize("137px", "31px");
+		txtbxNumberOfItems.setVisible(false);
 		
 		
 		final ScrollPanel multipleOuterpanel = new ScrollPanel();
 		mainPanel.add(multipleOuterpanel);
 		multipleOuterpanel.setSize("261px", "36px");
+		
 				
 				
 		final VerticalPanel multiURLInnerPanel = new VerticalPanel();
 		multipleOuterpanel.setWidget(multiURLInnerPanel);
 		multiURLInnerPanel.setSize("100%", "100%");
 
-		final Button btnManageUsers = new Button("Manage Users");
+		
 		//TODO
 		//if (!ApiProxy.getCurrentEnvironment().isAdmin()){
 		///btnManageUsers.setVisible(false);
@@ -193,6 +214,15 @@ public class TheatreProjectWeb implements EntryPoint {
 		mainPanel.add(btnManageUsers);
 		btnManageUsers.setSize("106px", "36px");
 
+		if(currentUser.isAdmin()) {					//Extra things an Admin will be able to see
+			addItemsPanel.setVisible(true);
+			btnAddItem.setVisible(true);
+			txtbxNumberOfItems.setVisible(true);
+			multipleOuterpanel.setVisible(true);
+			multiURLInnerPanel.setVisible(true);
+		}
+		
+		
 
 		//button handlers
 		btnSearch.addClickHandler(new ClickHandler() {
