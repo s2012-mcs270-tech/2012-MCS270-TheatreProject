@@ -275,7 +275,7 @@ public class TheatreProjectWeb implements EntryPoint {
 											if(currentUser.isAdmin()) {
 												AdminInventory.adminOnlyInventory("213");
 											}
-											else
+											else ReadOnlyInventory.readOnlyInventory("213");
 											//TODO
 											//go to correct item page for correct level of user
 										}
