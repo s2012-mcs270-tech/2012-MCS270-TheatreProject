@@ -41,7 +41,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		pmf.getPersistenceManager().makePersistent(user);
 	}
 
-	private String getEmail(){
+	public String getEmail(){
 		// The test below just makes sure we didn't miss the lines in web.xml that
 		// ensure the user has to be logged in. If this exception is thrown, web.xml
 		// needs fixing.
