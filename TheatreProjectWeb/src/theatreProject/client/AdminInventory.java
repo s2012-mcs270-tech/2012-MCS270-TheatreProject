@@ -19,6 +19,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 //import com.google.apphosting.api.ApiProxy;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Image;
 
 public class AdminInventory {
 	private static final int RETRY_MS = 1000;
@@ -38,7 +39,8 @@ public class AdminInventory {
 		final TextBox txtbxEmailAddress = new TextBox();
 		final TextBox nameOfObject = new TextBox();
 		final Hidden hiddenID = new Hidden();
-		
+		final TextBox txtStroageArea = new TextBox();
+
 		Timer loadFields = new Timer(){
 
 			@Override
@@ -63,23 +65,22 @@ public class AdminInventory {
 							txtbxEmailAddress.setText(thisObject.getStatus().getRenter());
 							nameOfObject.setText(thisObject.getName());
 							hiddenID.setValue(thisObject.getID());
+							txtStroageArea.setText(thisObject.getStorageArea());
 						}
 					}
 				});
 			}
-			
+
 		};
-		
+
 		loadFields.run();
-		
-		final InventoryObject check = thisObject;
-		
+
 		final RootPanel rootPanel = RootPanel.get();
 		rootPanel.setStyleName("gwt-Root");
 
 		final VerticalPanel manguageUserPanel = new VerticalPanel();
 		rootPanel.add(manguageUserPanel, 10 ,10 );
-		manguageUserPanel.setSize("477px", "594px");
+		manguageUserPanel.setSize("498px", "627px");
 
 		final Label title = new Label("Admin Inventory Page");
 		title.setStyleName("gwt-Header");
@@ -88,22 +89,16 @@ public class AdminInventory {
 
 		AbsolutePanel absolutePanel = new AbsolutePanel();
 		manguageUserPanel.add(absolutePanel);
-		absolutePanel.setSize("459px", "552px");
+		absolutePanel.setSize("472px", "582px");
 
 		//Error Label
-		final Label lblCouldNotFind = new Label("COULD NOT FIND SELECTED ITEM. SORRY!");
+		final Label lblCouldNotFind = new Label("COULD NOT SAVE OBJECT. PLEASE CONTACT SITE ADMINISTRATOR.");
 		lblCouldNotFind.setVisible(false);
-		lblCouldNotFind.setStyleName("h1");
-		absolutePanel.add(lblCouldNotFind, 50, 87);
-		lblCouldNotFind.setSize("312px", "24px");
-
-//		Image image_1 = new Image((String) null);
-//		absolutePanel.add(image_1, 10, 47);
-//		image_1.setAltText("Image");
-//		image_1.setSize("196px", "131px");
+		absolutePanel.add(lblCouldNotFind, 24, 75);
+		lblCouldNotFind.setSize("158px", "82px");
 
 		HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
-		absolutePanel.add(horizontalPanel_4, 10, 261);
+		absolutePanel.add(horizontalPanel_4, 10, 291);
 		horizontalPanel_4.setSize("434px", "98px");
 
 		//Description Box
@@ -114,7 +109,7 @@ public class AdminInventory {
 		txtDescription.setSize("342px", "96px");
 
 		HorizontalPanel horizontalPanel_5 = new HorizontalPanel();
-		absolutePanel.add(horizontalPanel_5, 10, 390);
+		absolutePanel.add(horizontalPanel_5, 10, 418);
 		horizontalPanel_5.setSize("433px", "110px");
 
 		Label lblDisclaimers = new Label("Disclaimers: ");
@@ -124,7 +119,7 @@ public class AdminInventory {
 		txtDisclaimers.setSize("339px", "96px");
 
 		HorizontalPanel horizontalPanel_1 = new HorizontalPanel();
-		absolutePanel.add(horizontalPanel_1, 232, 100);
+		absolutePanel.add(horizontalPanel_1, 232, 119);
 		horizontalPanel_1.setSize("211px", "34px");
 
 		Label lblLocation = new Label("Location: ");
@@ -134,7 +129,7 @@ public class AdminInventory {
 		txtLocation.setWidth("136px");
 
 		HorizontalPanel horizontalPanel_7 = new HorizontalPanel();
-		absolutePanel.add(horizontalPanel_7, 232, 153);
+		absolutePanel.add(horizontalPanel_7, 232, 179);
 		horizontalPanel_7.setSize("211px", "34px");
 
 		Label lblShowEndDate = new Label("Show End Date: ");
@@ -143,12 +138,9 @@ public class AdminInventory {
 		horizontalPanel_7.add(txtShowDate);
 		txtShowDate.setWidth("130px");
 
-		Button btnDeleteItem = new Button("Delete Item");
-		absolutePanel.add(btnDeleteItem, 72, 517);
-
 		HorizontalPanel horizontalPanel_2 = new HorizontalPanel();
-		absolutePanel.add(horizontalPanel_2, 232, 47);
-		horizontalPanel_2.setSize("211px", "34px");
+		absolutePanel.add(horizontalPanel_2, 233, 47);
+		horizontalPanel_2.setSize("211px", "49px");
 
 		Label lblCheckInoutStatus = new Label("Check in/out Status: ");
 		horizontalPanel_2.add(lblCheckInoutStatus);
@@ -158,38 +150,38 @@ public class AdminInventory {
 		lblStatus.setSize("97px", "22px");
 
 		HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
-		absolutePanel.add(horizontalPanel_6, 232, 210);
+		absolutePanel.add(horizontalPanel_6, 232, 237);
 		horizontalPanel_6.setSize("211px", "34px");
 
-
-		//TODO
-		//We only have a renter at the moment...  Which is a string.  Either or, not both, name and email right now.  Could switch it.
-		Label lblEmailOfRenter = new Label("Email of Renter: ");
+		Label lblEmailOfRenter = new Label("Location in Warehouse: ");
 		horizontalPanel_6.add(lblEmailOfRenter);
 
-		horizontalPanel_6.add(txtbxEmailAddress);
-		txtbxEmailAddress.setWidth("136px");
+		horizontalPanel_6.add(txtStroageArea);
+		txtbxEmailAddress.setWidth("111px");
 
 		HorizontalPanel horizontalPanel_8 = new HorizontalPanel();
-		absolutePanel.add(horizontalPanel_8, 10, 192);
+		absolutePanel.add(horizontalPanel_8, 10, 219);
 		horizontalPanel_8.setSize("196px", "34px");
 
 
 		final Label lblNameOfRenter = new Label("Name of Renter: ");
 		horizontalPanel_8.add(lblNameOfRenter);
 		lblNameOfRenter.setWidth("55px");
-		//
 
-		TextBox nameTxtBx = new TextBox();
-		nameTxtBx.setText("Name");
-		horizontalPanel_8.add(nameTxtBx);
-		nameTxtBx.setWidth("133px");
+		horizontalPanel_8.add(txtbxEmailAddress);
+		txtbxEmailAddress.setWidth("133px");
 
 		nameOfObject.setStyleName("gwt-Heading2");
 		absolutePanel.add(nameOfObject, 10, 10);
 		nameOfObject.setSize("419px", "18px");
 		
-		//hidden button
+		Button btnUploadImage = new Button("Upload Image");
+		absolutePanel.add(btnUploadImage, 10, 179);
+
+		Image image = new Image((String) null);
+		image.setAltText("Image of Item");
+		absolutePanel.add(image, 10, 47);
+		image.setSize("198px", "126px");
 
 		//Main Menu Button
 		Button btnMainMenu_1 = new Button("Main Menu");
@@ -199,7 +191,7 @@ public class AdminInventory {
 				TheatreProjectWeb.mainPage();
 			}
 		});
-		absolutePanel.add(btnMainMenu_1, 363, 517);
+		absolutePanel.add(btnMainMenu_1, 364, 545);
 
 
 		//save buttons
@@ -216,7 +208,7 @@ public class AdminInventory {
 				thisObject.getStatus().setLocation(txtLocation.getText());
 				thisObject.getStatus().setRenter(lblNameOfRenter.getText());
 				thisObject.getStatus().setShowDay(txtShowDate.getText());
-				
+
 				//then save out the changes
 				persistence.saveObject(thisObject, new AsyncCallback<Void>() {
 					@Override
@@ -235,10 +227,30 @@ public class AdminInventory {
 		});
 
 		btnNewButton.setText("Save");
-		absolutePanel.add(btnNewButton, 10, 517);
+		absolutePanel.add(btnNewButton, 10, 545);
 
-		//TODO
-		//Delete item still not operational
+		//Delete button
+		Button btnDeleteItem = new Button("Delete Item");
+		btnDeleteItem.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				persistence.deleteObject(thisObject, new AsyncCallback<Void>() {
+					@Override
+					public void onFailure(Throwable caught) {
+						lblCouldNotFind.setVisible(true);								
+					}
+					@Override
+					public void onSuccess(Void result) {
+						lblCouldNotFind.setVisible(false);
+						//when saved, it returns to the main page
+						rootPanel.clear();
+						TheatreProjectWeb.mainPage();
+					}
+
+				});
+			}
+		});
+				absolutePanel.add(btnDeleteItem, 73, 545);
+
 
 	}
 }
