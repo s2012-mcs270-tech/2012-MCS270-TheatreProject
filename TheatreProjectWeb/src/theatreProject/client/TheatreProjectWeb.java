@@ -78,6 +78,28 @@ public class TheatreProjectWeb implements EntryPoint {
 	}
 
 	public static void mainPage() {
+		
+		persistence.getEmail(new AsyncCallback()<String> {
+
+			@Override
+			public onFailure(Throwable caught) {}
+
+			@Override
+			public onSuccess(String result) {
+				persistence.getUser(result,AsyncCallback()<User> {
+						
+					@Override
+					onFailure(Throwable caught) {}
+
+
+					@Override
+					onSuccess(User result) {
+						currentUser = result;
+								}
+						});
+					}
+				});
+		
 		//TODO
 		//Terrible attempts at making a currentUser variable. Not sure how to use persistence calls
 		//(currentUser.getName()).getUser();
