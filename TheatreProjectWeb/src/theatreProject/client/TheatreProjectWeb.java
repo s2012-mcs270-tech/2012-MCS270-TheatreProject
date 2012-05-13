@@ -49,6 +49,7 @@ import com.google.gwt.user.client.ui.DecoratedTabBar;
 import com.google.gwt.event.logical.shared.AttachEvent.Handler;
 import com.google.gwt.event.logical.shared.AttachEvent;
 import com.google.gwt.user.client.ui.DateLabel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -62,7 +63,8 @@ public class TheatreProjectWeb implements EntryPoint {
 
 	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
 	public static int nextID = 1;
-
+	public static User currentUser;
+	
 	/**
 	 * This is the entry point method.
 	 */
@@ -76,7 +78,10 @@ public class TheatreProjectWeb implements EntryPoint {
 	}
 
 	public static void mainPage() {
-
+		//TODO
+		//Terrible attempts at making a currentUser variable. Not sure how to use persistence calls
+		//(currentUser.getName()).getUser();
+		
 		// Use RootPanel.get() to get the entire body element
 		final RootPanel rootPanel = RootPanel.get();
 		rootPanel.setStyleName("gwt-Root");
@@ -147,6 +152,16 @@ public class TheatreProjectWeb implements EntryPoint {
 		txtbxNumberOfItems.setText("Number of Items to add");
 		addItemsPanel.add(txtbxNumberOfItems);
 		txtbxNumberOfItems.setSize("137px", "31px");
+		
+		
+		final ScrollPanel multipleOuterpanel = new ScrollPanel();
+		mainPanel.add(multipleOuterpanel);
+		multipleOuterpanel.setSize("261px", "36px");
+				
+				
+		final VerticalPanel multiURLInnerPanel = new VerticalPanel();
+		multipleOuterpanel.setWidget(multiURLInnerPanel);
+		multiURLInnerPanel.setSize("100%", "100%");
 
 		final Button btnManageUsers = new Button("Manage Users");
 		//TODO
@@ -156,28 +171,6 @@ public class TheatreProjectWeb implements EntryPoint {
 		//Ask Max
 		mainPanel.add(btnManageUsers);
 		btnManageUsers.setSize("106px", "36px");
-
-
-		final ScrollPanel multipleURLpopup = new ScrollPanel(); 	//MULTI-URL PANEL
-		rootPanel.add(multipleURLpopup, 178, 90);			//Panel that is the pop-up showing multiple URLs
-		multipleURLpopup.setSize("282px", "240px");			//when multiple objects are created
-		multipleURLpopup.setVisible(false);
-
-
-		final VerticalPanel multiURLInnerPanel = new VerticalPanel();	//Inner panel of the MULTI-URL Panel
-		multipleURLpopup.setWidget(multiURLInnerPanel);			//Allow for multiple things to be insdie the 
-		multiURLInnerPanel.setSize("100%", "236px");			//MULTI-URL Panel
-
-		final Button btnXMultiURL = new Button("New button");		//X button for MULTI-URL Panel
-		btnXMultiURL.addMouseUpHandler(new MouseUpHandler() {
-
-			public void onMouseUp(MouseUpEvent event) {				//onMouseUp for X button
-				multipleURLpopup.setVisible(false);					//Closes the multipleURLpopup
-			}
-		});
-		btnXMultiURL.setText("X");							//Exits pop-up
-		multiURLInnerPanel.add(btnXMultiURL);
-
 
 
 		//button handlers
@@ -312,21 +305,17 @@ public class TheatreProjectWeb implements EntryPoint {
 					});
 				}
 				if (n==1) {			
-					//TODO
-					//needs to be cleaned up, to send to the right item and right access level
 					rootPanel.clear();
 					AdminInventory.adminOnlyInventory(Integer.toString(nextID-1));
 				}
 				else {
-					//TODO
+					//TODO Test this. My war file is not complete so I can't  -Derek
 					multiURLInnerPanel.clear();
-					multiURLInnerPanel.add(btnXMultiURL);
-					multipleURLpopup.setVisible(true);
 					for(String url : urls) {
 						Label urlLabel = new Label(url);
 						urlLabel.setText(url);				//Sets label text to the URL
 						urlLabel.setSize(null, "25px");		//A decent horizontal height for label to not cause cluter
-						multipleURLpopup.add(urlLabel);
+						multipleOuterpanel.add(urlLabel);
 					}
 
 					//On that note, maybe have a way to find all "empty" items that have been created/initialized?
@@ -341,9 +330,6 @@ public class TheatreProjectWeb implements EntryPoint {
 				ManageUsers.manageUserPage();
 			}
 		});
-
-		//TODO
-		//click handler for x button in urls box
 
 
 		final Label lblContactInfo = new Label("Please contact Terena is you have any questions.");
