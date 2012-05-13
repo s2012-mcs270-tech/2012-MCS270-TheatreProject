@@ -181,18 +181,15 @@ public class TheatreProjectWeb implements EntryPoint {
 		HorizontalPanel addItemsPanel = new HorizontalPanel();
 		mainPanel.add(addItemsPanel);
 		addItemsPanel.setWidth("254px");
-		addItemsPanel.setVisible(false);
 
 		
 		addItemsPanel.add(btnAddItem);
 		btnAddItem.setSize("87px", "42px");
-		btnAddItem.setVisible(false);
 
 		final TextBox txtbxNumberOfItems = new TextBox();
 		txtbxNumberOfItems.setText("Number of Items to add");
 		addItemsPanel.add(txtbxNumberOfItems);
 		txtbxNumberOfItems.setSize("137px", "31px");
-		txtbxNumberOfItems.setVisible(false);
 		
 		
 		final ScrollPanel multipleOuterpanel = new ScrollPanel();
@@ -209,13 +206,6 @@ public class TheatreProjectWeb implements EntryPoint {
 		mainPanel.add(btnManageUsers);
 		btnManageUsers.setSize("106px", "36px");
 
-		if(currentUser.isAdmin()) {					//Extra things an Admin will be able to see
-			addItemsPanel.setVisible(true);
-			btnAddItem.setVisible(true);
-			txtbxNumberOfItems.setVisible(true);
-			multipleOuterpanel.setVisible(true);
-			multiURLInnerPanel.setVisible(true);
-		}
 		
 		
 
@@ -283,9 +273,9 @@ public class TheatreProjectWeb implements EntryPoint {
 										public void onClick(ClickEvent event) {
 											rootPanel.clear();
 											if(currentUser.isAdmin()) {
-											
+												AdminInventory.adminOnlyInventory("213");
 											}
-											else 
+											else
 											//TODO
 											//go to correct item page for correct level of user
 										}
