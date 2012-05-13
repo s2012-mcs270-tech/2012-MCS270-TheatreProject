@@ -206,11 +206,6 @@ public class TheatreProjectWeb implements EntryPoint {
 		multiURLInnerPanel.setSize("100%", "100%");
 
 		
-		//TODO
-		//if (!ApiProxy.getCurrentEnvironment().isAdmin()){
-		///btnManageUsers.setVisible(false);
-		//}
-		//Ask Max
 		mainPanel.add(btnManageUsers);
 		btnManageUsers.setSize("106px", "36px");
 
@@ -251,7 +246,7 @@ public class TheatreProjectWeb implements EntryPoint {
 							objectLabel.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
-									ReadOnlyInventory.readOnlyInventory("213");
+									AdminInventory.adminOnlyInventory("213");
 									//TODO
 									//go to correct item page for correct level of user
 								}
@@ -287,6 +282,10 @@ public class TheatreProjectWeb implements EntryPoint {
 									objectLabel.addClickHandler(new ClickHandler() {
 										public void onClick(ClickEvent event) {
 											rootPanel.clear();
+											if(currentUser.isAdmin()) {
+											
+											}
+											else 
 											//TODO
 											//go to correct item page for correct level of user
 										}
