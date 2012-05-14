@@ -252,20 +252,20 @@ public class ManageUsers {
 		absolutePanel.add(lblAddUser, 45, 293);
 		lblAddUser.setSize("141px", "18px");
 
-		final TextBox txtbxName = new TextBox();					//Text box containing the name of the to be added user
+		final TextBox txtbxName = new TextBox();
 		txtbxName.setText("Name");
 		absolutePanel.add(txtbxName, 44, 313);
 		txtbxName.setSize("128px", "18px");
 
-		final TextBox txtbxEmail = new TextBox();					//Text box containing the email of the user to be added
-		txtbxEmail.setText("email");
+		final TextBox txtbxEmail = new TextBox();
+		txtbxEmail.setText("Email");
 		absolutePanel.add(txtbxEmail, 238, 313);
 		txtbxEmail.setSize("128px", "18px");
 		
 		final TextBox txtbxAdditionalInformation = new TextBox();	//Text box containing the additional information of user to be added
 		txtbxAdditionalInformation.setText("Additional Information");
 		absolutePanel.add(txtbxAdditionalInformation, 45, 360);
-		txtbxAdditionalInformation.setSize("393px", "18px");
+		txtbxAdditionalInformation.setSize("323px", "18px");
 		
 		
 		final Label lblAddingUserError = new Label("Sorry, the user could not be added!");
@@ -307,28 +307,21 @@ public class ManageUsers {
 				TheatreProjectWeb.mainPage();
 			}
 		});
-		absolutePanel.add(btnMainPage, 506, 360);
+		absolutePanel.add(btnMainPage, 411, 363);
 		
-
+		Label lblViewOnlyUsers = new Label("View Only User's");
+		absolutePanel.add(lblViewOnlyUsers, 56, 19);
 		
-		TextBox txtbxUsersInformation = new TextBox();
-		txtbxUsersInformation.setStyleName("gwt-Button");
-		txtbxUsersInformation.setText("User's Information");
-		absolutePanel.add(txtbxUsersInformation, 430, 19);
-		txtbxUsersInformation.setSize("122px", "16px");
+		Label lblAdministrators = new Label("Administrators");
+		absolutePanel.add(lblAdministrators, 254, 19);
 		
+		Label lblUserInformation = new Label("User Information");
+		absolutePanel.add(lblUserInformation, 442, 19);
 		
-		TextBox txtbxViewOnlyUsers = new TextBox();
-		txtbxViewOnlyUsers.setStyleName("gwt-Button");
-		txtbxViewOnlyUsers.setText("View Only Users");
-		absolutePanel.add(txtbxViewOnlyUsers, 55, 19);
-		txtbxViewOnlyUsers.setSize("104px", "16px");
-		
-		TextBox txtbxAdmins = new TextBox();
-		txtbxAdmins.setStyleName("gwt-Button");
-		txtbxAdmins.setText("Admins");
-		absolutePanel.add(txtbxAdmins, 272, 19);
-		txtbxAdmins.setSize("51px", "16px");
+		Label lblAddUserEmail = new Label("Add User Email");
+		lblAddUserEmail.setStyleName("h2");
+		absolutePanel.add(lblAddUserEmail, 238, 293);
+		lblAddUserEmail.setSize("141px", "18px");
 
 	}
 }

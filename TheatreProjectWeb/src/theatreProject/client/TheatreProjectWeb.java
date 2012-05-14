@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.StackPanel;
-import com.google.apphosting.api.ApiProxy;
+//import com.google.apphosting.api.ApiProxy;
 
 
 /**
@@ -64,34 +64,34 @@ public class TheatreProjectWeb implements EntryPoint {
 //		btnManageUsers.setEnabled(false);
 		
 		//TODO : This needs to go above so if using an item's url we know which page, or we do that check in this call
-		persistence.getEmail(new AsyncCallback<String>() {					//Returns the current user
-			@Override
-			public void onFailure(Throwable caught) {}
-			@Override
-			public void onSuccess(String result) {
-				persistence.getUser(result, new AsyncCallback<User>() {
-						
-					@Override
-					public void onFailure(Throwable caught) {}
-
-
-					@Override
-					public void onSuccess(User result) {
-						currentUser = result;
-						btnSearch.setEnabled(true);
-						btnViewAll.setEnabled(true);
-						btnViewCheckedOut.setEnabled(true);
-						
-						if(currentUser.isAdmin()) {
-							btnAddItem.setEnabled(true);
-									}
-						if(ApiProxy.getCurrentEnvironment().isAdmin()) {
-							btnManageUsers.setEnabled(true);
-						}
-								}
-						});
-					}
-				});
+//		persistence.getEmail(new AsyncCallback<String>() {					//Returns the current user
+//			@Override
+//			public void onFailure(Throwable caught) {}
+//			@Override
+//			public void onSuccess(String result) {
+//				persistence.getUser(result, new AsyncCallback<User>() {
+//						
+//					@Override
+//					public void onFailure(Throwable caught) {}
+//
+//
+//					@Override
+//					public void onSuccess(User result) {
+//						currentUser = result;
+//						btnSearch.setEnabled(true);
+//						btnViewAll.setEnabled(true);
+//						btnViewCheckedOut.setEnabled(true);
+//						
+//						if(currentUser.isAdmin()) {
+//							btnAddItem.setEnabled(true);
+//									}
+//						if(ApiProxy.getCurrentEnvironment().isAdmin()) {
+//							btnManageUsers.setEnabled(true);
+//						}
+//								}
+//						});
+//					}
+//				});
 		
 		
 		// Use RootPanel.get() to get the entire body element
