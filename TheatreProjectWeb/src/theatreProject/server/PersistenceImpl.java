@@ -8,6 +8,7 @@ import javax.jdo.JDOObjectNotFoundException;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
+import javax.jdo.Transaction;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -25,10 +26,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class PersistenceImpl extends RemoteServiceServlet implements Persistence {
 	private static final long serialVersionUID = 4858210141739739447L;
 
-	private static final PersistenceManagerFactory pmf = PMF.get();
+	private static final PersistenceManager pm = PMF.get().getPersistenceManager();
 
 	public User getUser(String email){
-		PersistenceManager persistenceManager = pmf.getPersistenceManager();
+		PersistenceManager persistenceManager = pm;
 		try{
 			return persistenceManager.getObjectById(User.class, email);
 		} catch(JDOObjectNotFoundException e){
@@ -38,7 +39,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 
 	@Override
 	public void saveUser(User user){
-		pmf.getPersistenceManager().makePersistent(user);
+		pm.makePersistent(user);
 	}
 
 	public String getEmail(){
@@ -59,9 +60,8 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 
 	@Override
 	public InventoryObject getInventoryObject(String ID) {
-		PersistenceManager persistenceManager = pmf.getPersistenceManager();
 		try{
-			return persistenceManager.getObjectById(InventoryObject.class, ID);
+			return pm.getObjectById(InventoryObject.class, ID);
 		} catch(JDOObjectNotFoundException e){
 			return null;
 		}
@@ -74,25 +74,46 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 
 	@Override
 	public void saveObject(InventoryObject object) {
-		pmf.getPersistenceManager().makePersistent(object);
+		pm.makePersistent(object);
 	}
 	
 	public void deleteObject(InventoryObject object) {
-		pmf.getPersistenceManager().deletePersistent(object);
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			InventoryObject persistentObject = 
+				pm.getObjectById(InventoryObject.class, object.getID());
+			pm.deletePersistent(persistentObject);
+			tx.commit();
+		} catch(Exception e) {
+			if(tx.isActive()){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void deleteUser(User user){
-		pmf.getPersistenceManager().deletePersistent(user);
-	}
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			User persistentUser = 
+				pm.getObjectById(User.class, user.getEmail());
+			pm.deletePersistent(persistentUser);
+			tx.commit();
+		} catch(Exception e) {
+			if(tx.isActive()){
+				tx.rollback();
+				e.printStackTrace();
+			}
+		}	}
 	
 	public List<InventoryObject> returnAll() {
-		PersistenceManager pm = pmf.getPersistenceManager();
 		Query query = pm.newQuery(InventoryObject.class);
 		return (List<InventoryObject>) query.execute();
 	}
 
 	public ArrayList<User> returnAllUser(){
-		PersistenceManager pm = pmf.getPersistenceManager();
 		Query query = pm.newQuery(User.class);
 		return (ArrayList<User>) query.execute();
 	}
