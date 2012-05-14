@@ -20,6 +20,19 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+/*
+ * The read only page is responsible for displaying information that non-admin users will view. This is a demoted view that only allows the user to view the basic information about
+ * a given inventory object. This page also is read only with no editing capabilities. The user is unable to checkout, or edit any info from the warehouse. Terena needs to be able to 
+ * keep track of who can check out items from the warehouse, but she wants people to be able to view objects that they have in the inventory.
+ * 
+ * Read Only Object Info:
+ * Object Name
+ * Check out Status
+ * Image of the object
+ * Description of item
+ * Disclaimers of item
+ * A hidden field stores the Item ID (The user does not need to see this, it is used to retrieve Item info and for blob image storage)
+ */
 
 public class ReadOnlyInventory {
 	private static final int RETRY_MS = 1000;
@@ -38,7 +51,8 @@ public class ReadOnlyInventory {
 		final Label txtStorageArea = new Label();
 		
 		Timer loadFields = new Timer(){	
-
+			
+			//Retrieves object info from persistent database. Keeps attempting to call info. Leaves page blank until info is retrieved.
 			@Override
 			public void run() {
 				persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
@@ -143,11 +157,12 @@ public class ReadOnlyInventory {
 		scrollPanel.setWidget(txtDisclaimers);
 		txtDisclaimers.setSize("100%", "100%");
 
+		//Error label if item cannot be retrieved
 		final Label lblYourItemCould = new Label("Your Item could not be found! Sorry!");
 		lblYourItemCould.setVisible(false);
 		absolutePanel.add(lblYourItemCould, 233, 41);
 
-		//button handlers
+		//Main Menu button handler
 		btnMainMenu_1.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				rootPanel.clear();

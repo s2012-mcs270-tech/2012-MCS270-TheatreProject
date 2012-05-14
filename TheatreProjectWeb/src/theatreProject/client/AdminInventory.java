@@ -29,6 +29,27 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
+/*
+ * Admin inventory page is responsible for managing all of the important details and information for an object.
+ * Only users that are registered and approved Admins get access to this page. If you are an admin and you search
+ * for an item you automatically go to an admin object page.
+ * Admins are responsible for editing, updating, and creating objects in the system.
+ * Read only users can only view objects images, name, description, and disclaimer, and have
+ * no editing capabilities. 
+ * 
+ * 
+ * Admin Object Info:
+ * Object Name
+ * Check out Status
+ * Image of the object
+ * Object Location
+ * Object Location within the warehouse
+ * Show Date
+ * Name of Renter
+ * Description of item
+ * Disclaimers of item
+ * A hidden field stores the Item ID (The user does not need to see this, it is used to retrieve Item info and for blob image storage)
+ */
 
 public class AdminInventory {
 	private static final int RETRY_MS = 1000;
@@ -56,11 +77,13 @@ public class AdminInventory {
 
 		Timer loadFields = new Timer(){
 
+			//Retrieves object info from persistent database. Keeps attempting to call info. Leaves page blank until info is retrieved.
 			@Override
 			public void run() {
 				persistence.getInventoryObject(ID, new AsyncCallback<InventoryObject>() {
 					@Override
 					public void onFailure(Throwable caught) {
+						//Set object to null if object is not found. This leaves the page mostly blank until info is retrieved
 						thisObject = null;
 					}
 					@Override
@@ -167,12 +190,14 @@ public class AdminInventory {
 
 		HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
 		absolutePanel.add(horizontalPanel_6, 232, 237);
-		horizontalPanel_6.setSize("211px", "34px");
+		horizontalPanel_6.setSize("212px", "36px");
 
 		Label lblEmailOfRenter = new Label("Location in Warehouse: ");
 		horizontalPanel_6.add(lblEmailOfRenter);
+		lblEmailOfRenter.setWidth("90px");
 
 		horizontalPanel_6.add(txtStroageArea);
+		txtStroageArea.setWidth("103px");
 		txtbxEmailAddress.setWidth("111px");
 
 		HorizontalPanel horizontalPanel_8 = new HorizontalPanel();
