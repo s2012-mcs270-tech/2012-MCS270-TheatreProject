@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.StackPanel;
+import com.google.apphosting.api.ApiProxy;
 
 
 /**
@@ -30,9 +31,6 @@ import com.google.gwt.user.client.ui.StackPanel;
 
 
 public class TheatreProjectWeb implements EntryPoint {
-
-	//needs to be persistent or something instead
-	//private Inventory inventory = new Inventory(new ArrayList<InventoryObject>());
 
 	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
 	public static int nextID = 1;
@@ -44,8 +42,9 @@ public class TheatreProjectWeb implements EntryPoint {
 
 	public void onModuleLoad() {
 		//		String loadID = Window.Location.getParameter("id");
-		//		//TODO : update for inventory calls
-		//		if (loadID != null) ReadOnlyInventory.readOnlyInventory();
+		//		//TODO : update for going to correct inventory
+		
+		//		if (loadID != null) ReadOnlyInventory.readOnlyInventory(loadID);
 		//		else mainPage();
 		mainPage();
 	}
@@ -64,7 +63,7 @@ public class TheatreProjectWeb implements EntryPoint {
 //		btnAddItem.setEnabled(false);
 //		btnManageUsers.setEnabled(false);
 		
-		
+		//TODO : This needs to go above so if using an item's url we know which page, or we do that check in this call
 		persistence.getEmail(new AsyncCallback<String>() {					//Returns the current user
 			@Override
 			public void onFailure(Throwable caught) {}
@@ -85,8 +84,10 @@ public class TheatreProjectWeb implements EntryPoint {
 						
 						if(currentUser.isAdmin()) {
 							btnAddItem.setEnabled(true);
-							btnManageUsers.setEnabled(true);
 									}
+						if(ApiProxy.getCurrentEnvironment().isAdmin()) {
+							btnManageUsers.setEnabled(true);
+						}
 								}
 						});
 					}
@@ -210,13 +211,18 @@ public class TheatreProjectWeb implements EntryPoint {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
 									AdminInventory.adminOnlyInventory(obj.getID());
-									//TODO
-									//go to correct item page for correct level of user
+									
+									//TODO : below commented code is what we want, above is placeholder, so this TODO is a reminder!
+//									if(currentUser.isAdmin()) {
+//										AdminInventory.adminOnlyInventory(obj.getID());
+//									}
+//									else ReadOnlyInventory.readOnlyInventory(obj.getID());
 								}
 							});
 							//TODO
 							//also, find how to insert the image and add a click handler for it too
 							//also, find how to insert the image
+							
 						}
 					}
 				});
@@ -236,7 +242,7 @@ public class TheatreProjectWeb implements EntryPoint {
 							@Override
 							public void onSuccess(ArrayList<InventoryObject> result) {
 								lblSearchError.setVisible(false);
-								for (InventoryObject obj : result) {
+								for (final InventoryObject obj : result) {
 									HorizontalPanel objectPanel = new HorizontalPanel();
 									searchResultsPanel.add(objectPanel);
 									Label objectLabel = new Label(obj.getName());
@@ -246,11 +252,10 @@ public class TheatreProjectWeb implements EntryPoint {
 										public void onClick(ClickEvent event) {
 											rootPanel.clear();
 											if(currentUser.isAdmin()) {
-												AdminInventory.adminOnlyInventory("213");
+												AdminInventory.adminOnlyInventory(obj.getID());
 											}
-											else ReadOnlyInventory.readOnlyInventory("213");
-											//TODO
-											//go to correct item page for correct level of user
+											else ReadOnlyInventory.readOnlyInventory(obj.getID());
+
 										}
 									});
 									//TODO
@@ -261,41 +266,6 @@ public class TheatreProjectWeb implements EntryPoint {
 						});
 			}
 		});
-
-		//TODO : not working...
-		btnViewAll.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				searchResultsPanel.clear();
-				persistence.returnAll(
-						new AsyncCallback<List<InventoryObject>>() {
-							@Override
-							public void onFailure(Throwable caught) {
-								lblSearchError.setVisible(true);
-							}
-							@Override
-							public void onSuccess(List<InventoryObject> result) {
-								lblSearchError.setVisible(true);
-								for (InventoryObject obj : result) {
-									HorizontalPanel objectPanel = new HorizontalPanel();
-									searchResultsPanel.add(objectPanel);
-									Label objectLabel = new Label(obj.getName());
-									objectPanel.add(objectLabel);
-
-									objectLabel.addClickHandler(new ClickHandler() {
-										public void onClick(ClickEvent event) {
-											rootPanel.clear();
-											//TODO
-											//go to correct item page for correct level of user
-										}
-									});
-									//TODO
-									//also, find how to insert the image and add the same click handler for it too
-								}
-							}
-						});
-			}
-		});
-
 
 		btnAddItem.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -323,6 +293,7 @@ public class TheatreProjectWeb implements EntryPoint {
 				}
 				else {
 					//TODO Test this. My war file is not complete so I can't  -Derek
+					//Doesn't work.
 					multiURLInnerPanel.clear();
 					for(String url : urls) {
 						Label urlLabel = new Label(url);
