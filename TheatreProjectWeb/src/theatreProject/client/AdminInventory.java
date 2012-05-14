@@ -7,6 +7,7 @@ import theatreProject.shared.Persistence;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -175,8 +176,10 @@ public class AdminInventory {
 		absolutePanel.add(nameOfObject, 10, 10);
 		nameOfObject.setSize("419px", "18px");
 		
-		Button btnUploadImage = new Button("Upload Image");
-		absolutePanel.add(btnUploadImage, 10, 179);
+		final FileUpload upload = new FileUpload();
+		absolutePanel.add(upload, 24, 180);
+		upload.setSize("180px", "18px");
+		upload.setName("upload");
 
 //		Image image = new Image((String) null);
 //		image.setAltText("Image of Item");
@@ -195,8 +198,8 @@ public class AdminInventory {
 
 
 		//save buttons
-		Button btnNewButton = new Button("New button");
-		btnNewButton.addClickHandler(new ClickHandler() {
+		Button btnSaveButton = new Button("New button");
+		btnSaveButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				//start by setting thisObject parameters to current txtbxs
 				thisObject.setName(nameOfObject.getText());
@@ -226,8 +229,8 @@ public class AdminInventory {
 			}
 		});
 
-		btnNewButton.setText("Save");
-		absolutePanel.add(btnNewButton, 10, 545);
+		btnSaveButton.setText("Save");
+		absolutePanel.add(btnSaveButton, 10, 545);
 
 		//Delete button
 		Button btnDeleteItem = new Button("Delete Item");
