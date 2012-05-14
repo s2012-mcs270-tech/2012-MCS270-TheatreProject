@@ -13,6 +13,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
@@ -22,7 +23,6 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.StackPanel;
-//import com.google.apphosting.api.ApiProxy;
 
 
 /**
@@ -41,11 +41,6 @@ public class TheatreProjectWeb implements EntryPoint {
 	 */
 
 	public void onModuleLoad() {
-		//		String loadID = Window.Location.getParameter("id");
-		//		//TODO : update for going to correct inventory
-
-		//		if (loadID != null) ReadOnlyInventory.readOnlyInventory(loadID);
-		//		else mainPage();
 		mainPage();
 	}
 
@@ -61,7 +56,6 @@ public class TheatreProjectWeb implements EntryPoint {
 		//		btnAddItem.setEnabled(false);
 		//		btnManageUsers.setEnabled(false);
 
-		//TODO : This needs to go above so if using an item's url we know which page, or we do that check in this call
 		persistence.getEmail(new AsyncCallback<String>() {					//Returns the current user
 			@Override
 			public void onFailure(Throwable caught) {}
@@ -76,6 +70,14 @@ public class TheatreProjectWeb implements EntryPoint {
 					@Override
 					public void onSuccess(User result) {
 						currentUser = result;
+						
+						//checks for id and takes to respective page
+						String loadID = Window.Location.getParameter("id");
+						if (loadID != null) {
+							if(currentUser.isAdmin()) AdminInventory.adminOnlyInventory(loadID);
+							else ReadOnlyInventory.readOnlyInventory(loadID);
+						}
+						
 						btnSearch.setEnabled(true);
 						btnViewCheckedOut.setEnabled(true);
 
@@ -89,7 +91,7 @@ public class TheatreProjectWeb implements EntryPoint {
 							public void onSuccess(Boolean result) {
 								btnManageUsers.setEnabled(result);
 							}
-						});
+						});		
 					}
 				});
 			}
@@ -226,6 +228,7 @@ public class TheatreProjectWeb implements EntryPoint {
 			}
 		});
 
+		//TODO : Doesn't work, hasn't been looked at in a while
 		btnViewCheckedOut.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				searchResultsPanel.clear();

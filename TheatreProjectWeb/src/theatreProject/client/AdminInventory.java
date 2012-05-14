@@ -10,6 +10,7 @@ import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FileUpload;
+import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -47,8 +48,7 @@ public class AdminInventory {
 		final TextBox nameOfObject = new TextBox();
 		final Hidden hiddenID = new Hidden();
 		final TextBox txtStroageArea = new TextBox();
-
-
+		final Image image = new Image();
 
 		Timer loadFields = new Timer(){
 
@@ -75,6 +75,7 @@ public class AdminInventory {
 							nameOfObject.setText(thisObject.getName());
 							hiddenID.setValue(thisObject.getID());
 							txtStroageArea.setText(thisObject.getStorageArea());
+							image.setUrl(thisObject.getImageURL());
 						}
 					}
 				});
@@ -95,9 +96,17 @@ public class AdminInventory {
 		title.setStyleName("gwt-Header");
 		manguageUserPanel.add(title);
 		title.setSize("338px","25px");
+		
+		//needed a form panel for the upload button or something
+		final FormPanel uploadForm = new FormPanel();
+		manguageUserPanel.add(uploadForm);
+		
+		//from MessageBoard
+		uploadForm.setEncoding(FormPanel.ENCODING_MULTIPART);
+		uploadForm.setMethod(FormPanel.METHOD_POST);
 
 		AbsolutePanel absolutePanel = new AbsolutePanel();
-		manguageUserPanel.add(absolutePanel);
+		uploadForm.add(absolutePanel);
 		absolutePanel.setSize("472px", "582px");
 
 		HorizontalPanel horizontalPanel_4 = new HorizontalPanel();
@@ -178,33 +187,31 @@ public class AdminInventory {
 		absolutePanel.add(nameOfObject, 10, 10);
 		nameOfObject.setSize("419px", "18px");
 
-//		final Image image = new Image((String) null);
-//		absolutePanel.add(image, 10, 47);
-//		image.setSize("198px", "127px");
-//
-//		final FileUpload upload = new FileUpload();
-//		upload.addChangeHandler(new ChangeHandler() {
-//			public void onChange(ChangeEvent event) {
-//				blobService.getBlobStoreUploadUrl(new AsyncCallback<String>(){
-//
-//					@Override
-//					public void onFailure(Throwable caught) {
-//						image.setAltText("The image can't be loaded");
-//
-//					}
-//
-//					@Override
-//					public void onSuccess(String url) {
-//						image.setUrl(url);
-//						thisObject.setImage(url);
-//					}
-//
-//				});
-//			}
-//		});
-//		absolutePanel.add(upload, 24, 180);
-//		upload.setSize("180px", "18px");
-//		upload.setName("upload");
+		absolutePanel.add(image, 10, 47);
+		image.setSize("198px", "127px");
+
+		final FileUpload upload = new FileUpload();
+		absolutePanel.add(upload, 24, 180);
+		upload.setSize("180px", "18px");
+		upload.setName("upload");
+
+		upload.addChangeHandler(new ChangeHandler() {
+			public void onChange(ChangeEvent event) {
+				blobService.getBlobStoreUploadUrl(new AsyncCallback<String>(){
+					@Override
+					public void onFailure(Throwable caught) {
+						image.setAltText("The image can't be loaded");
+
+					}
+					@Override
+					public void onSuccess(String url) {
+						image.setUrl(url);
+						thisObject.setImage(url);
+					}
+
+				});
+			}
+		});
 
 
 		//Main Menu Button
@@ -226,9 +233,7 @@ public class AdminInventory {
 				thisObject.setName(nameOfObject.getText());
 				thisObject.setDescription(txtDescription.getText());
 				thisObject.setDisclaimers(txtDisclaimers.getText());
-				//TODO
-				//thisObject.setImage(newImageURL);
-				//thisObject.setStorageArea(newStorageArea);
+				thisObject.setStorageArea(txtStroageArea.getText());
 				thisObject.getStatus().setLocation(txtLocation.getText());
 				thisObject.getStatus().setRenter(lblNameOfRenter.getText());
 				thisObject.getStatus().setShowDay(txtShowDate.getText());
@@ -262,7 +267,7 @@ public class AdminInventory {
 					}
 					@Override
 					public void onSuccess(Void result) {
-						//when saved, it returns to the main page
+						//when deleted, it returns to the main page
 						rootPanel.clear();
 						TheatreProjectWeb.mainPage();
 					}
