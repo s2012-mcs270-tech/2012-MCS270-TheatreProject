@@ -154,12 +154,13 @@ lblStatus.setSize("97px", "22px");
 
 HorizontalPanel horizontalPanel_6 = new HorizontalPanel();
 absolutePanel.add(horizontalPanel_6, 232, 237);
-horizontalPanel_6.setSize("211px", "34px");
+horizontalPanel_6.setSize("211px", "36px");
 
 Label lblEmailOfRenter = new Label("Location in Warehouse: ");
 horizontalPanel_6.add(lblEmailOfRenter);
 
 horizontalPanel_6.add(txtStroageArea);
+txtStroageArea.setWidth("99px");
 txtbxEmailAddress.setWidth("111px");
 
 HorizontalPanel horizontalPanel_8 = new HorizontalPanel();

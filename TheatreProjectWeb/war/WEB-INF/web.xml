@@ -36,7 +36,8 @@
 		<url-pattern>/theatreprojectweb/uploadservice</url-pattern>
 	</servlet-mapping>
 
-<!-- Default page to serve -->
+
+	<!-- Default page to serve -->
 	<welcome-file-list>
 		<welcome-file>TheatreProjectWeb.html</welcome-file>
 	</welcome-file-list>
