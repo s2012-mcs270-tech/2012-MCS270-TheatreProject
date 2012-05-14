@@ -12,6 +12,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 public interface PersistenceAsync {
 	
 void getEmail(AsyncCallback<String> callback);
+void isSystemAdmin(AsyncCallback<Boolean> callback);
 
 void getUser(String email, AsyncCallback<User> callback);
 void saveUser(User user, AsyncCallback<Void> callback);

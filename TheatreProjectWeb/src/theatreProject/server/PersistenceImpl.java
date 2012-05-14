@@ -27,6 +27,10 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	private static final long serialVersionUID = 4858210141739739447L;
 
 	private static final PersistenceManager pm = PMF.get().getPersistenceManager();
+	
+	public boolean isSystemAdmin() {
+		return ApiProxy.getCurrentEnvironment().isAdmin();
+	}
 
 	public User getUser(String email){
 		PersistenceManager persistenceManager = pm;

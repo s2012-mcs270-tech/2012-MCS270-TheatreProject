@@ -35,7 +35,7 @@ public class TheatreProjectWeb implements EntryPoint {
 	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
 	public static int nextID = 1;
 	public static User currentUser;
-	
+
 	/**
 	 * This is the entry point method.
 	 */
@@ -43,26 +43,24 @@ public class TheatreProjectWeb implements EntryPoint {
 	public void onModuleLoad() {
 		//		String loadID = Window.Location.getParameter("id");
 		//		//TODO : update for going to correct inventory
-		
+
 		//		if (loadID != null) ReadOnlyInventory.readOnlyInventory(loadID);
 		//		else mainPage();
 		mainPage();
 	}
 
 	public static void mainPage() {
-		
+
 		final Button btnSearch = new Button("Search");
-		final Button btnViewAll = new Button("View All");
 		final Button btnViewCheckedOut = new Button("View Checked Out");
 		final Button btnAddItem = new Button("Add Item(s)");
 		final Button btnManageUsers = new Button("Manage Users");
-		
-//		btnSearch.setEnabled(false);
-//		btnViewAll.setEnabled(false);
-//		btnViewCheckedOut.setEnabled(false);
-//		btnAddItem.setEnabled(false);
-//		btnManageUsers.setEnabled(false);
-		
+
+		//		btnSearch.setEnabled(false);
+		//		btnViewCheckedOut.setEnabled(false);
+		//		btnAddItem.setEnabled(false);
+		//		btnManageUsers.setEnabled(false);
+
 		//TODO : This needs to go above so if using an item's url we know which page, or we do that check in this call
 		persistence.getEmail(new AsyncCallback<String>() {					//Returns the current user
 			@Override
@@ -70,7 +68,7 @@ public class TheatreProjectWeb implements EntryPoint {
 			@Override
 			public void onSuccess(String result) {
 				persistence.getUser(result, new AsyncCallback<User>() {
-						
+
 					@Override
 					public void onFailure(Throwable caught) {}
 
@@ -79,21 +77,24 @@ public class TheatreProjectWeb implements EntryPoint {
 					public void onSuccess(User result) {
 						currentUser = result;
 						btnSearch.setEnabled(true);
-						btnViewAll.setEnabled(true);
 						btnViewCheckedOut.setEnabled(true);
-						
+
 						if(currentUser.isAdmin()) {
 							btnAddItem.setEnabled(true);
-									}
-//						if(ApiProxy.getCurrentEnvironment().isAdmin()) {
-//							btnManageUsers.setEnabled(true);
-//						}
-								}
+						}
+						persistence.isSystemAdmin(new AsyncCallback<Boolean>() {					//Returns the current user
+							@Override
+							public void onFailure(Throwable caught) {}
+							@Override
+							public void onSuccess(Boolean result) {
+								btnManageUsers.setEnabled(result);
+							}
 						});
 					}
 				});
-		
-		
+			}
+		});
+
 		// Use RootPanel.get() to get the entire body element
 		final RootPanel rootPanel = RootPanel.get();
 		rootPanel.setStyleName("gwt-Root");
@@ -127,20 +128,15 @@ public class TheatreProjectWeb implements EntryPoint {
 		searchParameters.setText("Enter search terms here");
 
 		//primary search button
-		
+
 		searchPanel.add(btnSearch);
 		btnSearch.setHeight("53px");
 
 		HorizontalPanel searchButtonsPanel = new HorizontalPanel();
 		mainPanel.add(searchButtonsPanel);
 
-		//button for viewing all items
-		
-		searchButtonsPanel.add(btnViewAll);
-		btnViewAll.setSize("65px", "34px");
-
 		//button to view all checkout out items
-		
+
 		searchButtonsPanel.add(btnViewCheckedOut);
 		btnViewCheckedOut.setSize("129px", "35px");
 
@@ -156,7 +152,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		mainPanel.add(addItemsPanel);
 		addItemsPanel.setWidth("254px");
 
-		
+
 		addItemsPanel.add(btnAddItem);
 		btnAddItem.setSize("87px", "42px");
 
@@ -164,24 +160,24 @@ public class TheatreProjectWeb implements EntryPoint {
 		txtbxNumberOfItems.setText("Number of Items to add");
 		addItemsPanel.add(txtbxNumberOfItems);
 		txtbxNumberOfItems.setSize("137px", "31px");
-		
-		
+
+
 		final ScrollPanel multipleOuterpanel = new ScrollPanel();
 		mainPanel.add(multipleOuterpanel);
 		multipleOuterpanel.setSize("261px", "36px");
-		
-				
-				
+
+
+
 		final VerticalPanel multiURLInnerPanel = new VerticalPanel();
 		multipleOuterpanel.setWidget(multiURLInnerPanel);
 		multiURLInnerPanel.setSize("100%", "100%");
 
-		
+
 		mainPanel.add(btnManageUsers);
 		btnManageUsers.setSize("106px", "36px");
 
-		
-		
+
+
 
 		//button handlers
 		btnSearch.addClickHandler(new ClickHandler() {
@@ -211,18 +207,18 @@ public class TheatreProjectWeb implements EntryPoint {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
 									AdminInventory.adminOnlyInventory(obj.getID());
-									
+
 									//TODO : below commented code is what we want, above is placeholder, so this TODO is a reminder!
-//									if(currentUser.isAdmin()) {
-//										AdminInventory.adminOnlyInventory(obj.getID());
-//									}
-//									else ReadOnlyInventory.readOnlyInventory(obj.getID());
+									//									if(currentUser.isAdmin()) {
+									//										AdminInventory.adminOnlyInventory(obj.getID());
+									//									}
+									//									else ReadOnlyInventory.readOnlyInventory(obj.getID());
 								}
 							});
 							//TODO
 							//also, find how to insert the image and add a click handler for it too
 							//also, find how to insert the image
-							
+
 						}
 					}
 				});
