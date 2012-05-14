@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.StackPanel;
 public class TheatreProjectWeb implements EntryPoint {
 
 	public final static PersistenceAsync persistence = GWT.create(Persistence.class);
-	public static int nextID = 1;
+	public static int nextID = 1;	//id here is represented just as an int, but is stored in inventoryObject as a string
 	public static User currentUser;
 
 	/**
@@ -51,26 +51,30 @@ public class TheatreProjectWeb implements EntryPoint {
 		final Button btnAddItem = new Button("Add Item(s)");
 		final Button btnManageUsers = new Button("Manage Users");
 
+		//The below commented out code is to make sure that the user cannot do anything until
+		//the system has recognized who they are.
+		
 		//		btnSearch.setEnabled(false);
 		//		btnViewCheckedOut.setEnabled(false);
 		//		btnAddItem.setEnabled(false);
 		//		btnManageUsers.setEnabled(false);
 
+		/** This was a call to try and find the currently logged in user.  This was important for granting
+		 * access to the manage users page, for adding items, and for determining which item page to
+		 * go to.  It waits to check for an ID in the URL for that purpose--it needs to know if the user
+		 * is an admin or not */
+		
 		persistence.getEmail(new AsyncCallback<String>() {					//Returns the current user
 			@Override
 			public void onFailure(Throwable caught) {}
 			@Override
 			public void onSuccess(String result) {
 				persistence.getUser(result, new AsyncCallback<User>() {
-
 					@Override
 					public void onFailure(Throwable caught) {}
-
-
 					@Override
 					public void onSuccess(User result) {
 						currentUser = result;
-						
 						//checks for id and takes to respective page
 						String loadID = Window.Location.getParameter("id");
 						if (loadID != null) {
@@ -84,7 +88,8 @@ public class TheatreProjectWeb implements EntryPoint {
 						if(currentUser.isAdmin()) {
 							btnAddItem.setEnabled(true);
 						}
-						persistence.isSystemAdmin(new AsyncCallback<Boolean>() {					//Returns the current user
+						//you need to be a system admin to manage users, not just an admin in the app.
+						persistence.isSystemAdmin(new AsyncCallback<Boolean>() {
 							@Override
 							public void onFailure(Throwable caught) {}
 							@Override
@@ -113,6 +118,7 @@ public class TheatreProjectWeb implements EntryPoint {
 		mainPanel.add(title);
 		title.setSize("338px", "25px");
 
+		//Terena had expressed interest in some sort of guidelines for the app that would go here
 		final Label lblRules = new Label("And here are our rules.");
 		mainPanel.add(lblRules);
 
@@ -130,7 +136,6 @@ public class TheatreProjectWeb implements EntryPoint {
 		searchParameters.setText("Enter search terms here");
 
 		//primary search button
-
 		searchPanel.add(btnSearch);
 		btnSearch.setHeight("53px");
 
@@ -138,14 +143,15 @@ public class TheatreProjectWeb implements EntryPoint {
 		mainPanel.add(searchButtonsPanel);
 
 		//button to view all checkout out items
-
 		searchButtonsPanel.add(btnViewCheckedOut);
 		btnViewCheckedOut.setSize("129px", "35px");
-
+		
+		//error label set to display when search fails
 		final Label lblSearchError = new Label("Sorry, an error has occured!");
 		lblSearchError.setVisible(false);
 		mainPanel.add(lblSearchError);
 
+		//right now, the search results get presented in a non-scrolling stackPanel
 		final StackPanel searchResultsPanel = new StackPanel();
 		mainPanel.add(searchResultsPanel);
 		searchResultsPanel.setSize("357px", "155px");
@@ -153,7 +159,6 @@ public class TheatreProjectWeb implements EntryPoint {
 		HorizontalPanel addItemsPanel = new HorizontalPanel();
 		mainPanel.add(addItemsPanel);
 		addItemsPanel.setWidth("254px");
-
 
 		addItemsPanel.add(btnAddItem);
 		btnAddItem.setSize("87px", "42px");
@@ -163,25 +168,23 @@ public class TheatreProjectWeb implements EntryPoint {
 		addItemsPanel.add(txtbxNumberOfItems);
 		txtbxNumberOfItems.setSize("137px", "31px");
 
-
+		//panels for displaying the urls if multiple items are added
 		final ScrollPanel multipleOuterpanel = new ScrollPanel();
 		mainPanel.add(multipleOuterpanel);
 		multipleOuterpanel.setSize("261px", "36px");
-
-
 
 		final VerticalPanel multiURLInnerPanel = new VerticalPanel();
 		multipleOuterpanel.setWidget(multiURLInnerPanel);
 		multiURLInnerPanel.setSize("100%", "100%");
 
-
 		mainPanel.add(btnManageUsers);
 		btnManageUsers.setSize("106px", "36px");
 
-
-
-
-		//button handlers
+		
+		/**The search feature looks only through the item's description and not any other field.
+		 * It is also currently case-sensitive, which we don't want.  You are able to return all
+		 * the currently saved objects by submitting the search with no parameters.
+		 */
 		btnSearch.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				searchResultsPanel.clear();
@@ -196,7 +199,7 @@ public class TheatreProjectWeb implements EntryPoint {
 					public void onSuccess(ArrayList<InventoryObject> result) {
 						lblSearchError.setVisible(false);
 						for (final InventoryObject obj : result) {
-
+							//each object has a panel made for it which gets added to the stackPanel
 
 							HorizontalPanel objectPanel = new HorizontalPanel();
 							searchResultsPanel.add(objectPanel, obj.getName(), false);
@@ -205,6 +208,7 @@ public class TheatreProjectWeb implements EntryPoint {
 							Label objectLabel = new Label(obj.getName());
 							objectPanel.add(objectLabel);
 
+							//you get taken to the item's page if the label or image is clicked
 							objectLabel.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
@@ -219,8 +223,6 @@ public class TheatreProjectWeb implements EntryPoint {
 							});
 							//TODO
 							//also, find how to insert the image and add a click handler for it too
-							//also, find how to insert the image
-
 						}
 					}
 				});
@@ -228,7 +230,10 @@ public class TheatreProjectWeb implements EntryPoint {
 			}
 		});
 
-		//TODO : Doesn't work, hasn't been looked at in a while
+		/** It is important to have an easy way to retrieve all the currently checked out items
+		 * for Terena.  This seemed to be the easiest way.
+		 */
+		//TODO : Doesn't work with current setup, hasn't been looked at in a while
 		btnViewCheckedOut.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				searchResultsPanel.clear();
@@ -259,15 +264,19 @@ public class TheatreProjectWeb implements EntryPoint {
 									});
 									//TODO
 									//also, find how to insert the image and add a click handler for it too
-									//also, find how to insert the image
 								}
 							}
 						});
 			}
 		});
 
+		/**When one item is added, you should be taken to that item's page and be able to edit on your own.  The QR
+		 * code will be up to user to take care of.  If multiple items are added, a list of all the URLs for those
+		 * items should be generated and shown so user can easily make the QR codes.
+		 */
 		btnAddItem.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
+				//TODO : Handler if it's not an int
 				int n = Integer.parseInt(txtbxNumberOfItems.getText());
 				final ArrayList<String> urls = new ArrayList<String>();
 				for(int i=0; i<n; i++){
@@ -282,6 +291,7 @@ public class TheatreProjectWeb implements EntryPoint {
 						}
 						@Override
 						public void onSuccess(Void result) {
+							//not the right url, just temporary
 							urls.add("GACTheatreInventory.appspot.com?id="+obj.getID());
 						}
 					});
@@ -291,8 +301,7 @@ public class TheatreProjectWeb implements EntryPoint {
 					AdminInventory.adminOnlyInventory(Integer.toString(nextID-1));
 				}
 				else {
-					//TODO Test this. My war file is not complete so I can't  -Derek
-					//Doesn't work.
+					//TODO : find a good way to make something pop-up/appear with the URLs
 					multiURLInnerPanel.clear();
 					for(String url : urls) {
 						Label urlLabel = new Label(url);
