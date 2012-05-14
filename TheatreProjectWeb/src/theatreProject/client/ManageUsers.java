@@ -19,6 +19,11 @@ import theatreProject.client.TheatreProjectWeb;
 import theatreProject.shared.PersistenceAsync;
 import theatreProject.shared.User;
 import com.google.gwt.user.client.ui.ListBox;
+/* Manage user page. Add users to the data base with user info which includes email address full name
+ *  and other useful information about the user (School, location, play they are involved with)
+ *  You can also view all and remove users from the database. Upgrading user to admin status is also possible 
+ *  in this class. Access to this site has to be only for Terena or developers.
+ */
 
 public class ManageUsers {
 	public final static PersistenceAsync persistence = TheatreProjectWeb.persistence;
@@ -57,6 +62,7 @@ public class ManageUsers {
 		viewOnlyListBox.setSize("141px", "228px");
 		viewOnlyListBox.setVisibleItemCount(10);
 		
+		//Load selected view only user's information into the user information box
 		viewOnlyListBox.addChangeListener(new ChangeListener()
 		{
 			@Override
@@ -81,6 +87,7 @@ public class ManageUsers {
 		}
 		);
 		
+		//Load view only user email information into the view only user list box
 		final Label lblLoadingUserError = new Label("Sorry, the user could not be loaded!");
 		absolutePanel.add(lblLoadingUserError, 45, 468);
 		lblLoadingUserError.setVisible(false);
@@ -101,7 +108,7 @@ public class ManageUsers {
 				
 				});
 		
-		
+		//Load selected admin user's information into the user information box		
 		final ListBox adminListBox = new ListBox();
 		absolutePanel.add(adminListBox, 238, 59);
 		adminListBox.setSize("147px", "228px");
@@ -131,6 +138,7 @@ public class ManageUsers {
 		}
 		);
 		
+		//Load admin user email information into the admin user list box
 		final Label lblLoadingAdminError = new Label("Sorry, the admins could not be loaded!");
 		absolutePanel.add(lblLoadingAdminError, 45, 420);
 		lblLoadingAdminError.setVisible(false);
@@ -265,7 +273,7 @@ public class ManageUsers {
 		final TextBox txtbxAdditionalInformation = new TextBox();	//Text box containing the additional information of user to be added
 		txtbxAdditionalInformation.setText("Additional Information");
 		absolutePanel.add(txtbxAdditionalInformation, 45, 360);
-		txtbxAdditionalInformation.setSize("393px", "18px");
+		txtbxAdditionalInformation.setSize("320px", "18px");
 		
 		
 		final Label lblAddingUserError = new Label("Sorry, the user could not be added!");
@@ -307,28 +315,16 @@ public class ManageUsers {
 				TheatreProjectWeb.mainPage();
 			}
 		});
-		absolutePanel.add(btnMainPage, 506, 360);
+		absolutePanel.add(btnMainPage, 411, 363);
 		
-
+		Label lblViewOnlyUsers = new Label("View Only User's");
+		absolutePanel.add(lblViewOnlyUsers, 52, 19);
 		
-		TextBox txtbxUsersInformation = new TextBox();
-		txtbxUsersInformation.setStyleName("gwt-Button");
-		txtbxUsersInformation.setText("User's Information");
-		absolutePanel.add(txtbxUsersInformation, 430, 19);
-		txtbxUsersInformation.setSize("122px", "16px");
+		Label lblAdministors = new Label("Administors");
+		absolutePanel.add(lblAdministors, 270, 19);
 		
-		
-		TextBox txtbxViewOnlyUsers = new TextBox();
-		txtbxViewOnlyUsers.setStyleName("gwt-Button");
-		txtbxViewOnlyUsers.setText("View Only Users");
-		absolutePanel.add(txtbxViewOnlyUsers, 55, 19);
-		txtbxViewOnlyUsers.setSize("104px", "16px");
-		
-		TextBox txtbxAdmins = new TextBox();
-		txtbxAdmins.setStyleName("gwt-Button");
-		txtbxAdmins.setText("Admins");
-		absolutePanel.add(txtbxAdmins, 272, 19);
-		txtbxAdmins.setSize("51px", "16px");
+		Label lblUserInformation = new Label("User Information");
+		absolutePanel.add(lblUserInformation, 434, 19);
 
 	}
 }
