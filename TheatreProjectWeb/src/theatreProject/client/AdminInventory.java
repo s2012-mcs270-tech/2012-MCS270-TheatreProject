@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -24,6 +25,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.FormPanel.SubmitEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ChangeEvent;
 
@@ -33,6 +35,7 @@ public class AdminInventory {
 	public static InventoryObject thisObject;
 	private final static BlobServiceAsync blobService = GWT
 			.create(BlobService.class);
+	public static String newUrl;
 
 
 	/**
@@ -188,28 +191,37 @@ public class AdminInventory {
 		nameOfObject.setSize("419px", "18px");
 
 		absolutePanel.add(image, 10, 47);
-		image.setSize("198px", "127px");
+		//image.setSize("198px", "127px");
 
 		final FileUpload upload = new FileUpload();
-		absolutePanel.add(upload, 24, 180);
-		upload.setSize("180px", "18px");
+		absolutePanel.add(upload, 61, 179);
+		upload.setSize("165px", "18px");
 		upload.setName("upload");
-
-		upload.addChangeHandler(new ChangeHandler() {
-			public void onChange(ChangeEvent event) {
+		
+		Button btnUpload = new Button("Upload");
+		absolutePanel.add(btnUpload, -1, 179);
+		btnUpload.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
 				blobService.getBlobStoreUploadUrl(new AsyncCallback<String>(){
 					@Override
 					public void onFailure(Throwable caught) {
 						image.setAltText("The image can't be loaded");
-
 					}
 					@Override
 					public void onSuccess(String url) {
-						image.setUrl(url);
-						thisObject.setImage(url);
+						uploadForm.setAction(url.toString());
+						uploadForm.submit();
+						newUrl = url;
 					}
-
 				});
+			}
+		});
+		
+		uploadForm.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+			@Override
+			public void onSubmitComplete(SubmitCompleteEvent event) {
+				image.setUrl(newUrl);
+				thisObject.setImage(newUrl);
 			}
 		});
 
@@ -276,9 +288,6 @@ public class AdminInventory {
 			}
 		});
 		absolutePanel.add(btnDeleteItem, 73, 545);
-
-
-
-
+		
 	}
 }
