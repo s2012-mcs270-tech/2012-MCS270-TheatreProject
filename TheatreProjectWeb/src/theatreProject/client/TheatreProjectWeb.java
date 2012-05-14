@@ -223,7 +223,7 @@ public class TheatreProjectWeb implements EntryPoint {
 					@Override
 					public void onSuccess(ArrayList<InventoryObject> result) {
 						lblSearchError.setVisible(false);
-						for (InventoryObject obj : result) {
+						for (final InventoryObject obj : result) {
 
 
 							HorizontalPanel objectPanel = new HorizontalPanel();
@@ -236,7 +236,7 @@ public class TheatreProjectWeb implements EntryPoint {
 							objectLabel.addClickHandler(new ClickHandler() {
 								public void onClick(ClickEvent event) {
 									rootPanel.clear();
-									AdminInventory.adminOnlyInventory("213");
+									AdminInventory.adminOnlyInventory(obj.getID());
 									//TODO
 									//go to correct item page for correct level of user
 								}
