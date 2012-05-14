@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.StackPanel;
-import com.google.apphosting.api.ApiProxy;
+//import com.google.apphosting.api.ApiProxy;
 
 
 /**
@@ -85,9 +85,9 @@ public class TheatreProjectWeb implements EntryPoint {
 						if(currentUser.isAdmin()) {
 							btnAddItem.setEnabled(true);
 									}
-						if(ApiProxy.getCurrentEnvironment().isAdmin()) {
-							btnManageUsers.setEnabled(true);
-						}
+//						if(ApiProxy.getCurrentEnvironment().isAdmin()) {
+//							btnManageUsers.setEnabled(true);
+//						}
 								}
 						});
 					}
