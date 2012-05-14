@@ -8,6 +8,7 @@ import theatreProject.shared.Persistence;
 
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FormPanel;
@@ -108,7 +109,7 @@ public class AdminInventory {
 		uploadForm.setEncoding(FormPanel.ENCODING_MULTIPART);
 		uploadForm.setMethod(FormPanel.METHOD_POST);
 
-		AbsolutePanel absolutePanel = new AbsolutePanel();
+		final AbsolutePanel absolutePanel = new AbsolutePanel();
 		uploadForm.add(absolutePanel);
 		absolutePanel.setSize("472px", "582px");
 
@@ -190,7 +191,8 @@ public class AdminInventory {
 		absolutePanel.add(nameOfObject, 10, 10);
 		nameOfObject.setSize("419px", "18px");
 
-		absolutePanel.add(image, 10, 47);
+		//TODO : All this image stuff.  Right now, just tried to mirror max's
+		//absolutePanel.add(image, 10, 47);
 		//image.setSize("198px", "127px");
 
 		final FileUpload upload = new FileUpload();
@@ -222,6 +224,10 @@ public class AdminInventory {
 			public void onSubmitComplete(SubmitCompleteEvent event) {
 				image.setUrl(newUrl);
 				thisObject.setImage(newUrl);
+				Anchor link = new Anchor("uploaded file", newUrl);
+				link.setTarget("_blank");
+				
+				absolutePanel.add(link, 10, 47);
 			}
 		});
 
