@@ -4,15 +4,23 @@ import java.io.Serializable;
 import theatreProject.shared.InventoryObject;
 
 	/*
-		Status is an object that contains all the infomation and methods pertaining to the status
+		Status is an object that contains all the information and methods pertaining to the status
 		of an inventoryObject.
+		
+		Status object info:
+		
+		renter: Name of person/place currently renting object
+		location: location of the object
+		rentDate: Date checked out
+		returnDate: Date the object needs to be returned
+		showDay: Last day of the show the object will be used in. Terena specifically wanted this.
 	*/
 
 	/*
 	 * Since our system does not fully function, we have not made a good use of Status class, but at 
 	 * the beginning we thought status class would be very useful in terms of keeping track of items'
 	 * status, is the item rented, what the due day is, or to whom the item is rented to and 
-	 * shwoDay as Terena requested.  
+	 * showDay as Terena requested.  
 	 * 
 	 */
 	
