@@ -63,8 +63,8 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	
 
 	@Override
-	public InventoryObject getInventoryObject(String ID) {			//Returns the InventoryObject assosicated
-		try{														//with a specific ID
+	public InventoryObject getInventoryObject(String ID) {			//Returns the InventoryObject from persistence 
+		try{														//assosicated with a specific InventoryObject's ID
 			return pm.getObjectById(InventoryObject.class, ID);
 		} catch(JDOObjectNotFoundException e){
 			return null;
@@ -138,8 +138,8 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 																																					
 		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>();	//Search function - Returns an ArrayList of 
 		String[] words = parameter.split(" ");									//found InventoryObjects.
-		List<InventoryObject> database = returnAll();							//InventoryObject considered "found" if
-		for (InventoryObject obj : database) {									//if all the in parameter can be found in the
+		List<InventoryObject> database = returnAll();							//InventoryObject considered "found"
+		for (InventoryObject obj : database) {									//if all of the words in parameter can be found in the
 			if (obj.description.indexOf(words[0])!=-1) {						//the description of the object	
 				found.add(obj);
 			}
