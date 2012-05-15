@@ -21,7 +21,7 @@ import theatreProject.shared.User;
 import com.google.gwt.user.client.ui.ListBox;
 /* Manage user page. Add users to the data base with user info which includes email address full name
  *  and other useful information about the user (School, location, play they are involved with)
- *  You can also view all and remove users from the database. Upgrading user to admin status is also possible 
+ *  You can also view all and remove users from the database. Upgrading and downgrading user to admin status is also possible 
  *  in this class. Access to this site has to be only for Terena or developers.
  */
 
@@ -62,7 +62,7 @@ public class ManageUsers {
 		viewOnlyListBox.setSize("141px", "228px");
 		viewOnlyListBox.setVisibleItemCount(10);
 		
-		//Load selected view only user's information into the user information box
+		//Load selected view only user's extra information into the user information box
 		viewOnlyListBox.addChangeListener(new ChangeListener()
 		{
 			@Override
@@ -107,6 +107,7 @@ public class ManageUsers {
 					}
 				
 				});
+		//this doesn't work so far, it is onFailure in runtime, so the loadingUserError will show up
 		
 		//Load selected admin user's information into the user information box		
 		final ListBox adminListBox = new ListBox();
@@ -160,11 +161,14 @@ public class ManageUsers {
 						}
 					}
 				});
+		//this doesn't work so far, it is onFailure in runtime, so the loadingAdminError will show up, the same as 
+		//loading all the view only user in the viewOnlyUserListBox
 
 		final Label lblDowngradeError = new Label("Sorry, the admins could not be downgraded!");
 		absolutePanel.add(lblDowngradeError, 45, 444);
 		lblDowngradeError.setVisible(false);
 
+		//a leftward arrow button which downgrades the selected admin
 		Button leftMoveButton = new Button("&larr;");						
 		leftMoveButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -186,14 +190,16 @@ public class ManageUsers {
 					    });			
 				}
 		});
-		absolutePanel.add(leftMoveButton, 193, 91);							//Moves selected user in to the admin column
+		//in the UI perspective, this works, but the user is not changed in the persistence
+		
+		absolutePanel.add(leftMoveButton, 193, 91);							
 		leftMoveButton.setSize("36px", "27px");
 
 		final Label lblUpgradeError = new Label("Sorry, the user could not be upgrade!");
 		absolutePanel.add(lblUpgradeError, 45, 492);
 		lblUpgradeError.setVisible(false);
 		
-		
+		//a rightward button that upgrades the selected viewOnlyUser to admin
 		Button rightMoveButton = new Button("&rarr;");						
 		rightMoveButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -214,14 +220,17 @@ public class ManageUsers {
 				});
 			}
 		});
-		absolutePanel.add(rightMoveButton, 193, 124);						//Moves selected admin in to the user column
+		//in the UI perspective, this works, but the user is not changed in the persistence
+		
+		absolutePanel.add(rightMoveButton, 193, 124);						
 		rightMoveButton.setSize("36px", "27px");
 		
 		final Label lblDeleteError = new Label("Sorry, the user could not be delete!");
 		absolutePanel.add(lblDeleteError, 45, 492);
 		lblDeleteError.setVisible(false);
-
-		Button deletButton = new Button("X");								//X button
+		
+		//a button that delects the selected viewOnlyUser or admin
+		Button deletButton = new Button("X");								
 		deletButton.addClickHandler(new ClickHandler() 
 		{
 			
@@ -245,17 +254,19 @@ public class ManageUsers {
 						public void onSuccess(User result){
 							selectedListBox.removeItem(selectedItem);
 							userInfoTextArea.setText("");
-							//delete this user in the persistence!!!!!!!
+							//need a method to delete this user in the persistence
 						}
 					});
 					
 				}
 			}
 		});
-		absolutePanel.add(deletButton, 193, 157);							//Deletes selected user or selected admin from system
+		//in the UI perspective, this works, but the user is not changed in the persistence
+		
+		absolutePanel.add(deletButton, 193, 157);							
 		deletButton.setSize("36px", "27px");
 
-		Label lblAddUser = new Label("Add User");					//Label indicating Add User part of page
+		Label lblAddUser = new Label("Add User");					
 		lblAddUser.setStyleName("h2");								
 		absolutePanel.add(lblAddUser, 45, 293);
 		lblAddUser.setSize("141px", "18px");
@@ -279,9 +290,12 @@ public class ManageUsers {
 		final Label lblAddingUserError = new Label("Sorry, the user could not be added!");
 		absolutePanel.add(lblAddingUserError, 45, 396);
 		lblAddingUserError.setVisible(false);
-
-		Button btnAdd = new Button("Add");							//Button that will add a user with parameters equal to what is in
-		btnAdd.addClickHandler(new ClickHandler() {					//Name, Email and AdditionalInformation textboxs
+		
+		
+		//Button that will add a user with parameters equal to what is in
+		//Name, Email and AdditionalInformation textboxs
+		Button btnAdd = new Button("Add");							
+		btnAdd.addClickHandler(new ClickHandler() {					
 			public void onClick(ClickEvent event) {
 				String name = txtbxName.getText();
 				String email = txtbxEmail.getText();
@@ -307,8 +321,8 @@ public class ManageUsers {
 		absolutePanel.add(btnAdd, 413, 313);
 
 		
-
-		Button btnMainPage = new Button("Main Page");				//Button that brings the application to the main page
+		//Button that brings the application to the main page
+		Button btnMainPage = new Button("Main Page");				
 		btnMainPage.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				rootPanel.clear();
