@@ -63,8 +63,8 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	
 
 	@Override
-	public InventoryObject getInventoryObject(String ID) {
-		try{
+	public InventoryObject getInventoryObject(String ID) {			//Returns the InventoryObject assosicated
+		try{														//with a specific ID
 			return pm.getObjectById(InventoryObject.class, ID);
 		} catch(JDOObjectNotFoundException e){
 			return null;
@@ -77,11 +77,11 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 	}
 
 	@Override
-	public void saveObject(InventoryObject object) {
+	public void saveObject(InventoryObject object) {		//Takes an InventoryObject and makes persistence
 		pm.makePersistent(object);
 	}
 	
-	public void deleteObject(InventoryObject object) {
+	public void deleteObject(InventoryObject object) {		//Removes an InventoryObject from persistence
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
@@ -97,7 +97,7 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		}
 	}
 	
-	public void deleteUser(User user){
+	public void deleteUser(User user){						//Removes an User from persistence
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
@@ -112,18 +112,18 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 			}
 		}	}
 	
-	public List<InventoryObject> returnAll() {
-		Query query = pm.newQuery(InventoryObject.class);
+	public List<InventoryObject> returnAll() {				//Returns a List consisting of all InventoryObjects 
+		Query query = pm.newQuery(InventoryObject.class);	//in persistence
 		return (List<InventoryObject>) query.execute();
 	}
 
-	public ArrayList<User> returnAllUser(){
-		Query query = pm.newQuery(User.class);
+	public ArrayList<User> returnAllUser(){					//Returns a List consisting of all Users
+		Query query = pm.newQuery(User.class);				//in persistence
 		return (ArrayList<User>) query.execute();
 	}
 	
-	public String getUserInfoByName(String name){
-		User theUser = null;
+	public String getUserInfoByName(String name){			//Returns the ExtraInfo of an User associated with 
+		User theUser = null;								//a specific User name
 		ArrayList<User> allUsers = this.returnAllUser();
 		for (User user: allUsers){
 			if (user.getName() == name){
@@ -134,13 +134,13 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		return null;
 	}
 	
-	public ArrayList<InventoryObject> search(String parameter) {
-
-		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>(); 
-		String[] words = parameter.split(" ");
-		List<InventoryObject> database = returnAll();
-		for (InventoryObject obj : database) {
-			if (obj.description.indexOf(words[0])!=-1) {
+	public ArrayList<InventoryObject> search(String parameter) {	
+																																					
+		ArrayList<InventoryObject> found = new ArrayList<InventoryObject>();	//Search function - Returns an ArrayList of 
+		String[] words = parameter.split(" ");									//found InventoryObjects.
+		List<InventoryObject> database = returnAll();							//InventoryObject considered "found" if
+		for (InventoryObject obj : database) {									//if all the in parameter can be found in the
+			if (obj.description.indexOf(words[0])!=-1) {						//the description of the object	
 				found.add(obj);
 			}
 		}
@@ -156,10 +156,10 @@ public class PersistenceImpl extends RemoteServiceServlet implements Persistence
 		return found;
 	}
 
-	public ArrayList<InventoryObject> checkOutList() {
-		ArrayList<InventoryObject> outObjects = new ArrayList<InventoryObject>();
-		List<InventoryObject> database = returnAll();
-		for (InventoryObject obj : database) {
+	public ArrayList<InventoryObject> checkOutList() {								//Returns an ArryaList of all InventoryObjects
+		ArrayList<InventoryObject> outObjects = new ArrayList<InventoryObject>();	//currently checked out
+		List<InventoryObject> database = returnAll();								//If location variable in the InventoryObject's
+		for (InventoryObject obj : database) {										//is not "warehouse" then object is checked out
 			String place = obj.getStatus().getLocation();
 			if (!place.equals("warehouse")) outObjects.add(obj);
 		}

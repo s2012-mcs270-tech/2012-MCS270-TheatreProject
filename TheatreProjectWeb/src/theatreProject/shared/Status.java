@@ -3,7 +3,11 @@ import java.io.Serializable;
 
 import theatreProject.shared.InventoryObject;
 
-
+	/*
+		Status is an object that contains all the infomation and methods pertaining to the status
+		of an inventoryObject.
+	*/
+	
 public class Status implements Serializable {
 	
 	private String renter;
@@ -50,7 +54,7 @@ public class Status implements Serializable {
 	}
 	
 	@Override
-	public boolean equals(Object o){
+	public boolean equals(Object o){				//Check if an instance of Status is equal to another object
 		if(!(o instanceof Status))
 			return false;
 		Status other = (Status) o;
