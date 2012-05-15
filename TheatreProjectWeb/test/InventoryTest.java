@@ -20,6 +20,15 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class InventoryTest {
 	
+	
+	
+		/* 
+		 * Relic of when search was a method in an Inventory class that was not persistent.
+		 * This search method is the same as the one that is now in persistence
+		 * Not used any more but here just incase we need to reference old code
+		*/
+	
+	
 	 	ArrayList<InventoryObject> listdata	  = new ArrayList<InventoryObject>();
 		ArrayList<InventoryObject> testsearch = new ArrayList<InventoryObject>();	 	
 		Image pic = null;
