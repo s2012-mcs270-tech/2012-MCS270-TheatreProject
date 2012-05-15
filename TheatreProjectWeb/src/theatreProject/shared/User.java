@@ -7,6 +7,10 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+/*
+		User class is an object that holds all the infomation needed to characterize someone who is
+		logged in to our system.
+*/
 
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class User implements Serializable{
@@ -65,7 +69,7 @@ public class User implements Serializable{
 	}
 
 	@Override
-	public boolean equals(Object o){
+	public boolean equals(Object o){				//Check if an instance of User is equal to another object
 		if(!(o instanceof User))
 			return false;
 		User other = (User) o;
