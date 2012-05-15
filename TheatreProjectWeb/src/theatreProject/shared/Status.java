@@ -7,6 +7,14 @@ import theatreProject.shared.InventoryObject;
 		Status is an object that contains all the infomation and methods pertaining to the status
 		of an inventoryObject.
 	*/
+
+	/*
+	 * Since our system does not fully function, we have not made a good use of Status class, but at 
+	 * the beginning we thought status class would be very useful in terms of keeping track of items'
+	 * status, is the item rented, what the due day is, or to whom the item is rented to and 
+	 * shwoDay as Terena requested.  
+	 * 
+	 */
 	
 public class Status implements Serializable {
 	
