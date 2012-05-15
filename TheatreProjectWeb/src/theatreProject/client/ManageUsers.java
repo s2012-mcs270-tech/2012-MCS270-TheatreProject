@@ -2,6 +2,7 @@ package theatreProject.client;
 
 import java.util.ArrayList;
 
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -19,12 +20,17 @@ import theatreProject.client.TheatreProjectWeb;
 import theatreProject.shared.PersistenceAsync;
 import theatreProject.shared.User;
 import com.google.gwt.user.client.ui.ListBox;
+
+
 /* Manage user page. Add users to the data base with user info which includes email address full name
  *  and other useful information about the user (School, location, play they are involved with)
  *  You can also view all and remove users from the database. Upgrading and downgrading user to admin status is also possible 
  *  in this class. Access to this site has to be only for Terena or developers.
  */
 
+/* We build this class so that Terena will have access to all the users, enable her to manage the people who are on this page,
+ * also let her authorize other people like student workers to edit inventory items
+*/
 public class ManageUsers {
 	public final static PersistenceAsync persistence = TheatreProjectWeb.persistence;
 	public static int selectedItem = 0;
