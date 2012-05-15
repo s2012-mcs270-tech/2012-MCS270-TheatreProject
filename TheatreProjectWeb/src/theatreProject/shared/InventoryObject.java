@@ -10,6 +10,21 @@ import javax.jdo.annotations.PrimaryKey;
 
 import theatreProject.shared.Status;
 
+/*
+ *Responsible for storing all the information about an object in our inventory.
+ *
+ *Inventory Object Info:
+ *
+ *Inventory ID number
+ *Object name
+ *Where it is stored
+ *The Url of where the object image is stored
+ *Disclaimers
+ *Description of the item
+ *Also holds the status of the object (Status is stored in another class)
+ *
+ */
+
 @PersistenceCapable(identityType=IdentityType.APPLICATION)
 public class InventoryObject implements Serializable{
 

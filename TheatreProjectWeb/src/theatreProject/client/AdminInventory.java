@@ -320,5 +320,8 @@ public class AdminInventory {
 		});
 		absolutePanel.add(btnDeleteItem, 73, 545);
 		
+		//TODO
+		//Still need to implement the image box and the uplaod button into this class
+		
 	}
 }

@@ -25,6 +25,10 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
  * a given inventory object. This page also is read only with no editing capabilities. The user is unable to checkout, or edit any info from the warehouse. Terena needs to be able to 
  * keep track of who can check out items from the warehouse, but she wants people to be able to view objects that they have in the inventory.
  * 
+ * We choose to make the read only page seperate from the admin page because there are the page have different types of fields. For example, we talked about just greying out 
+ * and disabling screens on the admin screen, but this made forming the UI more difficult. We also wanted to make the fields non editable, this means that the types of feild must be different
+ * for read only.
+ * 
  * Read Only Object Info:
  * Object Name
  * Check out Status
@@ -169,6 +173,9 @@ public class ReadOnlyInventory {
 				TheatreProjectWeb.mainPage();
 			}
 		});
+		
+		//TODO
+		//Still need to implement the image box and the uplaod button into this class
 	}
 }
 
